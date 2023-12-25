@@ -1,18 +1,10 @@
-import Navbar from '../component/Navbar'
-import styles from './page.module.css'
-import Nav from "../component/Nav"
-async function pageloader(){
-await new Promise((resolve)=>{
-  setTimeout(resolve,1);
-})
-} 
-export default async function Home() {
- await pageloader();
+
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+
+export default function Nav() {
   return (
-    <main className={styles.main}>
-     {/* <Navbar/> */}
-     <Nav/>
-   {/* <div className="main-banner">
+
+<div className="main-banner">
   
 
     <div id="mySidenav" className="sidenav animate__animated">
@@ -81,7 +73,7 @@ export default async function Home() {
                     <li className="nav-item active mt-15px">
                         <a id="right-home-btn" className="navbar-brand uppercase"
                             style={{fontSize: "20px", paddingBottom:" 1.2rem !important",top: "20px"}} href="#">Menu <span className="">
-                                <i className="fa fa-bars"></i></span></a>
+                                <MenuRoundedIcon/></span></a>
                     </li>
                 </ul>
                 <ul className="navbar-nav ms-auto mt-2 mt-lg-0 mobile-show">
@@ -207,7 +199,9 @@ export default async function Home() {
     </div>
 
 
-</div> */}
-    </main>
+</div> 
+
   )
 }
+
+

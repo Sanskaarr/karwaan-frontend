@@ -1,0 +1,13 @@
+.navbar {
+    padding: 0px 20px;
+    position: relative;
+    z-index: 1;
+    max-height:67px ;
+}
+
+.navbar {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
