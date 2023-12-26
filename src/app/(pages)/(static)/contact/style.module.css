@@ -40,3 +40,21 @@
   max-width: 240px;
   margin-top: 20px;
  }
+ .socialIcons{
+    width: 240px;
+    display: flex;
+    justify-content: flex-start;
+ }
+ .socialIcons a{
+    margin-right: 10px;
+ }
+ @media (max-width:750px) {
+    .contact{
+        flex-direction: column;
+    }
+    .contactFirstPartition,
+    .contactSecondPartition{
+        width: 100%;
+        min-height:80vh ;
+    }
+ }

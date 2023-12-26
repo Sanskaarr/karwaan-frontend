@@ -29,10 +29,10 @@ export default  function contact() {
                 Contact us : <a href="tel:+919899009001" style={{textDecoration: "unset",color: "white"}}
                     target="_blank">+919899009001</a>
             </div>
-            <div style={{paddingTop: "25px"}}>
-                <a href="https://instagram.com/karwaan.films" target="_blank" > </a>
-                <a href="https://wa.me/919899009001" target="_blank" ></a>
-                <a href="https://www.linkedin.com/company/karwaanfilms/" target="_blank"></a>
+            <div className={styles.socialIcons} style={{paddingTop: "25px"}}>
+                <a href="https://instagram.com/karwaan.films" target="_blank" > <InstagramIcon/></a>
+                <a href="https://wa.me/919899009001" target="_blank" ><WhatsAppIcon/></a>
+                <a href="https://www.linkedin.com/company/karwaanfilms/" target="_blank"><LinkedInIcon/></a>
             </div>
     </div>
     <div className={styles.contactSecondPartition}>
