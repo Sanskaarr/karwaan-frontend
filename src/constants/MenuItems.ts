@@ -1,0 +1,30 @@
+export const MenuItems=[
+    {
+        text:"Home",
+        route:"/",
+    },
+    {
+        text:"Picture",
+        route:"/picture",
+    },
+    {
+        text:"Videos",
+        route:"/videos",
+    },
+    {
+        text:"Client",
+        route:"/client",
+    },
+    {
+        text:"About",
+        route:"/about",
+    },
+    {
+        text:"Shop",
+        route:"/shop",
+    },
+    {
+        text:"Contact",
+        route:"/contact",
+    }
+]

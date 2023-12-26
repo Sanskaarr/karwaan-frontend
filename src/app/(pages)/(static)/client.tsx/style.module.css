@@ -1,0 +1,88 @@
+.home{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.bgvideo{
+position: absolute;
+left: 0;
+top: 0;
+z-index: -99;
+width: 100vw;
+height: 100vh;
+object-fit: cover; 
+}
+.hover:hover{
+    cursor: pointer;
+}
+.homePartition{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: space-evenly;
+    color: white;
+    font-size: 40px;
+}
+.firstPartition{
+    border-right: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33.33vw;
+    position: relative;
+}
+.secondPartition{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 33.33vw;
+    position: relative;
+}
+.thirdPartition{
+    border-left: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33.33vw;
+    position: relative;
+
+
+}
+.leftLine{
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    width: 60px;
+    background-color: rgb(255, 255, 255);
+    height: 1px;
+    z-index: 3;
+   transform: translate(0%,-50%);
+}
+.rightLine{
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    width: 60px;
+    background-color: rgb(255, 255, 255);
+    height: 1px;
+    z-index: 3;
+   transform: translate(0%,-50%);
+}
+.homeAbout{
+    margin-bottom: 50px;
+}
+.bottomLine{
+    position: absolute;
+    right: 50%;
+    bottom: 0%;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    width: 1px;
+    z-index: 3;
+   transform: translate(50%,0%); 
+}
+.homePartition.firstPartition.homeVideo:hover.homeAbout{
+    color: red;
+    background: rebeccapurple;
+}

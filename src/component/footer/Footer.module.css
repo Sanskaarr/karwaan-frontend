@@ -1,0 +1,37 @@
+.socialIcons{
+    font-size: medium;
+}
+.footer{
+    height:70px;
+    flex-wrap:wrap;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    margin: 0 12px;
+}
+.karwaan{
+    font-size: medium;
+}
+.socialIcons a{
+    text-decoration: none;
+}
+.linkText{
+ color:  #000000ea;
+ margin: 0 3px;
+}
+.socialIcons a:hover{
+    opacity: 0.5;
+    color: black;
+}
+@media (max-width:385px) {
+    .footer{
+        height:70px;
+        flex-wrap:wrap;
+        display:flex;
+        align-items:center;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        font-size: 14px;
+        margin: 0;
+    }
+}
