@@ -1,153 +1,73 @@
-section.twitter_feed {
-    background: #000;
-    color: #FFF;
-    padding: 10px 0;
-}
-
-.pl-pr-200px {
-    padding-left: 200px;
-    padding-right: 200px;
-}
-
-.mt-75px {
-    margin-top: 80px;
-}
-
-.ng-img {
-    height: 150px;
-    width: auto;
-    padding-bottom: 30px;
-}
-
-.review {
-    padding-top: 25px;
-    padding-bottom: 50px;
-    font-size: 1.50rem;
-    color: black;
-    padding-left: 200px;
-    padding-right: 200px;
-    font-family: 'Poppins', sans-serif;
-}
-
-.testimonials-section ul.slick-dots li button:after {
-    width: 6px;
-    height: 6px;
-    background-color: #111;
-    top: 4px;
-    left: 4px;
-    border-radius: 50%;
-}
-
-.testimonials-section ul.slick-dots li button:after,
-.testimonials-section ul.slick-dots li button:before {
-    display: block;
-    content: "";
-    position: absolute;
-}
-
-.testimonials-section ul.slick-dots li.slick-active button:before {
-    width: 18px;
-    height: 18px;
-    background-color: transparent;
-    border: 2px #111 solid;
-    top: -2px;
-    left: -2px;
-    border-radius: 50%;
-}
-
-.testimonials-section ul.slick-dots li button:after {
-    width: 6px;
-    height: 6px;
-    background-color: #111;
-    top: 4px;
-    left: 4px;
-    border-radius: 50%;
-}
-
-.testimonials-section .slick-dots li button:before {
-    background: white !important;
-}
-
-.testimonials-section .slick-slide img {
-    display: inherit;
-}
-
-.testimonials-section .slick-slide img {
-    width: auto !important;
-    height: 110px !important;
-    padding: 10px;
-}
-
-
-
-@keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-.logoimage {
-    height: 40px;
-    width: auto;
-}
-
-.height-300px {
-    height: 300px !important;
-}
-
-.w-100-p {
-    width: 100%;
-}
-
-.mt-30 {
-    margin-top: 30px;
-}
-
-.mt-120px {
-    margin-top: -120px;
-}
-
-.ml-20 {
-    margin-left: 20px;
-}
-
-.fs-25px {
-    font-size: 25px;
-}
-
-.p-0 {
-    padding: 0px;
-}
-
-.img-container .img-info {
-    color: white;
-    font-size: 40px;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.2);
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 30%;
-    overflow: hidden;
-    color: #fff;
-    top: 0;
+.about{
+    background: white;
+    display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
-
-.img-container a:hover {
-    color: white;
-    text-decoration: none;
+.aboutKarwaan{
+    margin-top: 80px;
+    padding: 0 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-.img-container .imagehover:hover .img-info {
-    background: rgba(0, 0, 0, 0.4);
-    -webkit-transition: 2s;
-    transition: 2s;
-
+.aboutKarwaanText{
+    font-weight: bolder;
+    font-size: calc(1.375rem + 1.5vw);
+}
+.founderImage{
+    width: 100%;
+}
+.aboutKarwaan p{
+   font-weight: normal; 
+   max-width: 80%;
+}
+/* --------in media-------- */
+.media{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* --------our Work-------- */
+.ourWork{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+.ourWorkImages{
+    width: 100%;
+    display: flex;
+}
+.ourWorkFirstImage ,
+.ourWorkSecondImage {
+    position: relative;
+    width: 50%;
+}
+.ourWorkFirstImage img ,
+.ourWorkSecondImage img {
+    width: 100%;
+    object-fit: cover;
+}
+.ourWorkFirstImage p,
+.ourWorkSecondImage p{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 40px;
+    color: white;
+}
+@media (max-width:1000px) {
+    .ourWorkImages{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .ourWorkFirstImage ,
+    .ourWorkSecondImage {
+        position: relative;
+        width: 100%;
+    }
+    
 }

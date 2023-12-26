@@ -6,11 +6,12 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation';
 import { MenuItems } from "@/constants/MenuItems";
+import { ColorLens } from '@mui/icons-material';
 export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: boolean) => void }) {
     const router = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const pathname = usePathname();
-    const [page, setPage] = useState<string>(pathname);
+    // const [page, setPage] = useState<string>(pathname);
     console.log(pathname);
     type customString = String;
     interface customString2 {
@@ -18,9 +19,10 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
     }
     return (
         <>
-            <nav className={style.navbar}>
+            <nav className={style.navbar} style={{backgroundColor:"transparent"}}>
+            {/* <nav className={style.navbar} style={pathname==="/"?{backgroundColor:"transparent"}:{backgroundColor:"white"}}> */}
 
-                <div className={`${style.contact} ${style.uppercase} ${style.hover}`}>Contact us</div>
+                <div className={`${style.contact} ${style.uppercase} ${style.hover}`} style={pathname==="/"?{color:"white"}:pathname==="/contact"?{visibility:"hidden",pointerEvents:"none"}:{color:"black"}}>Contact us</div>
                 {/* if menu is close than this  */}
                 {!isMenuOpen && <div className={style.rightNav}>
                     <div className={`${style.logoDiv}${style.hover}`}
@@ -29,7 +31,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                             setIsMenuOpen(!isMenuOpen);
                             //  changeHomeTheme(true);
                         }}>
-                        <a onClick={() => router.push("/")} >
+                        <a onClick={() => router.push("/")}  style={pathname==="/"?{color:"white"}:{display:"none"}} >
                             <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={style.logoImage} />
                         </a>
                     </div>
@@ -39,8 +41,8 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                             setIsMenuOpen(!isMenuOpen);
                             // changeHomeTheme(true);
                         }}>
-                        <div className={`${style.menu} ${style.uppercase} ${style.hover}`}>menu </div>
-                        <MenuRoundedIcon className={`${style.menuIcon} ${style.hover}`} />
+                        <div className={`${style.menu} ${style.uppercase} ${style.hover}`}  style={pathname==="/"?{color:"white"}:{color:"black"}}>menu </div>
+                        <MenuRoundedIcon className={`${style.menuIcon} ${style.hover}`} style={pathname==="/"?{color:"white"}:{color:"black"}} />
                     </div>
                 </div>}
                 {/* if menu is open */}
@@ -65,7 +67,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                             })}
                          
                         </ul>
-                        <CloseOutlinedIcon className={`${style.crossIcon} ${style.hover}`} />
+                        <CloseOutlinedIcon className={`${style.crossIcon} ${style.hover}`}  style={pathname==="/"?{color:"white"}:{color:"black"}} />
                     </div>
                 </div>}
             </nav></>

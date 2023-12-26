@@ -1,6 +1,13 @@
 html,body{
   min-height: 100vh !important;
 }
+.splide__pagination__page.is-active {
+  /* color: blueviolet !important; */
+  background: #000 !important;
+}
+.splide__pagination__page:hover{
+  background: #383838 !important;
+}
 :root {
   --max-width: 1100px;
   --border-radius: 12px;

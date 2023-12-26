@@ -19,7 +19,6 @@ export default async function Layout({
     {/* <div style={isDark?{background:"rgba(0, 0, 0,0.2)"}:{background:"rgba(0, 0, 0,0)"}}> */}
       <Navbar changeHomeTheme={changeHomeTheme} />
       {children}
-      {/* <Footer/> */}
     </div>
   )
 }

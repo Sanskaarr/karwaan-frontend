@@ -4,7 +4,7 @@
 .footer{
     height:70px;
     flex-wrap:wrap;
-    display:flex;
+    
     align-items:center;
     justify-content: space-between;
     margin: 0 12px;
