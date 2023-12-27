@@ -2,7 +2,7 @@
 import styles from './style.module.css'
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 export default  function Videos() {
  
   const tempData=[
@@ -140,7 +140,7 @@ export default  function Videos() {
   const router = useRouter();
 
   return (
-    <div className={styles.videos} contextMenu="return false;">
+    <div className={styles.videos} >
     <div className={styles.videosSection}> 
     <div className={styles.videosSectionHome}>
       <span onClick={()=>router.push("/")}>Home</span>

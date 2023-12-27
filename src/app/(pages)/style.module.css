@@ -1,88 +1,182 @@
-.home{
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+.home {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
-.bgvideo{
-position: absolute;
-left: 0;
-top: 0;
-z-index: -99;
-width: 100vw;
-height: 100vh;
-object-fit: cover; 
+.bgvideo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -99;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
 }
-.hover:hover{
-    cursor: pointer;
+.hover:hover {
+  cursor: pointer;
 }
-.homePartition{
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    justify-content: space-evenly;
-    color: white;
-    font-size: 40px;
+.homePartition {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: space-evenly;
+  color: white;
+  font-size: 40px;
 }
-.firstPartition{
-    border-right: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 33.33vw;
-    position: relative;
+.firstPartition {
+  border-right: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33.33vw;
+  position: relative;
 }
-.secondPartition{
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    width: 33.33vw;
-    position: relative;
+.secondPartition {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 33.33vw;
+  position: relative;
 }
-.thirdPartition{
-    border-left: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 33.33vw;
-    position: relative;
+.thirdPartition {
+  border-left: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33.33vw;
+  position: relative;
+}
+.leftLine {
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  width: 60px;
+  background-color: rgb(255, 255, 255);
+  height: 1px;
+  z-index: 3;
+  transform: translate(0%, -50%);
+}
+.rightLine {
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  width: 60px;
+  background-color: rgb(255, 255, 255);
+  height: 1px;
+  z-index: 3;
+  transform: translate(0%, -50%);
+}
+.homeAbout {
+  margin-bottom: 50px;
+}
+.bottomLine {
+  position: absolute;
+  right: 50%;
+  bottom: 0%;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+  width: 1px;
+  z-index: 3;
+  transform: translate(50%, 0%);
+}
+.homePartition.firstPartition.homeVideo:hover.homeAbout {
+  color: red;
+  background: rebeccapurple;
+}
+/* image or videos or about as slides while hovering  */
+.firstPartition,
+.secondPartition,
+.thirdPartition {
+  position: relative;
+}
+.homeVideo:hover~ .slideVideos {
+  transform: translate(-50%, 0%) !important;
+  transition: all ease-in 0.5s;
+}
+.slideVideos{
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all ease-in 0.5s;
+  transform: translate(-100%, 0%);
+  z-index: 0;
+}
+.homeAbout:hover~.aboutUs,
+.aboutUs:hover{
+  transform: translate(0, 0);
+  transition: all ease-in 0.5s;
+}
 
+.homeAbout:hover{
+  cursor: pointer;
+}
 
+.aboutUs{
+  position: absolute;
+  bottom: 0;
+  /* right: 0; */
+  transition: all ease-in 0.5s;
+  transform: translate(0, 100%);
+  z-index: 0;
+  height: 100%;
 }
-.leftLine{
-    position: absolute;
-    left: 0%;
-    top: 50%;
-    width: 60px;
-    background-color: rgb(255, 255, 255);
-    height: 1px;
-    z-index: 3;
-   transform: translate(0%,-50%);
-}
-.rightLine{
-    position: absolute;
-    right: 0%;
-    top: 50%;
-    width: 60px;
-    background-color: rgb(255, 255, 255);
-    height: 1px;
-    z-index: 3;
-   transform: translate(0%,-50%);
-}
+.homePicture,
+.homeVideo,
 .homeAbout{
-    margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
 }
-.bottomLine{
-    position: absolute;
-    right: 50%;
-    bottom: 0%;
-    height: 40px;
-    background-color: rgb(255, 255, 255);
-    width: 1px;
-    z-index: 3;
-   transform: translate(50%,0%); 
+.homePicture:hover~ .slidePictures {
+  transform: translate(50%, 0%) !important;
+  transition: all ease-in 0.5s;
 }
-.homePartition.firstPartition.homeVideo:hover.homeAbout{
-    color: red;
-    background: rebeccapurple;
+.slidePictures {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: all ease-in 0.5s;
+  transform: translate(100%, 0%);
+  z-index: 0;
+}
+
+@media (max-width:800px) {
+  .homePartition{
+    margin-top: 67px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: center;
+  }
+  .leftLine,
+  .bottomLine,
+  .rightLine,
+  .slideVideos,
+  .slidePictures,
+  .aboutUs{
+    display: none;
+  }
+  .firstPartition,
+  .secondPartition,
+  .thirdPartition{
+    height: 42px;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    font-size: 28px;
+    border: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+    margin-top: 10px;
+
+  }
+   .thirdPartition{
+    border-bottom: 0;
+  }
+  .homeVideo,
+  .homeAbout,
+  .homePicture{
+    margin: 0;
+    border: 0;
+  }
 }

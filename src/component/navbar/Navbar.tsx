@@ -6,20 +6,13 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation';
 import { MenuItems } from "@/constants/MenuItems";
-import { ColorLens } from '@mui/icons-material';
 export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: boolean) => void }) {
     const router = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const pathname = usePathname();
-    // const [page, setPage] = useState<string>(pathname);
     console.log(pathname);
-    type customString = String;
-    interface customString2 {
-        customString: String
-    }
     return (
         <>
-            {/* <nav className={style.navbar} style={{backgroundColor:"transparent"}}> */}
             <nav className={style.navbar} style={(pathname==="/"||pathname==="/contact")?{backgroundColor:"transparent"}:{backgroundColor:"white"}}>
 
                 <div className={`${style.contact} ${style.uppercase} ${style.hover}`} style={pathname==="/"?{color:"white"}:pathname==="/contact"?{visibility:"hidden",pointerEvents:"none"}:{color:"black"}}>Contact us</div>
@@ -29,7 +22,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         onClick=
                         {() => {
                             setIsMenuOpen(!isMenuOpen);
-                            //  changeHomeTheme(true);
+                             changeHomeTheme(true);
                         }}>
                         <a onClick={() => router.push("/")}  style={pathname==="/"?{color:"white"}:{display:"none"}} >
                             <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={style.logoImage} />
@@ -39,7 +32,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         onClick=
                         {() => {
                             setIsMenuOpen(!isMenuOpen);
-                            // changeHomeTheme(true);
+                            changeHomeTheme(true);
                         }}>
                         <div className={`${style.menu} ${style.uppercase} ${style.hover}`}  style={pathname==="/"?{color:"white"}:{color:"black"}}>menu </div>
                         <MenuRoundedIcon className={`${style.menuIcon} ${style.hover}`} style={pathname==="/"?{color:"white"}:{color:"black"}} />
@@ -52,7 +45,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         onClick=
                         {() => {
                             setIsMenuOpen(!isMenuOpen);
-                            //  changeHomeTheme(false);
+                             changeHomeTheme(false);
                         }}>
 
                         <ul className={`${style.menuOptions} ${style.capitalize}`}>

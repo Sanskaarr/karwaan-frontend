@@ -1,7 +1,9 @@
+'use client'
+import { useRouter } from 'next/navigation'
 import styles from './style.module.css'
-
+import About from '@/component/about/About';
 export default  function Home() {
-
+  const router=useRouter();
   return (
     <div className={styles.home}>
         <video  className={`${styles.bgvideo}`} autoPlay muted loop>
@@ -11,22 +13,24 @@ export default  function Home() {
         </video>
         <div className={styles.homePartition}>
           <div className={styles.firstPartition}>
-          <div className={`${styles.homeVideo} ${styles.hover}` }>VIDEOS</div>
+          <div className={`${styles.homeVideo} ${styles.hover}` } onClick={()=>router.push("/videos")}>VIDEOS</div>
+          <video autoPlay muted loop className={styles.slideVideos}>
+            <source src="https://karwaan.b-cdn.net/Front/motion%20(1).webm" type="video/mp4"/>
+          </video>
             <div className={styles.leftLine}></div>
           </div>
 
-          {/* <hr className={styles.verticalPartition}/> */}
           <div className={styles.secondPartition}>
-            <div className={`${styles.homeAbout} ${styles.hover}` }>ABOUT US</div>
+            <div className={`${styles.homeAbout} ${styles.hover}` }onClick={()=>router.push("/about")}>ABOUT US</div>
+           <div className={styles.aboutUs}><About /></div>
             <span className={styles.bottomLine}></span>
             </div>
-          {/* <hr className={styles.verticalPartition}/> */}
           <div className={styles.thirdPartition}>
 
-            <div className={`${styles.homePicture} ${styles.hover}` }>PICTURES</div>
+            <div className={`${styles.homePicture} ${styles.hover}` } onClick={()=>router.push("/picture")}>PICTURES</div>
+            <img className={styles.slidePictures}  src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_4.jpg" alt="not found" />
             <span className={styles.rightLine}></span>
           </div>
-          <img  src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_4.jpg" alt="not found" />
         </div>
     </div>
   )

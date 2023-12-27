@@ -15,10 +15,11 @@ export default async function Layout({
     setIsDark(isDark);
   }
   return (
-    <div style={isDark?{background:"rgba(0, 0, 0,0.2)"}:{background:"rgba(0, 0, 0,0)"}} >
-    {/* <div style={isDark?{background:"rgba(0, 0, 0,0.2)"}:{background:"rgba(0, 0, 0,0)"}}> */}
+    <div style={isDark?{background:"rgba(0, 0, 0,1)"}:{background:"rgba(0, 0, 0,0)"}} >
       <Navbar changeHomeTheme={changeHomeTheme} />
+      <div style={isDark?{pointerEvents:"none",background:"rgba(0, 0, 0,1)"}:{pointerEvents:"all"}}>
       {children}
+      </div>
     </div>
   )
 }
