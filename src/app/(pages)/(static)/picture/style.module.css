@@ -1,0 +1,201 @@
+.Picture {
+  margin-top: 67px;
+  background: white;
+}
+.PictureSection {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.PictureSectionHome {
+  padding-bottom: 20px;
+  border-right: 2px solid black;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+.PictureSectionHome > span {
+  transform: rotate(-90deg);
+  display: flex;
+  color: blue;
+}
+.PictureSectionHome > span:hover {
+  cursor: pointer;
+}
+.PictureSectionHome > hr {
+  width: 500%;
+}
+.desktopViewFilter {
+  display: block;
+}
+.mobileViewFilter {
+  display: none;
+}
+.PictureSectionFilter > ul {
+  margin-right: 20px;
+  visibility: visible !important;
+  transform: translate(0, 0) !important;
+  transition: ease-in 0.5s !important;
+  pointer-events: all !important;
+}
+.PictureSectionFilter > ul > li {
+  list-style: none;
+  text-transform: lowercase;
+  color: #8d8e8e;
+  font-size: 20px;
+}
+.PictureSectionFilter > ul > li:hover {
+  text-decoration: line-through;
+  cursor: pointer;
+}
+.PictureGallary {
+  width: 100vw;
+  height: 530px;
+  transform: translateX(260px);
+  opacity: 1;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  overflow: scroll;
+  margin-left: -230px;
+  transition: all 0.5s ease-in-out;
+}
+
+.PictureGallary::-webkit-scrollbar {
+  display: none;
+}
+
+.imageSection {
+  width: 295px;
+  height: 169px;
+  position: relative;
+  margin: 2px;
+}
+.imageSection:hover {
+  cursor: pointer;
+}
+.imageSection:hover > .gallaryImageText {
+  transform: translate(-50%, -50%);
+  transition: ease-in 0.5s;
+  visibility: visible;
+}
+.imageSection:hover > .gallaryImage {
+  transition: ease-in 0.5s;
+  filter: blur(1px);
+}
+.gallaryImage {
+  width: 295px;
+  height: 169px;
+}
+.gallaryImageText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color: white;
+  transition: ease-in 0.5s;
+  font-size: 16px;
+  visibility: hidden;
+}
+
+/* scroll bar */
+.PictureScrollBar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 60px;
+  background: white;
+  color: black;
+  margin-top: 20px; /* temp */
+}
+.PictureScrollBarRightSide {
+  display: flex;
+  align-items: center;
+}
+.PictureScrollBarLeft,
+.pictureMenuShow,
+.pictureMenuHide,
+.PictureScrollBarRight {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.PictureScrollBarRight {
+  margin-left: 15px;
+}
+.pictureIcons {
+  margin: 0 5px;
+}
+.PictureScrollBarRight,
+.PictureScrollBarLeft,
+.pictureMenuShow:hover,
+.pictureMenuHide:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 1028px) {
+  .PictureSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* justify-content: flex-start; */
+    flex-direction: column;
+  }
+  .PictureSectionFilter {
+    position: relative;
+    width: 100vw;
+  }
+  .desktopViewFilter {
+    display: none;
+  }
+  .mobileViewFilter {
+    display: block;
+    color: black;
+    margin-bottom: 5px;
+  }
+  .PictureSectionFilter h3 {
+    border-bottom: 1px solid black;
+    text-align: center;
+  }
+  .PictureSectionFilter h3:hover {
+    cursor: pointer;
+  }
+  .PictureSectionFilter ul {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 30px;
+    background: white;
+    z-index: 3;
+    width: 100vw;
+  }
+  
+  .PictureScrollBar,
+  .PictureSectionHome {
+    display: none;
+  }
+  .PictureGallary {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 75vh;
+    margin: auto;
+    padding: auto;
+    transform: translateX(0);
+    flex-flow: row wrap;
+    align-content: flex-start;
+    /* align-content: center; */
+    justify-content: center;
+  }
+}
+@media (max-width:350px) {
+    .imageSection{
+        width: 100% !important;
+        padding: 0 10%;
+    } 
+    .gallaryImage{
+        width: 100%;
+    } 
+
+}

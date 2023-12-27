@@ -22,9 +22,11 @@ export default  function Home() {
             </div>
           {/* <hr className={styles.verticalPartition}/> */}
           <div className={styles.thirdPartition}>
+
             <div className={`${styles.homePicture} ${styles.hover}` }>PICTURES</div>
             <span className={styles.rightLine}></span>
           </div>
+          <img  src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_4.jpg" alt="not found" />
         </div>
     </div>
   )

@@ -3,7 +3,7 @@ import ContactForm from '@/component/contactForm/ContactForm'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-export default  function contact() {
+export default  function Contact() {
 
   return (
     <div className={styles.contact}>

@@ -1,0 +1,193 @@
+.videos {
+  margin-top: 67px;
+  background: white;
+}
+.videosSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+}
+.videosSectionHome {
+  padding-bottom: 20px;
+  border-left: 2px solid black;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+.videosSectionHome > span {
+  transform: rotate(90deg);
+  display: flex;
+  color: rgb(0, 0, 0);
+}
+.videosSectionHome > span:hover {
+  cursor: pointer;
+}
+.videosSectionHome > hr {
+  width: 500%;
+}
+
+.videosGallary {
+  width: 100vw;
+  height: 330px;
+  transform: translateX(-00%);
+  opacity: 1;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  overflow: scroll !important;
+  direction: rtl;
+  transition: all 0.5s ease-in-out;
+  position: relative;
+}
+.videosGallary::-webkit-scrollbar {
+  display: none;
+}
+.videosGallary:hover {
+    cursor: pointer;
+    }
+.motion {
+  width: 275px;
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 330px;
+  position: absolute;
+  right: 45px;
+  top: 67px;
+  letter-spacing: 20px;
+  
+}
+.videosGallarySection {
+  width: 600px;
+  margin-left: 10px;
+}
+.videosGallary>a:first-child {
+  margin-right: 300px;
+  display: flex;
+}
+
+.imageSection {
+  width: 295px;
+  height: 169px;
+  position: relative;
+  margin: 2px;
+}
+.imageSection:hover {
+  cursor: pointer;
+}
+
+/* scroll bar */
+.videosScrollBar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 60px;
+  background: white;
+  color: black;
+  margin-top: 200px; /* temp */
+}
+.videosScrollBarRightSide {
+  display: flex;
+  align-items: center;
+}
+.videosScrollBarLeft,
+.videosMenuShow,
+.videosMenuHide,
+.videosScrollBarRight {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.videosScrollBarRight {
+  margin-left: 15px;
+}
+.videosIcons {
+  margin: 0 5px;
+}
+.videosScrollBarRight,
+.videosScrollBarLeft,
+.videosMenuShow:hover,
+.videosMenuHide:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 1028px) {
+  .videosSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* justify-content: flex-start; */
+    flex-direction: column;
+  }
+  .videosSectionFilter {
+    position: relative;
+    width: 100vw;
+  }
+  .desktopViewFilter {
+    display: none;
+  }
+  .mobileViewFilter {
+    display: block;
+    color: black;
+    margin-bottom: 5px;
+  }
+  .videosSectionFilter h3 {
+    border-bottom: 1px solid black;
+    text-align: center;
+  }
+  .videosSectionFilter h3:hover {
+    cursor: pointer;
+  }
+  .videosSectionFilter ul {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 30px;
+    background: white;
+    z-index: 3;
+    width: 100vw;
+  }
+
+  .videosScrollBar,
+  .videosSectionHome {
+    display: none;
+  }
+  .motion{
+    display: none;
+  }
+  .videosGallary {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 75vh;
+    margin: auto;
+    padding: auto;
+    transform: translateX(0);
+    flex-flow: row wrap;
+    align-content: flex-start;
+    /* align-content: center; */
+    justify-content: center;
+    align-content: flex-start;
+    overflow: scroll !important;
+  
+  }
+  .videosGallary>a:first-child {
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 680px) {
+  .videosGallary a{
+    width: 100% !important;
+    padding: 0 10%;
+  }
+ .videosGallarySection{
+    width: 100% !important;
+    margin-left: 0px;
+ }
+}

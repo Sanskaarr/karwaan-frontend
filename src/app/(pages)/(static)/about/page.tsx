@@ -2,7 +2,7 @@ import Slider from '@/component/slider/Slider'
 // import {Slider} from '@/constants/slider/Slider"
 import styles from './style.module.css'
 
-export default function about() {
+export default function About() {
 
     return (
         <div className={styles.about}>

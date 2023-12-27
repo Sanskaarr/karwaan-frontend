@@ -19,8 +19,8 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
     }
     return (
         <>
-            <nav className={style.navbar} style={{backgroundColor:"transparent"}}>
-            {/* <nav className={style.navbar} style={pathname==="/"?{backgroundColor:"transparent"}:{backgroundColor:"white"}}> */}
+            {/* <nav className={style.navbar} style={{backgroundColor:"transparent"}}> */}
+            <nav className={style.navbar} style={(pathname==="/"||pathname==="/contact")?{backgroundColor:"transparent"}:{backgroundColor:"white"}}>
 
                 <div className={`${style.contact} ${style.uppercase} ${style.hover}`} style={pathname==="/"?{color:"white"}:pathname==="/contact"?{visibility:"hidden",pointerEvents:"none"}:{color:"black"}}>Contact us</div>
                 {/* if menu is close than this  */}
