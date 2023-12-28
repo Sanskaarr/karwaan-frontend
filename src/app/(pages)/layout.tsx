@@ -10,6 +10,9 @@ export default async function Layout({
   function changeHomeTheme(isDark:boolean):void{
     setIsDark(isDark);
   }
+
+  // hello world 
+  
   return (
     <div >
     {/* <div style={isDark?{background:"rgba(0, 0, 0,0.7)"}:{background:"rgba(0, 0, 0,0)"}} > */}

@@ -1,3 +1,4 @@
+import { Providers } from '@/redux/provider';
 import './globals.css'
 import {Poppins} from 'next/font/google'
 
@@ -20,9 +21,10 @@ export default async function RootLayout({
     <html lang="en" >
       <body className={poppins.className} suppressContentEditableWarning={true} suppressHydrationWarning={true} >
       {/* <body className={poppins.className} suppressContentEditableWarning={true} suppressHydrationWarning={true} onContextMenu={false}> */}
-   
-        {children}
-         </body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   )
 }
