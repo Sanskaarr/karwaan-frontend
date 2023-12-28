@@ -16,10 +16,20 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
         <>
             <nav className={styles.navbar} style={(pathname === "/" || pathname === "/contact" || pathname === "/user") ? { backgroundColor: "transparent" } : { backgroundColor: "white" }}>
 
-                <div className={`${styles.contact} ${styles.uppercase} ${styles.hover}`} style={pathname === "/" ? { color: "white" } : (pathname === "/contact" || pathname === "/user") ? { visibility: "hidden", pointerEvents: "none" } : { color: "black" }}>Contact us</div>
+                {/* <div className={`${styles.contact} ${styles.uppercase} ${styles.hover}`} style={pathname === "/" ? { color: "white" } : (pathname === "/contact" || pathname === "/user") ? { visibility: "hidden", pointerEvents: "none" } : { color: "black" }}>Contact us</div> */}
+                <div className={`${styles.logoDiv} ${styles.hover}`}
+                        onClick=
+                        {() => {
+                            setIsMenuOpen(!isMenuOpen);
+                            //  changeHomeTheme(true);
+                        }}>
+                        <a onClick={() => router.push("/")} style={pathname === "/" ? { color: "white" } :pathname==="/contact"? { display: "none" }:{ filter: " invert(100%) sepia(100%) saturate(0%) hue-rotate(71deg) brightness(104%) contrast(104%)" }} >
+                            <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} />
+                        </a>
+                    </div>
                 {/* if menu is close than this  */}
                 {!isMenuOpen && <div className={styles.rightNav}>
-                    <div className={`${styles.logoDiv}${styles.hover}`}
+                    {/* <div className={`${styles.logoDiv}${styles.hover}`}
                         onClick=
                         {() => {
                             setIsMenuOpen(!isMenuOpen);
@@ -28,7 +38,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         <a onClick={() => router.push("/")} style={pathname === "/" ? { color: "white" } : { display: "none" }} >
                             <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} />
                         </a>
-                    </div>
+                    </div> */}
                     <div className={`${styles.closeMenu} ${styles.uppercase}`}
                         onClick=
                         {() => {
@@ -38,8 +48,8 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         <div className={`${styles.menu} ${styles.uppercase} ${styles.hover}`} style={pathname === "/" ? { color: "white" } : { color: "black" }}>menu </div>
                         <MenuRoundedIcon className={`${styles.menuIcon} ${styles.hover}`} style={pathname === "/" ? { color: "white" } : { color: "black" }} />
                     </div>
-                    <div className={styles.user} onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>user
-                        <AccountCircleOutlinedIcon className={styles.userLogo} />
+                    <div className={styles.user} onClick={() => setIsUserMenuOpen(!isUserMenuOpen)} style={pathname === "/" ? { color: "white" } : { color: "black" }} >user
+                        <AccountCircleOutlinedIcon className={styles.userLogo} style={pathname === "/" ? { color: "white !important" } : { color: "black !important" }}  />
                     </div>
 
                 </div>}
@@ -55,7 +65,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
 
                         <ul className={`${styles.menuOptions} ${styles.capitalize}`}>
                             {MenuItems.map((menuItem) => {
-
+                            
                                 return (<>
                                     <li style={pathname === menuItem.route ? { color: "white", pointerEvents: "none" } : { color: "gray" }}
                                         className={styles.menuItem} onClick={() => { router.push(menuItem.route) }}>{menuItem.text}</li>
@@ -67,15 +77,14 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         </ul>
                         <CloseOutlinedIcon className={`${styles.crossIcon} ${styles.hover}`} style={pathname === "/" ? { color: "white" } : { color: "black" }} />
                     </div>
-                    <div className={styles.user} onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>user</div>
 
                 </div>}
             </nav>
             <div style={isUserMenuOpen ? { display: "flex" } : { display: 'none' }} className={styles.userSetting}>
                 <div className={styles.userSettingCross} ><CloseOutlinedIcon className={styles.userSettingClose} onClick={() => setIsUserMenuOpen(!isUserMenuOpen)} /> <span> User Setting</span></div>
                 <ul className={styles.userSettingOptions}>
-                    <li className={styles.userSettingSignUp}>Sign Up</li>
-                    <li className={styles.userSettingSignIn}>Sign In</li>
+                    <li className={styles.userSettingSignUp} onClick={()=>{router.push("/signup");setIsUserMenuOpen(!isUserMenuOpen)}}>Sign Up</li>
+                    <li className={styles.userSettingSignIn} onClick={()=>{router.push("/signin");setIsUserMenuOpen(!isUserMenuOpen)}}>Sign In</li>
                     <li className={styles.userSettingUpdateInfo}>Update Info</li>
                     <li className={styles.userSettingUpdatePassword}>Update Password</li>
                     <li className={styles.userSettingLogOut}>Log Out</li>
