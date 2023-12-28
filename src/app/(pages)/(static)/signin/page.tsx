@@ -10,6 +10,7 @@ import '@splidejs/react-splide/css/sea-green';
 import '@splidejs/react-splide/css/core';
 import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { useRouter } from 'next/navigation';
 export default  function Signin() {
   const [status,setStatus]=useState<null|String>(null);
   const [messageToShow,setMessageToShow]=useState<null|String>(null);
@@ -19,6 +20,7 @@ setTimeout(()=>{
   setMessageToShow(null);
 },4000);
   },[messageToShow]);
+  const router=useRouter();
     return (
         <div className={styles.login}>
             {/* <div className={styles.sideslider}> */}
@@ -63,6 +65,8 @@ setTimeout(()=>{
   
     <div className={styles.messages} style={status=="error"?{color:"red"}:{color:"blue"}}>{messageToShow&&messageToShow}</div>
     <button className={styles.Signin}>Sign In</button>
+    <div className={styles.forgotPassword} onClick={()=>router.push("/forgotpassword")}>Forgot password?</div>
+
 
   </form></div>
   )

@@ -70,7 +70,6 @@ setTimeout(()=>{
   
     <div className={styles.messages} style={status=="error"?{color:"red"}:{color:"blue"}}>{messageToShow&&messageToShow}</div>
     <button className={styles.Signup}>Sign up</button>
-
   </form></div>
   )
 }

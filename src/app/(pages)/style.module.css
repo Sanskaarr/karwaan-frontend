@@ -92,7 +92,7 @@
   position: relative;
 }
 .homeVideo:hover~ .slideVideos {
-  transform: translate(-50%, 0%) !important;
+  transform: translate(-40%, 0%) !important;
   transition: all ease-in 0.5s;
 }
 .slideVideos{
@@ -129,7 +129,7 @@
   z-index: 1;
 }
 .homePicture:hover~ .slidePictures {
-  transform: translate(50%, 0%) !important;
+  transform: translate(40%, 0%) !important;
   transition: all ease-in 0.5s;
 }
 .slidePictures {
@@ -141,6 +141,16 @@
   z-index: 0;
 }
 
+@media (max-width:1200px) {
+  .homeVideo:hover~ .slideVideos {
+    transform: translate(-50%, 0%) !important;
+    transition: all ease-in 0.5s;
+  }
+  .homePicture:hover~ .slidePictures {
+    transform: translate(50%, 0%) !important;
+    transition: all ease-in 0.5s;
+  }
+}
 @media (max-width:800px) {
   .homePartition{
     margin-top: 67px;
