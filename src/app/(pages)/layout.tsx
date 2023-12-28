@@ -16,7 +16,6 @@ export default async function Layout({
       <Navbar changeHomeTheme={changeHomeTheme} />
       {/* <div style={isDark?{pointerEvents:"none",background:"rgba(0, 0, 0,1)"}:{pointerEvents:"all"}}> */}
       {children}
-      {/* </div> */}
-    </div>
+      </div>
   )
 }
