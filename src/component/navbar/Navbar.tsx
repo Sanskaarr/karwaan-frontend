@@ -13,9 +13,9 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
     console.log(pathname);
     return (
         <>
-            <nav className={style.navbar} style={(pathname==="/"||pathname==="/contact")?{backgroundColor:"transparent"}:{backgroundColor:"white"}}>
+            <nav className={style.navbar} style={(pathname==="/"||pathname==="/contact"||pathname==="/user")?{backgroundColor:"transparent"}:{backgroundColor:"white"}}>
 
-                <div className={`${style.contact} ${style.uppercase} ${style.hover}`} style={pathname==="/"?{color:"white"}:pathname==="/contact"?{visibility:"hidden",pointerEvents:"none"}:{color:"black"}}>Contact us</div>
+                <div className={`${style.contact} ${style.uppercase} ${style.hover}`} style={pathname==="/"?{color:"white"}:(pathname==="/contact"||pathname==="/user")?{visibility:"hidden",pointerEvents:"none"}:{color:"black"}}>Contact us</div>
                 {/* if menu is close than this  */}
                 {!isMenuOpen && <div className={style.rightNav}>
                     <div className={`${style.logoDiv}${style.hover}`}
