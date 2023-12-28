@@ -22,7 +22,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         onClick=
                         {() => {
                             setIsMenuOpen(!isMenuOpen);
-                             changeHomeTheme(true);
+                            //  changeHomeTheme(true);
                         }}>
                         <a onClick={() => router.push("/")}  style={pathname==="/"?{color:"white"}:{display:"none"}} >
                             <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={style.logoImage} />
@@ -32,7 +32,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         onClick=
                         {() => {
                             setIsMenuOpen(!isMenuOpen);
-                            changeHomeTheme(true);
+                            // changeHomeTheme(true);
                         }}>
                         <div className={`${style.menu} ${style.uppercase} ${style.hover}`}  style={pathname==="/"?{color:"white"}:{color:"black"}}>menu </div>
                         <MenuRoundedIcon className={`${style.menuIcon} ${style.hover}`} style={pathname==="/"?{color:"white"}:{color:"black"}} />
@@ -45,7 +45,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                         onClick=
                         {() => {
                             setIsMenuOpen(!isMenuOpen);
-                             changeHomeTheme(false);
+                            //  changeHomeTheme(false);
                         }}>
 
                         <ul className={`${style.menuOptions} ${style.capitalize}`}>

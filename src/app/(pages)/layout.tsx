@@ -1,10 +1,6 @@
 "use client"
-import style from './style.module.css';
-// import Link from 'next/navigation';
 import Navbar from '../../component/navbar/Navbar'
 import { useState } from 'react';
-import Footer from '@/component/footer/Footer';
-
 export default async function Layout({
   children,
 }: {
@@ -15,11 +11,12 @@ export default async function Layout({
     setIsDark(isDark);
   }
   return (
-    <div style={isDark?{background:"rgba(0, 0, 0,1)"}:{background:"rgba(0, 0, 0,0)"}} >
+    <div >
+    {/* <div style={isDark?{background:"rgba(0, 0, 0,0.7)"}:{background:"rgba(0, 0, 0,0)"}} > */}
       <Navbar changeHomeTheme={changeHomeTheme} />
-      <div style={isDark?{pointerEvents:"none",background:"rgba(0, 0, 0,1)"}:{pointerEvents:"all"}}>
+      {/* <div style={isDark?{pointerEvents:"none",background:"rgba(0, 0, 0,1)"}:{pointerEvents:"all"}}> */}
       {children}
-      </div>
+      {/* </div> */}
     </div>
   )
 }
