@@ -62,7 +62,3 @@ export const useAxios = (API: string, payload?: any, token?: string) => {
 
     return {getCall, postCall, putCall, deleteCall};
 }
-
-const {getCall} = useAxios('/api/v1/products')
-
-console.log(getCall);
