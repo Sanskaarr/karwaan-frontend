@@ -11,19 +11,20 @@ import '@splidejs/react-splide/css/core';
 import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import { useAppSelector } from '@/redux/hooks';
+import { useAuth } from '@/hooks/useAuth';
 export default  function Signin() {
-  const [status,setStatus]=useState<null|String>(null);
-  const [messageToShow,setMessageToShow]=useState<null|String>(null);
-
-  useEffect(()=>{
-setTimeout(()=>{
-  setMessageToShow(null);
-},4000);
-  },[messageToShow]);
+  const [formData,setFormData]=useState({ email:"", password:""} );
+  const [isPassVisible,setIsPassVisible]=useState(false);
+  const {handleSignin} = useAuth(formData.email, formData.password);
+const {loading} = useAppSelector((state) => state.userRequest.signup);
   const router=useRouter();
     return (
         <div className={styles.login}>
-            {/* <div className={styles.sideslider}> */}
             <Splide
       options={ {
         type         : 'loop',
@@ -38,36 +39,50 @@ setTimeout(()=>{
      >
       <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
         <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_1.jpg"  alt="Image 1"/>
-        {/* <p className={styles.review}> " environment."</p> */}
-
       </SplideSlide>
     <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
         <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_4.jpg"  alt="Image 2"/>
-        {/* <p className={styles.review}>"The team also escorts doctors to high-altitude regions to treat the less fortunate residents"</p> */}
       </SplideSlide>
     <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
         <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_3.jpg"  alt="Image 3"/>
-        {/* <p className={styles.review}>"The team also escorts doctors to high-altitude regions to treat the less fortunate residents"</p> */}
       </SplideSlide>
      
     </Splide>
-            {/* </div> */}
     <form className={styles.contactForm} >
             <h1>sign In</h1>
     <div className={styles.email}>      
-     <input className={styles.inputField} type="text" name='email' id='email' required/>
+     <input className={styles.inputField} type="text" name='email' id='email'  value={formData.email} 
+       onChange={(e)=>{
+      setFormData({...formData,email:e.target.value})
+       }} required/>
     <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
     </div>
     <div className={styles.password}>     
-     <input className={styles.inputField} type="password" name='password' id='password'  required/>
+     <input className={styles.inputField} type={isPassVisible?"text":"password"} name='password' id='password'
+         value={formData.password} 
+         onChange={(e)=>{
+        setFormData({...formData,password:e.target.value})
+         }}  required/>
     <label className={`${styles.passwordLable}${styles.lables}`}>password</label>
+       <div className={styles.visibility} onClick={()=>setIsPassVisible(!isPassVisible)}>{isPassVisible?<VisibilityOutlinedIcon/>:<VisibilityOffOutlinedIcon/>}</div>
     </div>
   
-    <div className={styles.messages} style={status=="error"?{color:"red"}:{color:"blue"}}>{messageToShow&&messageToShow}</div>
-    <button className={styles.Signin}>Sign In</button>
-    <div className={styles.forgotPassword} onClick={()=>router.push("/forgotpassword")}>Forgot password?</div>
+    <button className={styles.Signin} onClick={handleSignin}>Sign In {loading&&"loading..."}</button>
+    <div className={styles.forgotPassword} onClick={()=>router.push("/forgot-password")}>Forgot password?</div>
 
 
-  </form></div>
+  </form>
+  <ToastContainer 
+    position="top-right"
+autoClose={1000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark" />
+  </div>
   )
 }

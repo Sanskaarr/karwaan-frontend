@@ -91,6 +91,20 @@
 .forgotPassword:hover {
   cursor: pointer;
 }
+.password{
+  position: relative;
+}
+.visibility{
+  position: absolute;
+  right: 20px;
+  bottom:18px ;
+}
+.visibility:hover{
+cursor: pointer;
+}
+.inputField{
+  color: #000;
+}
 @media (max-width: 650px) {
   .login {
     justify-content: center;

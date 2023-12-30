@@ -2,7 +2,8 @@ import axios from "axios"
 
 export const useAxios = (API: string, payload?: any, token?: string) => {
     const axiosInstance = axios.create({
-        baseURL: process.env.BACKEND_BASE_URL!
+        baseURL: "http://localhost:5000"
+        // baseURL: process.env.BACKEND_BASE_URL!
     });
 
     const getCall = async () => {

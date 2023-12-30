@@ -67,6 +67,16 @@
   }
   .forgotPassword:hover {
     cursor: pointer;
+  }.password{
+    position: relative;
+  }
+  .visibility{
+    position: absolute;
+    right: 20px;
+    bottom:18px ;
+  }
+  .visibility:hover{
+  cursor: pointer;
   }
   @media (max-width:450px) {
     .contactForm{

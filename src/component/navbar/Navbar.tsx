@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation';
 import { MenuItems } from "@/constants/MenuItems";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: boolean) => void }) {
+export default function navbar() {
     const router = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const pathname = usePathname();
@@ -17,12 +17,7 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
             <nav className={styles.navbar} style={(pathname === "/" || pathname === "/contact" || pathname === "/user") ? { backgroundColor: "transparent" } : { backgroundColor: "white" }}>
 
                 {/* <div className={`${styles.contact} ${styles.uppercase} ${styles.hover}`} style={pathname === "/" ? { color: "white" } : (pathname === "/contact" || pathname === "/user") ? { visibility: "hidden", pointerEvents: "none" } : { color: "black" }}>Contact us</div> */}
-                <div className={`${styles.logoDiv} ${styles.hover}`}
-                        onClick=
-                        {() => {
-                            setIsMenuOpen(!isMenuOpen);
-                            //  changeHomeTheme(true);
-                        }}>
+                <div className={`${styles.logoDiv} ${styles.hover}`}>
                         <a onClick={() => router.push("/")} style={pathname === "/" ? { color: "white" } :pathname==="/contact"? { display: "none" }:{ filter: " invert(100%) sepia(100%) saturate(0%) hue-rotate(71deg) brightness(104%) contrast(104%)" }} >
                             <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} />
                         </a>
@@ -85,8 +80,10 @@ export default function navbar({ changeHomeTheme }: { changeHomeTheme: (isDark: 
                 <ul className={styles.userSettingOptions}>
                     <li className={styles.userSettingSignUp} onClick={()=>{router.push("/signup");setIsUserMenuOpen(!isUserMenuOpen)}}>Sign Up</li>
                     <li className={styles.userSettingSignIn} onClick={()=>{router.push("/signin");setIsUserMenuOpen(!isUserMenuOpen)}}>Sign In</li>
-                    <li className={styles.userSettingUpdateInfo}>Update Info</li>
+                    <li className={styles.userSettingUpdateInfo}>cart</li>
+                    <li className={styles.userSettingUpdateInfo}>Profile</li>
                     <li className={styles.userSettingUpdatePassword}>Update Password</li>
+                    <li className={styles.userSettingUpdateInfo}>settings</li>
                     <li className={styles.userSettingLogOut}>Log Out</li>
                 </ul>
             </div>

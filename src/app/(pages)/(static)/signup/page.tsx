@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import styles from './style.module.css'
 import '@splidejs/react-splide/css';
 // or other themes
@@ -10,61 +10,21 @@ import '@splidejs/react-splide/css/core';
 import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '@/hooks/useAuth';
+import { useAppSelector } from '@/redux/hooks';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
 export default  function Signup() {
-  const [status,setStatus]=useState<null|String>(null);
-  const [submit,setSubmit]=useState<boolean>(false);
-  const [messageToShow,setMessageToShow]=useState<null|String>(null);
   const [formData,setFormData]=useState({firstName:"", lastName:"", email:"", password:""} );
   
-  useEffect(()=>{
-setTimeout(()=>{
-  setMessageToShow(null);
-},4000);
-  },[messageToShow]);
   const router=useRouter();
   console.log(formData);
-  const handleClick = () => {
-    // form validation
-    if (formData.firstName.length === 0){
-      setMessageToShow("Enter your first name" );
-    }
-    else if (formData.lastName.length ===0){
-      setMessageToShow("Enter your last name Name" );
-    }
-   else if ( formData.email.length === 0 ){
-      setMessageToShow("Enter your email" );
-    }
-    else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.email)){
-      setMessageToShow("Invalid email address" );
-    }
-    else if(formData.password.length === 0 ){
-      setMessageToShow("Enter your password" );
-    }
-    else if(formData.password.length <6 || formData.password.length >16 ){
-      setMessageToShow("password length must be of 6-15 characters" );
-    }
-    else {
-      setSubmit(!submit);
-    } 
-    setTimeout(()=>{
-      setMessageToShow("");
-    
-     },4000)
-  };
-  const tostNotify=()=> toast("Registration successfull");
-  
-  // response.token&&(function goToDashboard  (){
-  //   // tostNotify();
-  //   setTimeout(()=>{
-  //     router.push("/");
-  //   },2000) 
-  // }
-  // )();
-    // tostNotify();
-
+  const {handleSignup} = useAuth(formData.email, formData.password, formData.firstName,formData.lastName);
+  const {loading} = useAppSelector((state) => state.userRequest.signup);
+  const [isPassVisible,setIsPassVisible]=useState(false);
     return (
         <div className={styles.login}>
             <Splide
@@ -119,21 +79,23 @@ setTimeout(()=>{
     <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
     </div>
     <div className={styles.password}>     
-     <input className={styles.inputField} type="password" name='password' id='password' 
+     <input className={styles.inputField} type={isPassVisible?"text":"password"} name='password' id='password' 
        value={formData.password} 
        onChange={(e)=>{
       setFormData({...formData,password:e.target.value})
        }} required/>
     <label className={`${styles.passwordLable}${styles.lables}`}>password</label>
+       <div className={styles.visibility} onClick={()=>setIsPassVisible(!isPassVisible)}>{isPassVisible?<VisibilityOutlinedIcon/>:<VisibilityOffOutlinedIcon/>}</div>
     </div>
   
-    <button className={styles.Signup} onClick={handleClick}>Sign up</button>
-    <div className={styles.messages} style={{color:"red", marginTop:"10px",textAlign:"center"}}>{messageToShow&&messageToShow}</div>
+    <button className={styles.Signup} onClick={handleSignup} >Sign up {loading&&"Loading..."}</button>
     {/* <button className={styles.Signup} onClick={()=>{router.push("/verifymail")}}>Sign up</button> */}
+    <div className={styles.forgotPassword} onClick={()=>router.push("/signin")}>Have account?</div>
+
   </form>
   <ToastContainer 
     position="top-right"
-autoClose={1000}
+autoClose={3000}
 hideProgressBar={false}
 newestOnTop={false}
 closeOnClick
