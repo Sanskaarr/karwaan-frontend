@@ -10,7 +10,10 @@ export const useAxios = (API: string, payload?: any, token?: string) => {
         const options = {
             url: API,
             method: 'GET',
-            headers: {},
+            headers: {
+                accept: 'application/json',
+                Authorization: `${token}`
+            },
         }
         const res = await axiosInstance(options);
         return res.data;
@@ -20,7 +23,10 @@ export const useAxios = (API: string, payload?: any, token?: string) => {
         const options = {
             url: API,
             method: 'POST',
-            headers: {},
+            headers: {
+                accept: 'application/json',
+                Authorization: `${token}`
+            },
             data: payload
         }
         const res = await axiosInstance(options);
@@ -31,7 +37,10 @@ export const useAxios = (API: string, payload?: any, token?: string) => {
         const options = {
             url: API,
             method: 'PUT',
-            headers: {},
+            headers: {
+                accept: 'application/json',
+                Authorization: `${token}`
+            },
             data: payload
         }
         const res = await axiosInstance(options);
@@ -43,7 +52,8 @@ export const useAxios = (API: string, payload?: any, token?: string) => {
             url: API,
             method: 'DELETE',
             headers: {
-                accept: 'application/json'
+                accept: 'application/json',
+                Authorization: `${token}`
             },
             data: payload
         }
@@ -53,7 +63,3 @@ export const useAxios = (API: string, payload?: any, token?: string) => {
 
     return {getCall, postCall, putCall, deleteCall};
 }
-
-const {getCall} = useAxios('/api/v1/products')
-
-console.log(getCall);
