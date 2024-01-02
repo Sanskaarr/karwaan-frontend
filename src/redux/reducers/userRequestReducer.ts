@@ -47,6 +47,11 @@ type InitialState = {
         loading: boolean,
         error: any,
         status:boolean,
+    },
+    signoutUser: {
+        loading: boolean,
+        error: any,
+        status:boolean,
     }
 }
 
@@ -95,6 +100,11 @@ const initialState = {
         status:false,
     },
     deleteUser: {
+        loading: false,
+        error: null,
+        status:false,
+    },
+    signoutUser: {
         loading: false,
         error: null,
         status:false,
@@ -240,6 +250,22 @@ export const userRequests = createSlice({
             state.updateUser.error =  action.payload.error;
             state.updateUser.status =  false;
         },
+        // signout
+       signoutUser_request: (state) => {
+            state.signoutUser.loading = true;
+            state.signoutUser.error = null;
+            state.signoutUser.status = false;
+        },
+        signoutUser_success: (state) => {
+            state.signoutUser.loading = false;
+            state.signoutUser.error = null;
+            state.signoutUser.status = true;
+        },
+        signoutUser_failure: (state, action) => {
+            state.signoutUser.loading = false;
+            state.signoutUser.error =  action.payload.error;
+            state.signoutUser.status =  false;
+        },
         // deleteUser
         deleteUser_request: (state) => {
             state.deleteUser.loading = true;
@@ -292,6 +318,10 @@ export const {
     updateUser_request,
     updateUser_success,
     updateUser_failure,
+    // deleteUser
+    signoutUser_request,
+    signoutUser_success,
+    signoutUser_failure,
     // deleteUser
     deleteUser_request,
     deleteUser_success,

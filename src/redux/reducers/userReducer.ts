@@ -2,35 +2,39 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
     id: number | null;
-    name: string | null;
+    firstName: string | null;
+    lastName: string | null;
     email: string | null;
-    isEmailVerified: boolean;
+    isEmailValid: boolean;
     password: string | null;
     phoneNumber: string | null;
-    isPhoneNumberVerified: boolean | null;
+    isPhoneNumberValid: boolean | null;
     image: string | null;
     role: 'user' | 'admin' | null;
     resetPasswordTokenExpire: number | null;
     resetPasswordToken: string | null;
     verifyEmailToken: string | null;
     verifyTokenEmailExpire: number | null;
+    token: string | null;
     }
 
 const initialState = {
     user: {
         id: null,
-        name: null,
+        firstName: null,
+        lastName: null,
         email: null,
-        isEmailVerified: false,
+        isEmailValid: false,
         password: null,
         phoneNumber: null,
-        isPhoneNumberVerified: false,
+        isPhoneNumberValid: false,
         image: null,
         role: null,
         resetPasswordToken: null,
         resetPasswordTokenExpire: null,
         verifyEmailToken: null,
         verifyTokenEmailExpire: null,
+        token:null,
     } as InitialState
 } ;
 

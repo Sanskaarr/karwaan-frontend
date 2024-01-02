@@ -62,11 +62,10 @@
    }
    .forgotPassword {
     margin-top: 20px;
-    text-decoration: underline;
-    color: blue;
   }
   .forgotPassword:hover {
     cursor: pointer;
+    color:gray;
   }
   @media (max-width:450px) {
     .contactForm{

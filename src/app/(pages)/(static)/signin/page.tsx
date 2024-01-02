@@ -17,72 +17,81 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useAppSelector } from '@/redux/hooks';
 import { useAuth } from '@/hooks/useAuth';
-export default  function Signin() {
-  const [formData,setFormData]=useState({ email:"", password:""} );
-  const [isPassVisible,setIsPassVisible]=useState(false);
-  const {handleSignin} = useAuth(formData.email, formData.password);
-const {loading} = useAppSelector((state) => state.userRequest.signup);
-  const router=useRouter();
-    return (
-        <div className={styles.login}>
-            <Splide
-      options={ {
-        type         : 'loop',
-        gap          : '1rem',
-        autoplay     : true,
-        pauseOnHover : true,
-        resetProgress: true,
-        height       : '100%',
-      } }
-      aria-label="My Favorite Images"
-      className={styles.sideslider}
-     >
-      <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
-        <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_1.jpg"  alt="Image 1"/>
-      </SplideSlide>
-    <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
-        <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_4.jpg"  alt="Image 2"/>
-      </SplideSlide>
-    <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
-        <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_3.jpg"  alt="Image 3"/>
-      </SplideSlide>
-     
-    </Splide>
-    <form className={styles.contactForm} >
-            <h1>sign In</h1>
-    <div className={styles.email}>      
-     <input className={styles.inputField} type="text" name='email' id='email'  value={formData.email} 
-       onChange={(e)=>{
-      setFormData({...formData,email:e.target.value})
-       }} required/>
-    <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
-    </div>
-    <div className={styles.password}>     
-     <input className={styles.inputField} type={isPassVisible?"text":"password"} name='password' id='password'
-         value={formData.password} 
-         onChange={(e)=>{
-        setFormData({...formData,password:e.target.value})
-         }}  required/>
-    <label className={`${styles.passwordLable}${styles.lables}`}>password</label>
-       <div className={styles.visibility} onClick={()=>setIsPassVisible(!isPassVisible)}>{isPassVisible?<VisibilityOutlinedIcon/>:<VisibilityOffOutlinedIcon/>}</div>
-    </div>
-  
-    <button className={styles.Signin} onClick={handleSignin}>Sign In {loading&&"loading..."}</button>
-    <div className={styles.forgotPassword} onClick={()=>router.push("/forgot-password")}>Forgot password?</div>
+import { ClipLoader } from 'react-spinners';
+export default function Signin() {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isPassVisible, setIsPassVisible] = useState(false);
+  const { handleSignin } = useAuth(formData.email, formData.password);
+  const { loading } = useAppSelector((state) => state.userRequest.signup);
+  const router = useRouter();
+  return (
+    <div className={styles.login}>
+      <Splide
+        options={{
+          type: 'loop',
+          gap: '1rem',
+          autoplay: true,
+          pauseOnHover: true,
+          resetProgress: true,
+          height: '100%',
+        }}
+        aria-label="My Favorite Images"
+        className={styles.sideslider}
+      >
+        <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
+          <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_1.jpg" alt="Image 1" />
+        </SplideSlide>
+        <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
+          <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_4.jpg" alt="Image 2" />
+        </SplideSlide>
+        <SplideSlide data-splide-interval="2000" className={styles.SigninSliderSlide}>
+          <img className={styles.images} src="https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_3.jpg" alt="Image 3" />
+        </SplideSlide>
+
+      </Splide>
+      <form className={styles.contactForm} >
+        <h1>sign In</h1>
+        <div className={styles.email}>
+          <input className={styles.inputField} type="text" name='email' id='email' value={formData.email}
+            onChange={(e) => {
+              setFormData({ ...formData, email: e.target.value })
+            }} required />
+          <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
+        </div>
+        <div className={styles.password}>
+          <input className={styles.inputField} type={isPassVisible ? "text" : "password"} name='password' id='password'
+            value={formData.password}
+            onChange={(e) => {
+              setFormData({ ...formData, password: e.target.value })
+            }} required />
+          <label className={`${styles.passwordLable}${styles.lables}`}>password</label>
+          <div className={styles.visibility} onClick={() => setIsPassVisible(!isPassVisible)}>{isPassVisible ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}</div>
+        </div>
+
+        <button className={styles.Signin} onClick={handleSignin}>Sign In
+          <div style={!loading ? { display: "none" } : { display: "flex", alignItems: "center" }}>
+            <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
+          </div>
+        </button>
+        <div className={styles.links}>
+          <div className={styles.forgotPassword} onClick={() => router.push("/forgot-password")}>Forgot password?</div>
+          <div className={styles.forgotPassword} onClick={() => router.push("/signup")}>New Customer? Sign up →</div>
+        </div>
 
 
-  </form>
-  <ToastContainer 
-    position="top-right"
-autoClose={1000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark" />
-  </div>
+
+      </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark" />
+    </div>
   )
 }

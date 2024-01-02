@@ -1,0 +1,9 @@
+.myOrders{
+    min-height: 90vh;
+    color: black;
+    padding-top: 67px;
+}
+.myOrders h1{
+ text-align: center;
+ text-transform: capitalize;
+}

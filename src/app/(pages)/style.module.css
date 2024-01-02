@@ -9,7 +9,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  z-index: -99;
+  /* z-index: -99; */
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -26,9 +26,8 @@
   font-size: 40px;
 }
 .firstPartition {
-  border-right: 1px solid black;
+  border-right: 1px solid rgba(0,0,0,0.3);
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 33.33vw;
   position: relative;
@@ -41,9 +40,9 @@
   position: relative;
 }
 .thirdPartition {
-  border-left: 1px solid black;
+  border-left: 1px solid rgba(0,0,0,0.3);
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   width: 33.33vw;
   position: relative;
@@ -71,6 +70,7 @@
 .homeAbout {
   margin-bottom: 50px;
 }
+
 .bottomLine {
   position: absolute;
   right: 50%;
@@ -95,6 +95,14 @@
   transform: translate(-40%, 0%) !important;
   transition: all ease-in 0.5s;
 }
+.homeVideo{
+  position: relative;
+  left: 100px;
+}
+.homePicture{
+  position: relative;
+  right: 100px;
+}
 .slideVideos{
   position: absolute;
   top: 0;
@@ -111,6 +119,7 @@
 
 .homeAbout:hover{
   cursor: pointer;
+ opacity: 0;
 }
 
 .aboutUs{

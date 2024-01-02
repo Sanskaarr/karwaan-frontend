@@ -14,11 +14,11 @@ export default async function Layout({
   // hello world 
   
   return (
-    <div >
+    < >
     {/* <div style={isDark?{background:"rgba(0, 0, 0,0.7)"}:{background:"rgba(0, 0, 0,0)"}} > */}
-      <Navbar changeHomeTheme={changeHomeTheme} />
+      <Navbar />
       {/* <div style={isDark?{pointerEvents:"none",background:"rgba(0, 0, 0,1)"}:{pointerEvents:"all"}}> */}
       {children}
-      </div>
+      </>
   )
 }

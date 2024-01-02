@@ -1,0 +1,9 @@
+.cart{
+    min-height: 90vh;
+    color: black;
+    padding-top: 67px;
+}
+.cart h1{
+ text-align: center;
+ text-transform: capitalize;
+}

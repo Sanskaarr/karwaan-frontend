@@ -4,7 +4,8 @@ import {Poppins} from 'next/font/google'
 
 const poppins=Poppins({ 
   subsets:["devanagari","latin","latin-ext"],
-  weight:["100","200","300","400","500","600"]
+  weight:["200"]
+  // weight:["100","200","300","400","500","600"]
 });
 export const metadata = {
   title: 'KARWAAN',

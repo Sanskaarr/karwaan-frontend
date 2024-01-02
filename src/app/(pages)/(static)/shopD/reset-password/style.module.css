@@ -62,12 +62,12 @@
    }
    .forgotPassword {
     margin-top: 20px;
-    text-decoration: underline;
-    color: blue;
   }
   .forgotPassword:hover {
     cursor: pointer;
-  }.password{
+    color:gray;
+  }
+  .password{
     position: relative;
   }
   .visibility{

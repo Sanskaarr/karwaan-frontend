@@ -11,21 +11,21 @@ const VerifyMail = () => {
   const {handleSendVerifyEmail} = useAuth(formData.email);
   const {loading,isEmailSend} = useAppSelector((state) => state.userRequest.sendVerifyEmail);
   const router =useRouter();
-  const {userEmail}=useAppSelector((state)=>state.user.user);
+  const {email}=useAppSelector((state)=>state.user.user);
   return (
     <div className={styles.VerifyMail} >
           <form className={styles.contactForm} >
             <h1>Verify Mail</h1>
     <div className={styles.email}>      
-     <input className={styles.inputField} type="text" name='email' id='email'
-      value={userEmail} 
-     disabled/>
      {/* <input className={styles.inputField} type="text" name='email' id='email'
+      value={`${email}`}
+     disabled/> */}
+     <input className={styles.inputField} type="text" name='email' id='email'
       value={formData.email} 
       onChange={(e)=>{
      setFormData({...formData,email:e.target.value})
       }}
-     required/> */}
+     required/>
     <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
     </div>
   

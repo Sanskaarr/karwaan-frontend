@@ -37,11 +37,15 @@
   display: flex;
   align-items: center;
 }
+.logoDiv:hover,
+.logoImage:hover{
+  cursor: pointer;
+}
 .hover:hover {
   cursor: pointer;
 }
 .logoImage {
-  height: 80px;
+  height: 70px!important;
   /* margin-top: -13px; */
 }
 .capitalize {
@@ -156,11 +160,12 @@
   font-size: 20px !important;
   display: none;
 }
+
 .userSettingOptions {
-  color: white;
+  color:white;
   list-style: none;
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   flex-direction: column;
 }
 .userSettingOptions li {
@@ -174,6 +179,22 @@
   border-bottom: 1px solid white;
   transition: all ease-in 0.5s;
   color: white;
+}
+/* shop navbar */
+.shopNav{
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 16px;
+  font-weight:  bolder !important;
+}
+.shopNav li{
+margin-left: 10px;
+font-weight: bolder !important;
+color: black;
+}
+.shopNav li:hover{
+cursor: pointer;
 }
 @media (max-width: 1000px) {
  .menuOptions{

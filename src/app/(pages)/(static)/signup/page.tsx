@@ -16,12 +16,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { useAppSelector } from '@/redux/hooks';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import { ClipLoader } from 'react-spinners';
 
 export default  function Signup() {
   const [formData,setFormData]=useState({firstName:"", lastName:"", email:"", password:""} );
-  
   const router=useRouter();
-  console.log(formData);
   const {handleSignup} = useAuth(formData.email, formData.password, formData.firstName,formData.lastName);
   const {loading} = useAppSelector((state) => state.userRequest.signup);
   const [isPassVisible,setIsPassVisible]=useState(false);
@@ -88,9 +87,13 @@ export default  function Signup() {
        <div className={styles.visibility} onClick={()=>setIsPassVisible(!isPassVisible)}>{isPassVisible?<VisibilityOutlinedIcon/>:<VisibilityOffOutlinedIcon/>}</div>
     </div>
   
-    <button className={styles.Signup} onClick={handleSignup} >Sign up {loading&&"Loading..."}</button>
+    <button className={styles.Signup} onClick={handleSignup} >Sign up 
+    <div style={!loading?{display:"none"}:{display:"flex",alignItems:"center"}}>
+ <ClipLoader  color="white" cssOverride={{}}  size={15} speedMultiplier={0.5}/>
+</div>
+    </button>
     {/* <button className={styles.Signup} onClick={()=>{router.push("/verifymail")}}>Sign up</button> */}
-    <div className={styles.forgotPassword} onClick={()=>router.push("/signin")}>Have account?</div>
+    <div className={styles.forgotPassword} onClick={()=>router.push("/signin")}>Returning Customer? Sign In →</div>
 
   </form>
   <ToastContainer 

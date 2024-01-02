@@ -47,8 +47,8 @@ setTimeout(()=>{
      <label className={`${styles.descriptionLable}${styles.lables}`}>Description  </label>
     </div>
     <div className={styles.messages} style={status=="error"?{color:"red"}:{color:"blue"}}>{messageToShow&&messageToShow}</div>
-    {/* <button className={styles.sendMail}>Send Mail</button> */}
-    <input  type='submit' name="submit" className={styles.sendMail} value={"Send Mail"}/>
+    <button className={styles.sendMail}>Send Mail</button>
+    {/* <input  type='submit' name="submit" className={styles.sendMail} value={"Send Mail"}/> */}
 
   </form>
   )
