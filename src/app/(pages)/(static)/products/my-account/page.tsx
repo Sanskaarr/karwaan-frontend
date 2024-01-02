@@ -38,11 +38,11 @@ function page() {
     const open = () => setModalOpen(true);
     useEffect(() => {
         if(typeof(window)===undefined)return
-            let  {token} = JSON.parse(localStorage.getItem('user') as string);
-            let { id } = JSON.parse(localStorage.getItem('user') as string);
-            console.log("hi maam kaisi ho", id,token)
-            useUser(token, id);
-       
+            let  {token} = JSON.parse(localStorage.getItem('user')!);
+            let { _id } = JSON.parse(localStorage.getItem('user')!);
+            console.log("hi maam kaisi ho", _id,token)
+            const {handleGetUser}=useUser(token, _id);
+            handleGetUser();
     }, [])
 console.log(formData.phoneNo,typeof(formData.phoneNo),phoneNumber,typeof(phoneNumber+""),phoneNumber+"")
 console.log("kya sahi bola", ""=="")

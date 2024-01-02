@@ -43,6 +43,11 @@ type InitialState = {
         error: any,
         status:boolean,
     },
+    updatePhoneNumber: {
+        loading: boolean,
+        error: any,
+        status:boolean,
+    },
     deleteUser: {
         loading: boolean,
         error: any,
@@ -95,6 +100,11 @@ const initialState = {
         status:false,
     },
     updateUser: {
+        loading: false,
+        error: null,
+        status:false,
+    },
+    updatePhoneNumber: {
         loading: false,
         error: null,
         status:false,
@@ -250,6 +260,22 @@ export const userRequests = createSlice({
             state.updateUser.error =  action.payload.error;
             state.updateUser.status =  false;
         },
+        // updatePhoneNumber
+        updatePhoneNumber_request: (state) => {
+            state.updatePhoneNumber.loading = true;
+            state.updatePhoneNumber.error = null;
+            state.updatePhoneNumber.status = false;
+        },
+        updatePhoneNumber_success: (state) => {
+            state.updatePhoneNumber.loading = false;
+            state.updatePhoneNumber.error = null;
+            state.updatePhoneNumber.status = true;
+        },
+        updatePhoneNumber_failure: (state, action) => {
+            state.updatePhoneNumber.loading = false;
+            state.updatePhoneNumber.error =  action.payload.error;
+            state.updatePhoneNumber.status =  false;
+        },
         // signout
        signoutUser_request: (state) => {
             state.signoutUser.loading = true;
@@ -318,7 +344,11 @@ export const {
     updateUser_request,
     updateUser_success,
     updateUser_failure,
-    // deleteUser
+    // updatePhoneNumber
+    updatePhoneNumber_request,
+    updatePhoneNumber_success,
+    updatePhoneNumber_failure,
+    // signoutUser
     signoutUser_request,
     signoutUser_success,
     signoutUser_failure,

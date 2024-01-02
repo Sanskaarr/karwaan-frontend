@@ -3,19 +3,18 @@ import { useAxios } from "./useAxios"
 import axios from 'axios'
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../redux/hooks";
-import { deleteUser_failure, deleteUser_request, deleteUser_success, getUser_failure, getUser_request, getUser_success, signoutUser_failure, signoutUser_request, signoutUser_success} from "../redux/reducers/userRequestReducer";
+import { deleteUser_failure, deleteUser_request, deleteUser_success, getUser_failure, getUser_request, getUser_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success} from "../redux/reducers/userRequestReducer";
 // import { runValidations } from "../utils/runValidations";
 import { update_user_data } from "../redux/reducers/userReducer";
-import  {useRouter}  from "next/navigation";
+import  {useRouter}  from "next/router";
 export const useUser = (token?:string|null, id?:string|null) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const handleGetUser= async (e: any) => {
-        e.preventDefault();
+    const handleGetUser= async () => {
         dispatch(getUser_request());
         // if(!token) return;
         try {
-            const {getCall} = useAxios(`/api/v1/user/getUser/${id}`,token);
+            const {getCall} = useAxios(`/api/v1/user/${id}`,token);
 
             const response = await getCall();
 
@@ -38,7 +37,7 @@ export const useUser = (token?:string|null, id?:string|null) => {
         dispatch(deleteUser_request());
         // if(!token) return;
         try {
-            const {deleteCall} = useAxios(`/api/v1/user/getUser/${id}`,token);
+            const {deleteCall} = useAxios(`/api/v1/user/${id}`,token);
 
             const response = await deleteCall();
 
@@ -64,7 +63,7 @@ export const useUser = (token?:string|null, id?:string|null) => {
         dispatch(signoutUser_request());
         // if(!token) return;
         try {
-            const {postCall} = useAxios(`/api/v1/user/getUser/${id}` ,token);
+            const {postCall} = useAxios(`/api/v1/user/signout/` ,token);
 
             const response = await postCall();
 
@@ -85,5 +84,56 @@ export const useUser = (token?:string|null, id?:string|null) => {
             }
         }
     }
-    return {handleGetUser,handleDeleteUser,handleLogOutUser}
+    const handleUpdateFieldsUser= async (e: any) => {
+        e.preventDefault();
+        dispatch(updateUser_request());
+        // if(!token) return;
+        try {
+            const {putCall} = useAxios(`/api/v1/user/getUser/${id}` ,token);
+
+            const response = await putCall();
+
+            if(response.status === "success"){
+                dispatch(updateUser_success());
+                dispatch(update_user_data(response.data.user));
+                localStorage.setItem('user',JSON.stringify({...response.data.user, token:response.data.token}));
+                return function success(){
+                    toast.success(response.message&&response.message);
+                 }()    
+            }
+        } catch (error: any) {
+            dispatch(updateUser_failure(error.message));
+            if(axios.isAxiosError(error)){
+                toast.error(error.response?.data.message);
+                dispatch(updateUser_failure(error.response?.data.message));
+            }
+        }
+    
+    }
+    const handleUpdatePhoneNumberUser= async (e: any) => {
+        e.preventDefault();
+        dispatch(updatePhoneNumber_request());
+        // if(!token) return;
+        try {
+            const {putCall} = useAxios(`/api/v1/user/getUser/${id}` ,token);
+
+            const response = await putCall();
+
+            if(response.status === "success"){
+                dispatch(updatePhoneNumber_success());
+                dispatch(update_user_data(response.data.user));
+                localStorage.setItem('user',JSON.stringify({...response.data.user, token:response.data.token}));
+                return function success(){
+                    toast.success(response.message&&response.message);
+                 }()    
+            }
+        } catch (error: any) {
+            dispatch(updatePhoneNumber_failure(error.message));
+            if(axios.isAxiosError(error)){
+                toast.error(error.response?.data.message);
+                dispatch(updatePhoneNumber_failure(error.response?.data.message));
+            }
+        }
+    }
+    return {handleGetUser,handleDeleteUser,handleLogOutUser,handleUpdateFieldsUser,handleUpdatePhoneNumberUser}
 } 

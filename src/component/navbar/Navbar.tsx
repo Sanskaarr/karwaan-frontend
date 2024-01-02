@@ -56,7 +56,7 @@ export default function navbar() {
                             </a>
                         </div>
                         {/* if we are on shop route then hide menu and show user or signin/signup */}
-                        {!(pathname.includes("/shop")) ?
+                        {!(pathname.includes("/products")) ?
                             //  {/* { !(pathname==="/shop/*" )? */}
                             <div className={`${styles.closeMenu} ${styles.uppercase}`}
                                 onClick=
@@ -137,11 +137,11 @@ export default function navbar() {
                     }} className={styles.userSettingOptions}>
                         {/* <li className={styles.userSettingSignUp} onClick={() => { router.push("/signup"); setIsUserMenuOpen(!isUserMenuOpen) }}>Sign Up</li>
                     <li className={styles.userSettingSignIn} onClick={() => { router.push("/signin"); setIsUserMenuOpen(!isUserMenuOpen) }}>Sign In</li> */}
-                        <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/shop/my-account"); setIsUserMenuOpen(!isUserMenuOpen) }}>Account</li>
-                        <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/shop/cart"); setIsUserMenuOpen(!isUserMenuOpen) }}>Cart</li>
+                        <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-account"); setIsUserMenuOpen(!isUserMenuOpen) }}>Account</li>
+                        <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/cart"); setIsUserMenuOpen(!isUserMenuOpen) }}>Cart</li>
                         {/* <li className={styles.userSettingUpdateInfo}>Account</li> */}
-                        <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/shop/my-orders"); setIsUserMenuOpen(!isUserMenuOpen) }}>My orders</li>
-                        <li className={styles.userSettingLogOut} onClick={handleLogOutUser }>Log Out</li>
+                        <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-orders"); setIsUserMenuOpen(!isUserMenuOpen) }}>My orders</li>
+                        <li className={styles.userSettingLogOut} onClick={(e)=>{handleLogOutUser(e);setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li>
                     </ul>
                 </div>
             </>

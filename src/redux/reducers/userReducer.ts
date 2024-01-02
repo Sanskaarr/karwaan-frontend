@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
-    id: number | null;
+    _id: number | null;
     firstName: string | null;
     lastName: string | null;
     email: string | null;
@@ -20,7 +20,7 @@ type InitialState = {
 
 const initialState = {
     user: {
-        id: null,
+        _id: null,
         firstName: null,
         lastName: null,
         email: null,
