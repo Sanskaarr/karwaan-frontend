@@ -22,7 +22,7 @@ const VerifyMail = () => {
         <h1>Verify Mail</h1>
         <div className={styles.email}>
           <input className={styles.inputField} type="text" name='email' id='email'
-            value={formData.email} disabled />
+            value={formData.email}  />
           <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
         </div>
 

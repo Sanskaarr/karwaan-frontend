@@ -4,7 +4,6 @@ import axios from 'axios'
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../redux/hooks";
 import { deleteUser_failure, deleteUser_request, deleteUser_success, getUser_failure, getUser_request, getUser_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success} from "../redux/reducers/userRequestReducer";
-// import { runValidations } from "../utils/runValidations";
 import { update_user_data } from "../redux/reducers/userReducer";
 import { useRouter } from "next/navigation";
 export const useUser = (token?:string|null, _id?:string|null) => {
@@ -36,18 +35,18 @@ export const useUser = (token?:string|null, _id?:string|null) => {
         dispatch(deleteUser_request());
         // if(!token) return;
         try {
-            const {deleteCall} = useAxios(`/api/v1/user/${_id}`,token);
+            const {deleteCall} = useAxios(`/api/v1/user/${_id}`,null,token);
 
             const response = await deleteCall();
-
             if(response.status === "success"){
                 dispatch(deleteUser_success());
-                dispatch(update_user_data(response.data.user));
                 localStorage.removeItem("user");
-                return function success(){
-                    toast.success(response.message&&response.message);
-                    setTimeout(()=>router.push('/'),3000)
-                 }()   
+                //  const  success=()=>{
+                // };
+                toast.success(response.message&&response.message);
+                setTimeout(()=>router.push('/'),3000)
+                dispatch(update_user_data(response.data.user));
+                 return ; 
             }
         } catch (error: any) {
             dispatch(deleteUser_failure(error.message));
@@ -62,7 +61,7 @@ export const useUser = (token?:string|null, _id?:string|null) => {
         dispatch(signoutUser_request());
         // if(!token) return;
         try {
-            const {postCall} = useAxios(`/api/v1/user/signout` ,token);
+            const {postCall} = useAxios(`/api/v1/user/signout`,null ,token);
 
             const response = await postCall();
 
@@ -74,6 +73,9 @@ export const useUser = (token?:string|null, _id?:string|null) => {
                     toast.success(response.message&&response.message);
                     setTimeout(()=>router.push('/'),3000)
                  }()    
+            }else{
+                toast.success(response.message&&response.message);
+
             }
         } catch (error: any) {
             dispatch(signoutUser_failure(error.message));
@@ -88,14 +90,15 @@ export const useUser = (token?:string|null, _id?:string|null) => {
         dispatch(updateUser_request());
         // if(!token) return;
         try {
-            const {putCall} = useAxios(`/api/v1/user/${_id}` ,token);
+            const {putCall} = useAxios(`/api/v1/user/${_id}`,null ,token);
 
             const response = await putCall();
 
             if(response.status === "success"){
                 dispatch(updateUser_success());
                 dispatch(update_user_data(response.data.user));
-                localStorage.setItem('user',JSON.stringify({...response.data.user, token:response.data.token}));
+                const data:any=JSON.parse(localStorage.getItem("user") as string);
+                localStorage.setItem('user',JSON.stringify({...data,...response.data.user}));      
                 return function success(){
                     toast.success(response.message&&response.message);
                  }()    

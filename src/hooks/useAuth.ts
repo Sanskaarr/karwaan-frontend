@@ -37,10 +37,10 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
               
                 localStorage.setItem('user',JSON.stringify({...response.data.user, token:response.data.token}));
                 if(response.data.user.isEmailVerified === true){
-                    return function success(){
+                    return  (()=>{
                         toast.success("Registration successfull");
                          setTimeout(()=>router.push('/'),3000)
-                     }() ;
+                     })() ;
                 }else{
                     return function success(){
                         toast.success("Registration successfull");

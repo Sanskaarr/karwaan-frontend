@@ -1,4 +1,6 @@
 "use client"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import styles from './Navbar.module.css'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
@@ -18,6 +20,10 @@ export default function navbar() {
     if (typeof window !== 'undefined') {
         userInLocalStorage = JSON.parse(localStorage.getItem("user") as string);
         // console.log("mai hu bro",userInLocalStorage.token)
+           // log out 
+          if(userInLocalStorage) var {handleLogOutUser}=useUser(userInLocalStorage.token)
+        //    console.log("mai hu bro",userInLocalStorage.token)
+   
     }
         const isUserLogin = useAppSelector((state) => state.user.user?.token) || userInLocalStorage?.token;
 
@@ -26,10 +32,7 @@ export default function navbar() {
         // this will resume scroll on menu open
         if (!isUserMenuOpen && typeof window !== 'undefined') window.onscroll = null;
 
-        // log out 
-        // const {handleLogOutUser}=useUser(userInLocalStorage.token,userInLocalStorage._id)
-        // console.log("mai hu bro",userInLocalStorage.token,userInLocalStorage._id,)
-
+     
         return (
             <>
                 <div className={styles.navbar} style={(pathname === "/" || pathname === "/contact" || pathname === "/user") ? { backgroundColor: "transparent" } : { backgroundColor: "white" }}>
@@ -141,10 +144,21 @@ export default function navbar() {
                         <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/cart"); setIsUserMenuOpen(!isUserMenuOpen) }}>Cart</li>
                         {/* <li className={styles.userSettingUpdateInfo}>Account</li> */}
                         <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-orders"); setIsUserMenuOpen(!isUserMenuOpen) }}>My orders</li>
-                        <li className={styles.userSettingLogOut} onClick={(e)=>{setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li>
-                        {/* <li className={styles.userSettingLogOut} onClick={(e)=>{handleLogOutUser(e);setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li> */}
+                        {/* <li className={styles.userSettingLogOut} onClick={(e)=>{setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li> */}
+                        <li className={styles.userSettingLogOut} onClick={(e)=>{handleLogOutUser(e);setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li>
                     </ul>
                 </div>
+                <ToastContainer 
+    position="top-right"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark" />
             </>
         )
     }

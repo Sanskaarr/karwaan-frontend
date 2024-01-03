@@ -7,14 +7,23 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/hooks/useUser';
 import { ClipLoader } from 'react-spinners';
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 function page() {
     const router = useRouter();
     if(typeof window !== 'undefined'){
     const  {token, _id } = JSON.parse(localStorage.getItem('user') as string);
     console.log("hi maam kaisi ho", _id,token)
+    //to get user details
     const {handleGetUser}=useUser(token, _id);
      handleGetUser();
     var { firstName, lastName, email,isEmailValid ,isPhoneNumberValid,phoneNumber} = JSON.parse(localStorage.getItem("user") as string);
+    //to update user fields
+    var {handleUpdateFieldsUser}=useUser(token, _id);
+    //to delete user
+    var {handleDeleteUser}=useUser(token, _id);
+    
 }
 
     const [isPassVisible, setIsPassVisible] = useState({ existPass: false, newPass: false, confirmNewPass: false });
@@ -71,7 +80,8 @@ console.log("kya sahi bola", ""=="")
                     <label className={`${styles.nameLable}${styles.lables}`}>Last Name</label>
                 </div>
 
-                <button className={styles.submitButton}
+                <button className={styles.submitButton} 
+                // onClick={handleUpdateFieldsUser}
                     style={!((firstName === formData.firstName) && (lastName === formData.lastName)) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
                        update fields
                        {/* <span style={{marginRight:"10px"}}>update fields</span>  */}
@@ -185,7 +195,7 @@ console.log("kya sahi bola", ""=="")
                 <Button className={styles.deletePopUpButton} variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button  className={styles.deletePopUpButton} onPress={onClose}>
+                <Button  className={styles.deletePopUpButton} onPress={onClose} onClick={handleDeleteUser}>
                   Delete
                 </Button>
               </ModalFooter>
@@ -195,6 +205,17 @@ console.log("kya sahi bola", ""=="")
       </Modal>
             </div>
         </div>
+        <ToastContainer
+    position="top-right"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark" />
     </div>
     )
 }
