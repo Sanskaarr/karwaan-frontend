@@ -1,21 +1,22 @@
 'use client'
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import styles from './style.module.css'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/hooks/useUser';
-// import { useAppSelector } from '@/redux/hooks';
-import { AnimatePresence, motion } from "framer-motion";
 import { ClipLoader } from 'react-spinners';
-// import Modal from '@/component/framer-model/Modal';
 function page() {
     const router = useRouter();
-    if(!typeof(window)!==undefined){
-        console.log("sab changa si")
-        var { firstName, lastName, email,isEmailValid ,isPhoneNumberValid,phoneNumber} = JSON.parse(localStorage.getItem("user") as string);
-    }
+    if(typeof window !== 'undefined'){
+    const  {token, _id } = JSON.parse(localStorage.getItem('user') as string);
+    console.log("hi maam kaisi ho", _id,token)
+    const {handleGetUser}=useUser(token, _id);
+     handleGetUser();
+    var { firstName, lastName, email,isEmailValid ,isPhoneNumberValid,phoneNumber} = JSON.parse(localStorage.getItem("user") as string);
+}
+
     const [isPassVisible, setIsPassVisible] = useState({ existPass: false, newPass: false, confirmNewPass: false });
     type formType={ 
         firstName: string, 
@@ -33,28 +34,21 @@ function page() {
         updateEmail:boolean,
         updatePass: boolean
     }
-    const [isLoading, setIsloading] = useState<loading>({updateField:false,updateEmail:false,updatePass:false});
+    const [isLoading] = useState<loading>({updateField:false,updateEmail:false,updatePass:false});
     const close = () => setModalOpen(false);
     const open = () => setModalOpen(true);
-    useEffect(() => {
-        if(typeof(window)===undefined)return
-            let  {token} = JSON.parse(localStorage.getItem('user')!);
-            let { _id } = JSON.parse(localStorage.getItem('user')!);
-            console.log("hi maam kaisi ho", _id,token)
-            const {handleGetUser}=useUser(token, _id);
-            handleGetUser();
-    }, [])
+
 console.log(formData.phoneNo,typeof(formData.phoneNo),phoneNumber,typeof(phoneNumber+""),phoneNumber+"")
 console.log("kya sahi bola", ""=="")
     
-    
     // const {firstName,lastName,email}=useAppSelector((state)=>state.user.user);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
+//   setBackdrop("blur")
     return (
         
-        <div className={styles.myAccountContainer}>
-            <h1 className={styles.heading}>my Account</h1>
+        <div className={styles.myAccountContainer} >
+        {/* <div className={styles.myAccountContainer} style={isOpen?{background:"rgba(0,0,0,0.8)"}:{background:"rgba(0,0,0,0)"}}> */}
+            <h1 className={styles.heading }>my Account</h1>
         <div className={styles.myAccount} style={modalOpen?{filter:"blur(3px)",height:"100vh"}:{background:"white"}} onClick={() => (modalOpen ? close() :"")}>
             {/* change fields */}
 
@@ -101,7 +95,7 @@ console.log("kya sahi bola", ""=="")
                 </div>
                 <button className={styles.submitButton}
                     onClick={() => router.push("/shop/delete-account")}  style={(!(isPhoneNumberValid===true)||( formData.phoneNo!=phoneNumber))? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
-                     {  !( formData.phoneNo||phoneNumber)||( formData.phoneNo==phoneNumber) ?"verify Phone Number":"Update Phone Number"}
+                     {  ( formData.phoneNo===phoneNumber)&&(phoneNumber!==null) ?"verify Phone Number":"Update Phone Number"}
                        <div style={!isLoading.updateEmail?{display:"none"}:{display:"flex",alignItems:"center"}}>
                        <ClipLoader  color="white" cssOverride={{}}  size={15} speedMultiplier={0.5}/>
                        </div>
@@ -175,7 +169,7 @@ console.log("kya sahi bola", ""=="")
                     onClick={() => router.push("/shop/delete-account")}>Delete My Account</button> */}
                       <Button  className={styles.submitButton} style={{width:"50px",height:"140px"}} onPress={onOpen}>Delete My Account</Button>
       <Modal 
-        backdrop="opaque" 
+        backdrop="blur" 
         isOpen={isOpen} 
         onOpenChange={onOpenChange}
    
@@ -200,22 +194,7 @@ console.log("kya sahi bola", ""=="")
         </ModalContent>
       </Modal>
             </div>
-            {/* <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="save-button"
-        onClick={() => (modalOpen ? close() : open())}
-      >
-        Launch modal
-      </motion.button> */}
-
         </div>
-        {/* <AnimatePresence
-        initial={false}
-        mode={"wait"}
-        onExitComplete={() => null}
-    >
-    </AnimatePresence> */}
     </div>
     )
 }

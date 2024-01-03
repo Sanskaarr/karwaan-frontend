@@ -27,8 +27,8 @@ export default function navbar() {
         if (!isUserMenuOpen && typeof window !== 'undefined') window.onscroll = null;
 
         // log out 
-        const {handleLogOutUser}=useUser(userInLocalStorage.token,userInLocalStorage.id)
-        console.log("mai hu bro",userInLocalStorage.token,userInLocalStorage.id,)
+        // const {handleLogOutUser}=useUser(userInLocalStorage.token,userInLocalStorage._id)
+        // console.log("mai hu bro",userInLocalStorage.token,userInLocalStorage._id,)
 
         return (
             <>
@@ -141,7 +141,8 @@ export default function navbar() {
                         <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/cart"); setIsUserMenuOpen(!isUserMenuOpen) }}>Cart</li>
                         {/* <li className={styles.userSettingUpdateInfo}>Account</li> */}
                         <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-orders"); setIsUserMenuOpen(!isUserMenuOpen) }}>My orders</li>
-                        <li className={styles.userSettingLogOut} onClick={(e)=>{handleLogOutUser(e);setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li>
+                        <li className={styles.userSettingLogOut} onClick={(e)=>{setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li>
+                        {/* <li className={styles.userSettingLogOut} onClick={(e)=>{handleLogOutUser(e);setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li> */}
                     </ul>
                 </div>
             </>

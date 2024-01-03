@@ -1,6 +1,8 @@
 .shop{
    padding-top: 67px;
    background: white;
+   width: 100vw !important;
+   overflow: hidden;
 }
 .shopBanner{
     width: 100%;
@@ -28,6 +30,11 @@
     font-weight: bold;
 }
 .shopNow:hover,
+.BigImagesNameShopNow:hover{
+    background:#38cee8;
+    cursor: pointer;
+
+}
 .shopBanner p:hover{
     cursor: pointer;
 }
@@ -109,10 +116,23 @@
     transition: 0.2s ease;
     position: relative;
 }
+.BigShopProducts,
+.BigOneProduct{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.BigOneProduct img{
+    width: 100%;
+    padding: 0;
+    height: 100%;
+    object-fit: cover;
+}
 .image{
     width: 100%;
 }
-.image:hover {
+.oneProduct .image:hover {
     opacity: 0.5;
     filter: grayscale(5px);
 }
@@ -124,6 +144,27 @@
     padding-top: 7px;
     color: #1a1a1a;
     font-size: 14px;
+}
+.BigOneProduct{
+    position: relative;
+}
+.BigImagesName{
+    position: absolute;
+    left: 50%;
+    top:50%;
+    color: #fff;
+    font-size: 30px;
+    padding: 10px 0;
+    transform: translate(-50%,-90%);
+}
+.BigImagesNameShopNow{
+    width: 130px;
+    height: 40px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,100%);
+    font-size: 15px;
+    font-weight: bold;
 }
 @media (max-width:657px) {
    .shopProducts{

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const useAxios = (API: string, payload?: any, token?: string) => {
+export const useAxios = (API: string, payload?: any, token?: string|null) => {
     const axiosInstance = axios.create({
         baseURL: "http://localhost:5000"
         // baseURL: process.env.BACKEND_BASE_URL!
