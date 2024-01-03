@@ -6,6 +6,7 @@ import { useAppDispatch } from "../redux/hooks";
 import { deleteUser_failure, deleteUser_request, deleteUser_success, getUser_failure, getUser_request, getUser_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success} from "../redux/reducers/userRequestReducer";
 import { update_user_data } from "../redux/reducers/userReducer";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 export const useUser = (token?:string|null, _id?:string|null) => {
     const router=useRouter();
     const dispatch = useAppDispatch();
@@ -139,11 +140,16 @@ export const useUser = (token?:string|null, _id?:string|null) => {
     }
     const handleVerifyMailUser= async () => {
         dispatch(verifyEmail_request());
+        const [response, setResponse] = useState<any>(null);
         // if(!token) return;
         try {
-            const {postCall} = useAxios(`/api/v1/user/verify-email`);
-
-            const response = await postCall();
+            useEffect(() => {
+                const verifyEmail = async () => {                    
+                    const {postCall} = useAxios(`/api/v1/user/verify-email`, {token, _id});
+                    setResponse(await postCall());
+                }
+                verifyEmail();
+            }, []); 
 
             if(response.status === "success"){
                 dispatch(verifyEmail_success());

@@ -13,11 +13,10 @@ const searchParams = useSearchParams()
 const token = searchParams.get('token');
 const _id = searchParams.get('id');
 
-(async function verifyMail(){
-  const {handleVerifyMailUser} =await useUser(token,_id);
-  console.log(handleVerifyMailUser)
- await handleVerifyMailUser()
-})();
+  (async function verifyMail(){
+    const {handleVerifyMailUser} = useUser(token,_id);
+    await handleVerifyMailUser()
+  })();
 
 
 const {loading} = useAppSelector((state) => state.userRequest.verifyEmail);
