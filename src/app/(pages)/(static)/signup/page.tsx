@@ -10,8 +10,6 @@ import '@splidejs/react-splide/css/core';
 import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { useRouter } from 'next/navigation';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '@/hooks/useAuth';
 import { useAppSelector } from '@/redux/hooks';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -96,17 +94,6 @@ export default  function Signup() {
     <div className={styles.forgotPassword} onClick={()=>router.push("/signin")}>Returning Customer? Sign In →</div>
 
   </form>
-  <ToastContainer 
-    position="top-right"
-autoClose={3000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark" />
   </div>
   )
 }

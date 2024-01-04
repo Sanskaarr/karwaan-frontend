@@ -11,8 +11,6 @@ import '@splidejs/react-splide/css/core';
 import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useAppSelector } from '@/redux/hooks';
@@ -22,7 +20,7 @@ export default function Signin() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isPassVisible, setIsPassVisible] = useState(false);
   const { handleSignin } = useAuth(formData.email, formData.password);
-  const { loading } = useAppSelector((state) => state.userRequest.signup);
+  const { loading } = useAppSelector((state) => state.userRequest.signin);
   const router = useRouter();
   return (
     <div className={styles.login}>
@@ -68,10 +66,11 @@ export default function Signin() {
           <div className={styles.visibility} onClick={() => setIsPassVisible(!isPassVisible)}>{isPassVisible ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}</div>
         </div>
 
-        <button className={styles.Signin} onClick={handleSignin}>Sign In
-          <div style={!loading ? { display: "none" } : { display: "flex", alignItems: "center" }}>
+        <button className={styles.Signin} onClick={handleSignin}style={!loading ? { display: "flex",pointerEvents:"all"}:{ display: "flex",pointerEvents:"none"}}>
+         {!loading ? "Sign In":
+          <div >
             <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-          </div>
+          </div>}
         </button>
         <div className={styles.links}>
           <div className={styles.forgotPassword} onClick={() => router.push("/forgot-password")}>Forgot password?</div>
@@ -81,17 +80,7 @@ export default function Signin() {
 
 
       </form>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark" />
+    
     </div>
   )
 }

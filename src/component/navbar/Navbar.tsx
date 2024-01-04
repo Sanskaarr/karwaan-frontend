@@ -1,6 +1,4 @@
 "use client"
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import styles from './Navbar.module.css'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
@@ -21,7 +19,7 @@ export default function navbar() {
         userInLocalStorage = JSON.parse(localStorage.getItem("user") as string);
         // console.log("mai hu bro",userInLocalStorage.token)
            // log out 
-          if(userInLocalStorage) var {handleLogOutUser}=useUser(userInLocalStorage.token)
+          if(userInLocalStorage) var {handleLogOutUser}=useUser()
         //    console.log("mai hu bro",userInLocalStorage.token)
    
     }
@@ -148,17 +146,7 @@ export default function navbar() {
                         <li className={styles.userSettingLogOut} onClick={(e)=>{handleLogOutUser(e);setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li>
                     </ul>
                 </div>
-                <ToastContainer 
-    position="top-right"
-autoClose={3000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark" />
+        
             </>
         )
     }

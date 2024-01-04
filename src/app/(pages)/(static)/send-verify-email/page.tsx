@@ -4,18 +4,19 @@ import styles from './style.module.css'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { useAppSelector } from '@/redux/hooks'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify'
+// import 'react-toastify/dist/ReactToastify.css';
 import { ClipLoader } from 'react-spinners'
 const VerifyMail = () => {
+  const router=useRouter()
   if(typeof(window)!=="undefined"){
-    var {email}=JSON.parse(localStorage.getItem("user") as string);
-
+    var {email,isEmailValid}=JSON.parse(localStorage.getItem("user") as string);
+      console.log("isEmailValid",isEmailValid);
+      if(isEmailValid)router.push('/');
   }
   const [formData] = useState({ email: email });
   const { handleSendVerifyEmail } = useAuth(formData.email);
   const { loading } = useAppSelector((state) => state.userRequest.sendVerifyEmail);
-  const router = useRouter();
   return (
     <div className={styles.VerifyMail} >
       <form className={styles.contactForm} >
@@ -26,16 +27,17 @@ const VerifyMail = () => {
           <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
         </div>
 
-        <button className={styles.Signin} onClick={handleSendVerifyEmail}>Verify Mail
-          <div style={!loading ? { display: "none" } : { display: "flex", alignItems: "center" }}>
+        <button className={styles.Signin} onClick={handleSendVerifyEmail}style={!loading ? { display: "flex",pointerEvents:"all"}:{ display: "flex",pointerEvents:"none"}}>
+         {!loading ? "Verify Mail":
+          <div >
             <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-          </div>
+          </div>}
         </button>
 
         <p className={styles.skip} onClick={() => { router.push("/") }}>skip for now</p>
 
       </form>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -45,7 +47,7 @@ const VerifyMail = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark" />
+        theme="dark" /> */}
     </div>
   )
 }

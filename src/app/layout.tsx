@@ -1,6 +1,8 @@
 import { Providers } from '@/redux/provider';
 import './globals.css'
 import {Poppins} from 'next/font/google'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const poppins=Poppins({ 
   subsets:["devanagari","latin","latin-ext"],
@@ -25,6 +27,17 @@ export default async function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark" />
       </body>
     </html>
   )

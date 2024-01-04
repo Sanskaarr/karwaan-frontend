@@ -39,7 +39,7 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
                 if(response.data.user.isEmailVerified === true){
                     return  (()=>{
                         toast.success("Registration successfull");
-                         setTimeout(()=>router.push('/'),3000)
+                         setTimeout(()=>router.push('/shop'),3000)
                      })() ;
                 }else{
                     return function success(){
@@ -60,7 +60,8 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
     const handleSignin = async (e: any) => {
         e.preventDefault()
         const {runSigninValidation} = runValidations(email, password);
-        if(runSigninValidation() === false){
+        const isUserLogin=localStorage.getItem('user');
+        if(runSigninValidation() === false&&isUserLogin){
             return ;
         }
         dispatch(signin_request());
@@ -75,16 +76,19 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
                 dispatch(signin_success({user: response.data.user, token: response.data.token}));
                 dispatch(update_user_data({...response.data.user, token:response.data.token}));
                 localStorage.setItem('user',JSON.stringify({...response.data.user, token:response.data.token}));
-                if(response.data.user.isEmailVerified === true){
-                    return function success(){
-                   toast.success(response.message&&response.message);
-                   setTimeout(()=>router.push('/'),3000)
-                }() ;
+                if(response.data.user.isEmailValid === true){
+            console.log("success 1",response)
+
+                   toast.success(response.message&&response.message, {
+                    toastId: 'success1',
+                });
+                   setTimeout(()=>router.push('/shop'),3000)
                 }else{
-                    return function success(){
-                        toast.success(response.message&&response.message);
+                    console.log("success 2",response)
+                    toast.success(response.message&&response.message, {
+                        toastId: 'success2',
+                    });
                     setTimeout(()=>router.push('/send-verify-email'),3000)
-                }() ;
                 }
             }
         } catch (error:any) {

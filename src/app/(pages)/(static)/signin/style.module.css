@@ -66,6 +66,9 @@
     margin-bottom: 24px;
     background-color: white;
   }
+  .inputField{
+    color: #000;
+  }
   .inputField:focus ~ label,
   .inputField:not(:focus):valid ~ label {
     transform: translateY(-15px);
