@@ -91,32 +91,34 @@ export const useUser = (token?: string | null, _id?: string | null,firstName?:st
     // pending
     const handleVerifyMailUser = async () => {
         dispatch(verifyEmail_request());
-        // const { isEmailValid } = JSON.parse(localStorage.getItem('user') as string);
-        // if (isEmailValid) return;
+        const [response, setResponse] = useState<any>(null);
         try {
-            // http://localhost:3000/verify-email?token=eyJhbGciOiJIUzI1NiJ9.eWFzaGd1cHRhMW1vbGVAZ21haWwuY29t.-Z3lxVIYiqxad9AbO0s-WzlaWP5phWXTbG87d32ARJM&id=65969fba8225f67c4f7be977
-            console.log("function chal gaya")
-            const { postCall } = useAxios(`/api/v1/user/verify-email`, { token, _id });
-            const response = await postCall();
-            console.log("response",response);
+            useEffect(() => {
+                const verifyEmail = async () => {
+                    try {
+                        const { postCall } = useAxios(`/api/v1/user/verify-email`, { token, _id });
+                        setResponse(await postCall());
+                    } catch (error) {
+                        setResponse("no response")
+                    }
+                    console.log("This is the response", response)
+                }
+                verifyEmail();
+            }, [token, _id]);
+
             if (response.status === "success") {
                 dispatch(verifyEmail_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
-                console.log("success toh hogya")
                 localStorage.setItem('user', JSON.stringify({ ...data, ...response.data.user }));
                 dispatch(update_user_data(response.data.user));
                 if (response.data.user.isEmailValid) {
                     toast.success(response.message && response.message);
-                    console.log("sab badiya si")
                     setTimeout(() => { router.push("/") }, 2000);
                 } else {
                     toast.success(response.message && response.message);
-                    console.log("not valid")
                 }
-
             } else {
                 toast.error(response.message && response.message);
-
                 return;
             }
         } catch (error: any) {

@@ -4,25 +4,7 @@ import styles from './ContactForm.module.css'
 export default  function ContactForm() {
   const [status,setStatus]=useState<null|String>(null);
   const [messageToShow,setMessageToShow]=useState<null|String>(null);
-//   async function handleSubmit( formData:FormData){
-// try{
-//   const response=await submitContact({
-//     userName:formData.get("userName"),
-//     phone:formData.get("phone"),
-//     email:formData.get("email"),
-//     description:formData.get("description"),
-//   })
-//   if(response.status==="ok"){
-//   setStatus('success');
-//   setMessageToShow(response.message);
-// }else{
-//   setStatus("error");
-//   setMessageToShow(response.message);
-// }
-// }catch(e){
-//   console.log("error",e);
-// }
-//   }
+
   useEffect(()=>{
 setTimeout(()=>{
   setMessageToShow(null);

@@ -16,7 +16,6 @@ const _id = searchParams.get('id');
 
 (async()=>{
    
-    console.log("verified mail")
     const {handleVerifyMailUser} = useUser(token,_id);
     await handleVerifyMailUser()
 
@@ -24,7 +23,6 @@ const _id = searchParams.get('id');
 
 if(typeof(window)!=="undefined"){
   var{isEmailValid}=JSON.parse(localStorage.getItem("user") as string);
-  console.log("isEmailValid",isEmailValid);
  
 }
 const {loading} = useAppSelector((state) => state.userRequest.verifyEmail);

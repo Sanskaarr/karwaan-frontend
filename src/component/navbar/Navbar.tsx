@@ -17,10 +17,8 @@ export default function navbar() {
     let userInLocalStorage;
     if (typeof window !== 'undefined') {
         userInLocalStorage = JSON.parse(localStorage.getItem("user") as string);
-        // console.log("mai hu bro",userInLocalStorage.token)
            // log out 
           if(userInLocalStorage) var {handleLogOutUser}=useUser()
-        //    console.log("mai hu bro",userInLocalStorage.token)
    
     }
         const isUserLogin = useAppSelector((state) => state.user.user?.token) || userInLocalStorage?.token;

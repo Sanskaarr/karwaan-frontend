@@ -12,7 +12,6 @@ function page() {
     const router = useRouter();
     if (typeof window !== 'undefined') {
         var { token, _id } = JSON.parse(localStorage.getItem('user') as string);
-        console.log("hi maam kaisi ho", _id, token)
         //to get user details
         const { handleGetUser } = useUser(token, _id);
         handleGetUser();
@@ -44,9 +43,6 @@ function page() {
     const [isLoading] = useState<loading>({ updateField: false, updateEmail: false, updatePass: false });
     const close = () => setModalOpen(false);
     const open = () => setModalOpen(true);
-
-    console.log(formData.phoneNo, typeof (formData.phoneNo), phoneNumber, typeof (phoneNumber + ""), phoneNumber + "")
-    console.log("kya sahi bola", "" == "")
 
     // const {firstName,lastName,email}=useAppSelector((state)=>state.user.user);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
