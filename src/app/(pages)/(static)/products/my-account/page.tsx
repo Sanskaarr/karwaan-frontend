@@ -57,6 +57,10 @@ function page() {
     // delete open and close logic
     const close = () => setModalOpen(false);
     const open = () => setModalOpen(true);
+
+    console.log(formData.phoneNo, typeof (formData.phoneNo), phoneNumber, typeof (phoneNumber + ""), phoneNumber + "")
+    console.log("kya sahi bola", "" == "")
+
     // const {firstName,lastName,email}=useAppSelector((state)=>state.user.user);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     //   setBackdrop("blur")
