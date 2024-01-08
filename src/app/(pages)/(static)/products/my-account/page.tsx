@@ -58,7 +58,7 @@ function page() {
     const close = () => setModalOpen(false);
     const open = () => setModalOpen(true);
 
-    console.log(formData.phoneNo, typeof (formData.phoneNo), phoneNumber, typeof (phoneNumber + ""), phoneNumber + "")
+    console.log(formData.phoneNumber, typeof (formData.phoneNumber), phoneNumber, typeof (phoneNumber + ""), phoneNumber + "")
     console.log("kya sahi bola", "" == "")
 
     // const {firstName,lastName,email}=useAppSelector((state)=>state.user.user);

@@ -31,8 +31,7 @@ export const useOrder= (token?: string | null, userId?: string | null, products?
                 dispatch(createOrder_success());
                 setOrderResponse(result);
                 toast.success(result.message);
-                setTimeout(()=>router.push( result.data.payment_details.short_url),3000)
-               
+                setTimeout(()=>router.push( result.data.payment_details.short_url),3000)  
             }
         } catch (error: any) {
             dispatch(createOrder_failure(error.message));

@@ -8,16 +8,20 @@ import {
     getAllCartItems_request, getAllCartItems_success, getAllCartItems_failure,
     emptyCart_request, emptyCart_success, emptyCart_failure,
 } from "../redux/reducers/CartRequestReducer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const useCart = (token?: string | null, productId?: string | null, userId?: string | null, cartItemId?: string | null) => {
+type Params = {
+    token?: string | null;
+    productId?: string | null;
+    userId?: string | null;
+    cartItemId?: string | null;
+}
+
+export const useCart = ({token, productId, userId, cartItemId}: Params) => {
     const dispatch = useAppDispatch();
-    const [getAllCartItemsResponse, setGetAllCartItemsResponse] = useState<any>(null);
-    const [singleResponse, setSingleResponse] = useState<any>(null);
+    const [cartItems, setCartItems] = useState<any>(undefined);
     // handle Add Item To Cart
     const handleAddItemToCart = async (e: any) => {
-        dispatch(addItemToCart_request());
-
         try {
             let endpoint = '/api/v1/cart-item';
 
@@ -34,8 +38,6 @@ export const useCart = (token?: string | null, productId?: string | null, userId
                     toast.warn(result.message);
                 } else {
                     const products=[];
-                    // if(localStorage.getItem("cartItem"))products.push([...JSON.parse(localStorage.getItem("cartItem")as string)?.productId]);
-                    //   localStorage.setItem("cartItem",JSON.stringify({userId:userId,productIds:[...products,productId]}))
                     toast.success(result.message);
                 }
             }
@@ -48,31 +50,40 @@ export const useCart = (token?: string | null, productId?: string | null, userId
             }
         }
     };
+
     // handle Get All Item
     const handleGetAllItem = async () => {
-        dispatch(getAllCartItems_request());
+        dispatch(addItemToCart_request());
 
         try {
             let endpoint = `/api/v1/cart-item/${userId}`;
             const { getCall } = useAxios(endpoint, null, token);
-            const result = await getCall();
-
-            if (result.status === "success") {
-                dispatch(getAllCartItems_success());
-                localStorage.setItem("cartItem",JSON.stringify(result.data))
-                setGetAllCartItemsResponse(result.data);
+            const res = await getCall();
+            
+            if(!res){
+                return console.log("Undefined at line 65");
             }
+            
+            if (res?.status === "success") {
+                dispatch(addItemToCart_success());
+                setCartItems(res.data);
+                console.log(cartItems)
+                return cartItems;
+            }    
         } catch (error: any) {
-            dispatch(getAllCartItems_failure(error.message));
+            dispatch(addItemToCart_failure(error.message));
 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
-                dispatch(getAllCartItems_failure(error.response?.data.message));
+                dispatch(addItemToCart_failure(error.response?.data.message));
             }
+
+            toast.error(error.message);
         }
     };
     // handle remove Item
-    const HandleRemoveItemFromCart = async () => {
+    const HandleRemoveItemFromCart = async (e: any, cartItemId: string) => {
+        e.preventDefault();
         if(!cartItemId) return;
         dispatch(removeItemFromCart_request());
         try {
@@ -98,7 +109,7 @@ export const useCart = (token?: string | null, productId?: string | null, userId
     const HandleEmptyCart = async (e: any) => {
         dispatch(emptyCart_request());
         try {
-            let endpoint = `/api/v1/cart-item/${userId}`;
+            let endpoint = `/api/v1/cart-item/empty-cart/${userId}`;
             const { deleteCall } = useAxios(endpoint,null, token);
             const result = await deleteCall();
 
@@ -115,6 +126,6 @@ export const useCart = (token?: string | null, productId?: string | null, userId
         }
     };
 
-    return { getAllCartItemsResponse, handleAddItemToCart, handleGetAllItem, HandleRemoveItemFromCart, HandleEmptyCart };
+    return { handleAddItemToCart, cartItems, handleGetAllItem, HandleRemoveItemFromCart, HandleEmptyCart };
 };
 
