@@ -1,30 +1,29 @@
 'use client'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/hooks/useUser';
 import { ClipLoader } from 'react-spinners';
+import { useAuth } from "@/hooks/useAuth";
+import { useAppSelector } from "@/redux/hooks";
+import ResetPassword from "@/component/reset-password/ResetPassword";
 
 function page() {
+    const { handleGetUser, handleDeleteUser } = useUser(token, _id);
+   
     const router = useRouter();
     if (typeof window !== 'undefined') {
         var { token, _id } = JSON.parse(localStorage.getItem('user') as string);
-        console.log("hi maam kaisi ho", _id, token)
-        //to get user details
-        const { handleGetUser } = useUser(token, _id);
-        handleGetUser();
+
         var { firstName, lastName, email, isEmailValid, isPhoneNumberValid, phoneNumber } = JSON.parse(localStorage.getItem("user") as string);
-        //to delete user
-        var { handleDeleteUser } = useUser(token, _id);
-
     }
-    //to update user fields
-    var { handleUpdateFieldsUser } = useUser(token, _id);
+    useEffect(() => {
+        handleGetUser();
+    }, []);
 
-    const [isPassVisible, setIsPassVisible] = useState({ existPass: false, newPass: false, confirmNewPass: false });
     type formType = {
         firstName: string,
         lastName: string,
@@ -32,9 +31,9 @@ function page() {
         password: string,
         confirmNewPassword: string,
         newPassword: string,
-        phoneNo: string | null
+        phoneNumber: string | null
     }
-    const [formData, setFormData] = useState<formType>({ firstName: firstName, lastName: lastName, email: email, password: "", confirmNewPassword: "", newPassword: "", phoneNo: phoneNumber });
+    const [formData, setFormData] = useState<formType>({ firstName: firstName, lastName: lastName, email: email, password: "", confirmNewPassword: "", newPassword: "", phoneNumber: phoneNumber });
     const [modalOpen, setModalOpen] = useState<any>(false);
     type loading = {
         updateField: boolean,
@@ -42,12 +41,22 @@ function page() {
         updatePass: boolean
     }
     const [isLoading] = useState<loading>({ updateField: false, updateEmail: false, updatePass: false });
+    //  loading states
+    const  isUpdateUserLoading:boolean = useAppSelector((state:any) => state.userRequest.updateUser.loading);
+    const  isUpdatePhoneNumberLoading:boolean = useAppSelector((state:any) => state.userRequest.updatePhoneNumber.loading);
+    const  isVerifyLoading:boolean = useAppSelector((state:any) => state.userRequest.sendVerifyEmail.loading);
+    const  isDeleteUserLoading:boolean = useAppSelector((state:any) => state.userRequest.deleteUser.loading);
+
+    // update field
+    var { handleUpdateFieldsUser, updatedResponse } = useUser(token, _id, formData.firstName, formData.lastName);
+    console.log("updatedResponse", updatedResponse);
+    
+    // verify email
+     const { handleSendVerifyEmail } = useAuth(formData.email);
+     
+    // delete open and close logic
     const close = () => setModalOpen(false);
     const open = () => setModalOpen(true);
-
-    console.log(formData.phoneNo, typeof (formData.phoneNo), phoneNumber, typeof (phoneNumber + ""), phoneNumber + "")
-    console.log("kya sahi bola", "" == "")
-
     // const {firstName,lastName,email}=useAppSelector((state)=>state.user.user);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     //   setBackdrop("blur")
@@ -77,22 +86,13 @@ function page() {
                             }} required />
                         <label className={`${styles.nameLable}${styles.lables}`}>Last Name</label>
                     </div>
-
-                    {/* <button className={styles.submitButton}
-                        onClick={handleUpdateFieldsUser}
-                        style={!((firstName === formData.firstName) && (lastName === formData.lastName)) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
-                        update fields
-                        <div style={!isLoading.updateField ? { display: "none" } : { display: "flex", alignItems: "center" }}>
-                            <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-                        </div>
-                    </button> */}
                     <button className={styles.submitButton} onClick={handleUpdateFieldsUser}
-                     style={!isLoading.updateField ?
-                     !((firstName === formData.firstName) && (lastName === formData.lastName)) ?
-                      { background: "black",pointerEvents:"all" } : 
-                      { background: "gray", pointerEvents: "none" } : 
-                      { pointerEvents: "none" }}>
-                        {!isLoading.updateField ? "update fields" :
+
+                        style={
+                            !((firstName === formData.firstName) && (lastName === formData.lastName)) ?
+                                { background: "black", pointerEvents: "all" } :
+                                { background: "gray", pointerEvents: "none" } }>
+                        {!isUpdateUserLoading||((firstName === formData.firstName) && (lastName === formData.lastName)) ? "update fields" :
                             <div >
                                 <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
                             </div>}
@@ -104,18 +104,20 @@ function page() {
                     <h2>change Phone number</h2>
                     <div className={styles.email}>
                         <input className={styles.inputField} type="number" name='phone' id='phone'
-                            value={formData.phoneNo as string}
+                            value={formData.phoneNumber as string}
                             onChange={(e) => {
-                                setFormData({ ...formData, phoneNo: e.target.value })
+                                setFormData({ ...formData, phoneNumber: e.target.value })
                             }} required />
                         <label className={`${styles.emailLable}${styles.lables}`}>Phone Number</label>
                     </div>
                     <button className={styles.submitButton}
-                        onClick={() => router.push("/shop/delete-account")} style={(!(isPhoneNumberValid === true) || (formData.phoneNo != phoneNumber)) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
-                        {(formData.phoneNo === phoneNumber) && (phoneNumber !== null) ? "verify Phone Number" : "Update Phone Number"}
-                        <div style={!isLoading.updateEmail ? { display: "none" } : { display: "flex", alignItems: "center" }}>
+                        onClick={(e) =>{ handleUpdateFieldsUser(e, null, formData.phoneNumber)}} style={(!(isPhoneNumberValid === true) || (formData.phoneNumber !== phoneNumber)) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
+                      { isUpdateUserLoading&& (formData.phoneNumber !== phoneNumber||formData.phoneNumber==="")? 
+                        <div style={ { display: "flex", alignItems: "center" }}>
                             <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-                        </div>
+                        </div>:
+                        (formData.phoneNumber === phoneNumber) && (formData.phoneNumber !== null) ? "verify Phone Number" : "Update Phone Number"
+                        }
                     </button>
                 </div>
                 {/* change email */}
@@ -130,52 +132,27 @@ function page() {
                         <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
                     </div>
                     <button className={styles.submitButton}
-                        onClick={() => router.push("/shop/delete-account")} style={!((email === formData.email) && (!(isEmailValid == false))) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
-                        {(email === formData.email) ? "verify Email" : "Update Email"}
-                        <div style={!isLoading.updateEmail ? { display: "none" } : { display: "flex", alignItems: "center" }}>
+                        onClick={(e) =>{
+                            (email === formData.email) ?
+                            handleSendVerifyEmail(e):
+                            handleUpdateFieldsUser(e,formData.email);
+                        }
+                        } 
+                        style={!((email === formData.email) && ((isEmailValid == true))) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
+                     {  isVerifyLoading||((email !== formData.email) && isUpdateUserLoading)? 
+                        <div style={{ display: "flex", alignItems: "center" }}>
                             <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-                        </div>
+                        </div>:
+                         (email === formData.email) ?
+                         "verify Email" :
+                         "Update Email"
+                        }
                     </button>
                 </div>
 
                 {/* change password */}
-
                 <div className={styles.resetPassword}>
-                    <h2>change password</h2>
-                    <div className={styles.password}>
-                        <input className={styles.inputField} type={isPassVisible.existPass ? "text" : "password"} name='password' id='ExistPassword'
-                            value={formData.password}
-                            onChange={(e) => {
-                                setFormData({ ...formData, password: e.target.value })
-                            }} required />
-                        <label className={`${styles.passwordLable}${styles.lables}`}>Exisiting password</label>
-                        <div className={styles.visibility} onClick={() => setIsPassVisible({ existPass: !isPassVisible.existPass, newPass: false, confirmNewPass: false })}>{isPassVisible.existPass ? <VisibilityOutlinedIcon className={styles.VisibleIcon} /> : <VisibilityOffOutlinedIcon className={styles.VisibleIcon} />}</div>
-                    </div>
-                    <div className={styles.password}>
-                        <input className={styles.inputField} type={isPassVisible.newPass ? "text" : "password"} name='password' id='newPassword'
-                            value={formData.newPassword}
-                            onChange={(e) => {
-                                setFormData({ ...formData, newPassword: e.target.value })
-                            }} required />
-                        <label className={`${styles.passwordLable}${styles.lables}`}>New password</label>
-                        <div className={styles.visibility} onClick={() => setIsPassVisible({ existPass: false, newPass: !isPassVisible.newPass, confirmNewPass: false })}>{isPassVisible.newPass ? <VisibilityOutlinedIcon className={styles.VisibleIcon} /> : <VisibilityOffOutlinedIcon className={styles.VisibleIcon} />}</div>
-                    </div>
-                    <div className={styles.password}>
-                        <input className={styles.inputField} type={isPassVisible.confirmNewPass ? "text" : "password"} name='password' id='confirmNewPassword'
-                            value={formData.confirmNewPassword}
-                            onChange={(e) => {
-                                setFormData({ ...formData, confirmNewPassword: e.target.value })
-                            }} required />
-                        <label className={`${styles.passwordLable}${styles.lables}`}>Confirm new password</label>
-                        <div className={styles.visibility} onClick={() => setIsPassVisible({ existPass: false, newPass: false, confirmNewPass: !isPassVisible.confirmNewPass })}>{isPassVisible.confirmNewPass ? <VisibilityOutlinedIcon className={styles.VisibleIcon} /> : <VisibilityOffOutlinedIcon className={styles.VisibleIcon} />}</div>
-                    </div>
-                    <button className={styles.submitButton}
-                        onClick={() => router.push("/shop/delete-account")}
-                    >Change Password
-                        <div style={!isLoading.updatePass ? { display: "none" } : { display: "flex", alignItems: "center" }}>
-                            <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-                        </div>
-                    </button>
+                <ResetPassword token={token!} _id={_id!} />
                 </div>
 
                 {/* delete account*/}

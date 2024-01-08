@@ -3,14 +3,17 @@ import { useAxios } from "./useAxios"
 import axios from 'axios'
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../redux/hooks";
-import { deleteUser_failure, deleteUser_request, deleteUser_success, getUser_failure, getUser_request, getUser_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success } from "../redux/reducers/userRequestReducer";
+import { deleteUser_failure, deleteUser_request, deleteUser_success, getUser_failure, getUser_request, getUser_success, resetPassword_failure, resetPassword_request, resetPassword_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success } from "../redux/reducers/userRequestReducer";
 import { update_user_data } from "../redux/reducers/userReducer";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-export const useUser = (token?: string | null, _id?: string | null,firstName?:string, lastName?:string) => {
+export const useUser = (token?: string | null, _id?: string | null, firstName?: string|null , lastName?: string|null ,email?: string|null ,phoneNumber?: string|null) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const [updatedResponse,setUpdatedResponse]=useState<any>(null);
+    // handle Get User
     const handleGetUser = async () => {
+        if(!_id) return;
         dispatch(getUser_request());
         // if(!token) return;
         try {
@@ -31,13 +34,14 @@ export const useUser = (token?: string | null, _id?: string | null,firstName?:st
             }
         }
     }
+    // handle LogOut User
     const handleLogOutUser = async (e: any) => {
         e.preventDefault();
         dispatch(signoutUser_request());
         const user = JSON.parse(localStorage.getItem("user") as string);
         if (user) {
-            dispatch(signoutUser_success());
-            const user = {
+            // dispatch(signoutUser_success());
+            const userData = {
                 _id: null,
                 firstName: null,
                 lastName: null,
@@ -54,14 +58,15 @@ export const useUser = (token?: string | null, _id?: string | null,firstName?:st
                 verifyTokenEmailExpire: null,
                 token: null,
             }
-            dispatch(update_user_data(user));
+            dispatch(update_user_data(userData));
             localStorage.removeItem("user");
             return function success() {
                 toast.success("loging out");
-                setTimeout(() => router.push('/'), 3000)
+                setTimeout(() => router.push('/shop'), 3000)
             }()
         }
     }
+    // handle Delete User
     const handleDeleteUser = async (e: any) => {
         e.preventDefault();
         dispatch(deleteUser_request());
@@ -88,53 +93,54 @@ export const useUser = (token?: string | null, _id?: string | null,firstName?:st
             }
         }
     }
-    // pending
+    // handle Verify EMail User
     const handleVerifyMailUser = async () => {
+        const data: any = JSON.parse(localStorage.getItem("user") as string);
+        if (data.isEmailValid) {
+            console.log("email is already valid");
+            return;
+        }
         dispatch(verifyEmail_request());
-        // const { isEmailValid } = JSON.parse(localStorage.getItem('user') as string);
-        // if (isEmailValid) return;
         try {
-            // http://localhost:3000/verify-email?token=eyJhbGciOiJIUzI1NiJ9.eWFzaGd1cHRhMW1vbGVAZ21haWwuY29t.-Z3lxVIYiqxad9AbO0s-WzlaWP5phWXTbG87d32ARJM&id=65969fba8225f67c4f7be977
-            console.log("function chal gaya")
-            const { postCall } = useAxios(`/api/v1/user/verify-email`, { token, _id });
-            const response = await postCall();
-            console.log("response",response);
-            if (response.status === "success") {
+
+            const endpoint = `/api/v1/user/verify-email`;
+            const { postCall } = useAxios(endpoint, { token: token, _id: _id });
+            const result = await postCall();
+            console.log('response', result);
+
+
+            if (result.status === "success") {
                 dispatch(verifyEmail_success());
-                const data: any = JSON.parse(localStorage.getItem("user") as string);
-                console.log("success toh hogya")
-                localStorage.setItem('user', JSON.stringify({ ...data, ...response.data.user }));
-                dispatch(update_user_data(response.data.user));
-                if (response.data.user.isEmailValid) {
-                    toast.success(response.message && response.message);
-                    console.log("sab badiya si")
-                    setTimeout(() => { router.push("/") }, 2000);
-                } else {
-                    toast.success(response.message && response.message);
-                    console.log("not valid")
-                }
 
-            } else {
-                toast.error(response.message && response.message);
-
+                console.log("success toh hogya", result)
+                localStorage.setItem('user', JSON.stringify({ ...data, isEmailValid: true }));
+                dispatch(update_user_data({ ...data, isEmailValid: true }));
+                toast.success(result.message && result.message);
+                console.log("sab badiya si")
+                // setResponse(result);
+                setTimeout(() => { router.push("/shop") }, 2000);
                 return;
             }
         } catch (error: any) {
             dispatch(verifyEmail_failure(error.message));
             if (axios.isAxiosError(error)) {
+                console.log("error aaya aya2")
                 toast.error(error.response?.data.message);
                 dispatch(verifyEmail_failure(error.response?.data.message));
+                return;
             }
         }
     }
-    const handleUpdateFieldsUser = async (e: any) => {
+    // pending
+    // handle Update Fields User
+    const handleUpdateFieldsUser = async (e:any,emailId?:string|null, phoneNo?:string|null) => {
         e.preventDefault();
-        const user=JSON.parse(localStorage.getItem("user") as string);
+        if(!firstName && !lastName && !emailId&& !phoneNo) return;
+        const user = JSON.parse(localStorage.getItem("user") as string);
         dispatch(updateUser_request());
-        // if(!token) return;
         try {
             const { putCall } = useAxios(`/api/v1/user/${_id}`, {
-          ...user,firstName:firstName,lastName:lastName
+                ...user, firstName: firstName, lastName: lastName, email:emailId, phoneNumber:phoneNo
             }, token);
 
             const response = await putCall();
@@ -142,14 +148,14 @@ export const useUser = (token?: string | null, _id?: string | null,firstName?:st
             if (response.status === "success") {
                 dispatch(updateUser_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
-                localStorage.setItem('user', JSON.stringify({ ...data, ...response.data.user }));
-                dispatch(update_user_data(response.data.user));
+                localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
+                console.log("dat aya", response.data)
+                dispatch(update_user_data(response.data));
                 toast.success(response.message && response.message);
+                setUpdatedResponse(response);
                 return;
-            } else {
-                toast.error(response.message && response.message);
-                return;
-            }
+            } 
+            
         } catch (error: any) {
             dispatch(updateUser_failure(error.message));
             if (axios.isAxiosError(error)) {
@@ -159,6 +165,40 @@ export const useUser = (token?: string | null, _id?: string | null,firstName?:st
         }
 
     }
+    // handle Update Fields User
+    const handleResetPasswordUser = async (e:any, newPassword?:string|null, confirmPassword?:string|null) => {
+        e.preventDefault();
+        // if(!firstName && !lastName && !emailId&& !phoneNo) return;
+        const user = JSON.parse(localStorage.getItem("user") as string);
+        dispatch(resetPassword_request());
+        try {
+            const { putCall } = useAxios(`/api/v1/user/reset-password/${token}`, {
+                ...user, newPassword: newPassword, confirmNewPassword: confirmPassword, _id:_id
+            });
+
+            const response = await putCall();
+
+            if (response.status === "success") {
+                dispatch(resetPassword_success());
+                const data: any = JSON.parse(localStorage.getItem("user") as string);
+                // localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
+                console.log("dat aya", response)
+                dispatch(update_user_data(response.data));
+                toast.success(response.message && response.message);
+                // setUpdatedResponse(response);
+                return;
+            } 
+            
+        } catch (error: any) {
+            dispatch(resetPassword_failure(error.message));
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+                dispatch(resetPassword_failure(error.response?.data.message));
+            }
+        }
+
+    }
+    // handle Update Phone Number User
     const handleUpdatePhoneNumberUser = async (e: any) => {
         e.preventDefault();
         dispatch(updatePhoneNumber_request());
@@ -185,5 +225,5 @@ export const useUser = (token?: string | null, _id?: string | null,firstName?:st
         }
     }
 
-    return { handleGetUser, handleDeleteUser, handleLogOutUser, handleUpdateFieldsUser, handleUpdatePhoneNumberUser, handleVerifyMailUser }
+    return { handleGetUser, handleDeleteUser, handleLogOutUser, handleResetPasswordUser, handleUpdateFieldsUser,updatedResponse, handleUpdatePhoneNumberUser, handleVerifyMailUser }
 } 

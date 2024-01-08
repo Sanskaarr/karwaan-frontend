@@ -11,7 +11,6 @@ const VerifyMail = () => {
   const router=useRouter()
   if(typeof(window)!=="undefined"){
     var {email,isEmailValid}=JSON.parse(localStorage.getItem("user") as string);
-      console.log("isEmailValid",isEmailValid);
       if(isEmailValid)router.push('/');
   }
   const [formData] = useState({ email: email });

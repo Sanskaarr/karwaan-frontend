@@ -1,231 +1,33 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './style.module.css'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useProduct } from '@/hooks/useProduct';
+import { useRouter } from 'next/navigation';
 
 const shop = () => {
+    const [filter, setFilter] = useState<string>("");
+    const filterOptions = ['landscape', 'cityscape', 'dark', 'people', 'uncategorized'];
+    // const filterOptions = ["Landscapes", "Cityscapes", "People", "Black and white", "Uncategorized"];
+    const { handleGetAllProduct, response } = useProduct('image',filter);
+
     useEffect(() => {
+        // Call the handleGetAllProduct function when the component mounts or when dependencies change
         AOS.init({
-             duration: 800,
-             once: false,
-           })
-     }, [])
-    const tempData = [
-        {
-            imgName: "mountain",
-            categories: "dark",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "dark",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-        },
-    ]
+            duration: 800,
+            once: false,
+        })
+        handleGetAllProduct();
+    }, [filter]);
+
+  
     const [isOptionVisible, setIsOptionVisible] = useState({ filter: false, sortedBy: false })
-    const scrollRef=useRef(null);
+    const scrollRef = useRef(null);
+   
+    const router=useRouter()              
+    console.log(response)
     return (
         <div className={styles.shop} ref={scrollRef}>
             <div className={styles.shopBanner}><p>Karwaan Prints</p> </div>
@@ -237,11 +39,13 @@ const shop = () => {
                         data-aos="zoom-in-right">Filter By:-
                         <ul className={styles.filterByOptions}
                             style={isOptionVisible.filter ? { display: "block" } : { display: "none" }}>
-                            <li className={styles.filterByOption}>Landscapes</li>
-                            <li className={styles.filterByOption}>Cityscapes</li>
-                            <li className={styles.filterByOption}>People</li>
-                            <li className={styles.filterByOption}>Black and white</li>
-                            <li className={styles.filterByOption}>Uncategorized</li>
+                            {
+                                filterOptions.map((data, index) => {
+                                    return <li key={index} className={styles.filterByOption}
+                                        onClick={(e: any) => {  setFilter(data) }}
+                                    >{data}</li>
+                                })
+                            }
                         </ul>
 
                     </div>
@@ -262,29 +66,22 @@ const shop = () => {
                 </div>
 
             </div>
-            <div  className={styles.shopProducts}>
-                {tempData.map((data, index) => {
+            <div className={styles.shopProducts}>
+                {response&&response.map((data:any, index:number) => {
                     return (
-                        // <div data-aos="fade-up" data-aos-anchor-placement="center-bottom" key={index} className={styles.oneProduct}>
                         <>
-                            <div data-aos="zoom-in-up" key={index} className={styles.oneProduct}>
-                            <img src={data.imgSrc} alt={data.imgName} className={styles.image} />
-                            <div className={styles.imagesCategory}>{data.categories}</div>
-                            <div className={styles.imagesName}>{data.imgName}</div>
+                            <div data-aos="zoom-in-up" key={index} className={styles.oneProduct} onClick={()=>router.push(`/products/${data._id}`)}>
+                                <img src={"data:image/jpeg;base64," + data.media.data} alt={data.name} className={styles.image} />
+                                <div className={styles.imagesCategory}>{data.tags.join(", ")}</div>
+                                <div className={styles.imagesName}>{data.name}</div>
+                            </div>
 
-                        </div>
-                            {/* <motion.div initial={{ opacity: 0, y:"100%" }}whileInView={{ opacity: 1,y:"0%"}} viewport={{ root: scrollRef  }} key={index} className={styles.oneProduct}>
-                            <img src={data.imgSrc} alt={data.imgName} className={styles.image} />
-                            <div className={styles.imagesCategory}>{data.categories}</div>
-                            <div className={styles.imagesName}>{data.imgName}</div>
-
-                        </motion.div> */}
                         </>
-                        )
+                    )
                 })
 
                 }
-        </div>
+            </div>
 
 
         </div >

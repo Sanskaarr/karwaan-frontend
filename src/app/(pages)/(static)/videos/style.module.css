@@ -1,12 +1,44 @@
+.videosGallary {
+  scroll-behavior: smooth;
+  transition: scroll 1s ease-in-out; /* Adjust the transition duration and easing as needed */
+}
+/* 
+.videosScrollBarCenter {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.videosScrollBarLeft,
+.videosScrollBarRightSide {
+  cursor: pointer;
+} */
+
+/* Add any additional styles based on your design requirements */
+
 .videos {
   margin-top: 67px;
   background: white;
+  min-height: 80vh;
 }
 .videosSection {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row-reverse;
+  
+}
+.ClipLoader{
+  position: absolute;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%,-50%);
 }
 .videosSectionHome {
   padding-bottom: 20px;
@@ -40,6 +72,8 @@
   direction: rtl;
   transition: all 0.5s ease-in-out;
   position: relative;
+  scroll-behavior:calc();
+
 }
 .videosGallary::-webkit-scrollbar {
   display: none;

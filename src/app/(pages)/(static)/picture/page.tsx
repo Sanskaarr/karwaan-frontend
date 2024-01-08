@@ -4,8 +4,11 @@ import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useProduct } from '@/hooks/useProduct';
+import { useAppSelector } from '@/redux/hooks';
+import { ClipLoader } from 'react-spinners';
 // temp
 const tempData = [
   {
@@ -220,10 +223,20 @@ const tempData = [
   },
 ]
 export default function Picture() {
+  const [filter, setFilter] = useState<string>("all");
+  const filterOptions = ["all", 'landscape', 'cityscape', 'dark', 'people', 'uncategorized'];
+  // const filterOptions = ["Landscapes", "Cityscapes", "People", "Black and white", "Uncategorized"];
+  const { handleGetAllProduct, response } = useProduct('image', filter);
+
+  useEffect(() => {
+    // Call the handleGetAllProduct function when the component mounts or when dependencies change
+    handleGetAllProduct();
+  }, []);
+
 
   const [isMenuHide, setIsMenuHide] = useState<boolean>(false);
   const [isFilterMenu, setIsFilterMenu] = useState<boolean>(false);
-  const PictureMenuOption = ["all", "landscape", "cityscape", "dark", "people", "uncategorized"]
+  // const filterOptions = ["all", "landscape", "cityscape", "dark", "people", "uncategorized"]
   const router = useRouter();
   return (
     <div className={styles.Picture}>
@@ -231,7 +244,7 @@ export default function Picture() {
         <div className={styles.PictureSectionHome}>
           <span onClick={() => router.push("/")}>Home</span>
         </div>
-        <div className={styles.PictureSectionFilter}>
+        {!isMenuHide && <div className={styles.PictureSectionFilter}>
           <h3 className={styles.desktopViewFilter}>filter:</h3>
           <h3 className={styles.mobileViewFilter} onClick={() => setIsFilterMenu(!isFilterMenu)}>filter by:{"selected option"}</h3>
           <ul style={
@@ -252,24 +265,31 @@ export default function Picture() {
               }}
           >
             {
-              PictureMenuOption.map((option, index) => {
+              filterOptions.map((option, index) => {
                 return (
-                  <li key={index}>{option}</li>
+                  <li key={index} style={option === filter ? { textDecoration: "line-through" } : { textDecoration: "none" }} onClick={(e: any) => { setFilter(option) }}>{option}</li>
                 )
               })
             }
           </ul>
-        </div>
+        </div>}
         <div className={styles.PictureGallary}>
           {
-            tempData.filter((filterData) => filterData.categories === "all").map((data, index) => {
+            response ?
+           response.map((data: any, index: number) => {
+              if (data.media.type !== "image") return;
               return (
                 <div className={styles.imageSection}>
-                  <img className={styles.gallaryImage} src={data.imgSrc} alt={"image" + index} />
-                  <div className={styles.gallaryImageText}>{data.imgName}</div>
+                  <img className={styles.gallaryImage} src={"data:image/jpeg;base64," + data.media.data} alt={"image" + index} />
+                  <div className={styles.gallaryImageText}>{data.name}</div>
                 </div>
               )
-            })
+            }) :
+            <div className={styles.ClipLoader}>
+              <ClipLoader color="blue" size={60} speedMultiplier={0.5}  />
+               <div>loading</div>
+            </div>
+
           }
         </div>
       </div>

@@ -1,50 +1,53 @@
 'use client'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
+import { useParams, useRouter } from 'next/navigation';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { useProduct } from '@/hooks/useProduct';
+import { useCart } from '@/hooks/useCart';
 const shop = () => {
-    const tempData =[ 
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg",
-            imgInfo:"The painting captures a breathtaking scene from a winter mountain campaign, showcasing the serene beauty of a snowy landscape. In the foreground, a sturdy military tent stands as a symbol of human resilience amidst the harsh elements. The painting not only celebrates the beauty of nature but also pays tribute to the resilience and determination of those who venture into such unforgiving terrain in pursuit of their goals. It captures the fragile yet enduring human presence in the midst of a formidable natural environment, reminding viewers of the indomitable spirit of exploration and conquest.",
-            imgPrice:1800
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg",
-            imgInfo:"The painting captures a breathtaking scene from a winter mountain campaign, showcasing the serene beauty of a snowy landscape. In the foreground, a sturdy military tent stands as a symbol of human resilience amidst the harsh elements. The painting not only celebrates the beauty of nature but also pays tribute to the resilience and determination of those who venture into such unforgiving terrain in pursuit of their goals. It captures the fragile yet enduring human presence in the midst of a formidable natural environment, reminding viewers of the indomitable spirit of exploration and conquest.",
-            imgPrice:1800
-        },
-        {
-            imgName: "mountain",
-            categories: "all",
-            imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg",
-            imgInfo:"The painting captures a breathtaking scene from a winter mountain campaign, showcasing the serene beauty of a snowy landscape. In the foreground, a sturdy military tent stands as a symbol of human resilience amidst the harsh elements. The painting not only celebrates the beauty of nature but also pays tribute to the resilience and determination of those who venture into such unforgiving terrain in pursuit of their goals. It captures the fragile yet enduring human presence in the midst of a formidable natural environment, reminding viewers of the indomitable spirit of exploration and conquest.",
-            imgPrice:1800
-        },
-    ]
-    
-    return (
+    const [isItemInCart,setIsItemInCart]=useState<boolean>(false);
+    const {ImageId} = useParams<{ ImageId: string }>()
+    const { handleGetProduct, handleGetAllProduct, response ,singleResponse} = useProduct(null,null,null,ImageId);
+    if(typeof(window)!=='undefined'){
+        const {token,_id}=JSON.parse(localStorage.getItem("user") as string);
+        var { handleAddItemToCart} = useCart(token,ImageId,_id);
+    }
+
+    useEffect(() => {
+        // Call the handleGetAllProduct function when the component mounts or when dependencies change
+       
+        handleGetProduct();
+        handleGetAllProduct();
+
+    }, [ImageId]);
+ 
+    const router=useRouter()              
+    console.log(singleResponse&&singleResponse)
+    console.log(response&&response)
+ 
+    // const currrentIndex=response&&response.findIndex((obj:any) => {obj._id === singleResponse._id&&obj.media.type === singleResponse.media.type._id});
+    // const previouProductIndex=response||currrentIndex&&response[currrentIndex-1]._id;
+    // const nextProductIndex=response||currrentIndex&&response[currrentIndex+1]._id;
+    return ( 
         <div className={styles.singleProductPage}>
         <div className={styles.singleProductPageSlider}>
-        <div className={styles.singleProductPageSliderButton}><KeyboardArrowLeftIcon  style={{backgroundColor:"white"}} className={styles.icons}/></div>
-        <div className={styles.singleProductPageSliderButton}><KeyboardArrowRightIcon className={styles.icons}/></div>
+        <div className={styles.singleProductPageSliderButton} onClick={()=>router.push(`/products/${response[response.findIndex((obj:any) => {obj._id === singleResponse._id||obj.media.type === singleResponse.media.type})-1]._id}`)}><KeyboardArrowLeftIcon  style={{backgroundColor:"white",color:"black"}} className={styles.icons}/></div>
+        <div className={styles.singleProductPageSliderButton} onClick={()=>router.push(`/products/${response[response.findIndex((obj:any) => {obj._id === singleResponse._id||obj.media.type === singleResponse.media.type})+1]._id}`)}><KeyboardArrowRightIcon style={{backgroundColor:"white",color:"black"}} className={styles.icons}/></div>
     
         </div>
             
         <div className={styles.singleProductPageUpperSection}>
         <div className={styles.singleProductPageUpperLeftSection}>
-         <img src={tempData[0].imgSrc} alt={tempData[0].imgName} />
+       { singleResponse&& <img src={"data:image/jpeg;base64," + singleResponse.media.data}  alt={singleResponse.name} />}
         </div>
         <div className={styles.singleProductPageUpperRightSection}>
-         <h3>{tempData[0].imgName}</h3>
-         <p>{tempData[0].categories}</p>
-         <h3>{tempData[0].imgPrice}</h3>
-         <p>{tempData[0].imgInfo}</p>
+       {singleResponse&&  <h3 style={{color:"black"}}>{singleResponse.name}</h3>}
+      {singleResponse&&   <p>{singleResponse.tags.join(", ")}</p>}
+         {singleResponse&&<h3 style={{color:"black"}}>{singleResponse.price+" "}<CurrencyRupeeIcon/></h3>}
+        {singleResponse&& <p>{singleResponse.description}</p>}
          <p>SIZE</p>
          <select>
             <option value="8">8" X 12"</option>
@@ -54,7 +57,7 @@ const shop = () => {
             <option value="24">24" X 36"</option>
          </select>
          <div className={styles.buttons}>
-         <button className={styles.button}>Add To Cart</button>
+         <button className={styles.button} onClick={(e:any)=>{handleAddItemToCart(e); setIsItemInCart(true)}}>Add To Cart</button>
          <button className={styles.button}>Buy</button>
 
          </div>
@@ -63,12 +66,15 @@ const shop = () => {
         </div>
         <p className={styles.shopProductsHeading}>New Modern Design Collection</p>
         <div className={styles.shopProducts}>
-                {tempData.map((data, index) => {
+                {response&&response
+                .filter((product:any)=>product._id!==singleResponse._id &&product.media.type===singleResponse.media.type)
+                .slice(0,3)
+                .map((data:any, index:number) => {
                     return (
-                        <div key={index} className={styles.oneProduct}>
-                            <img src={data.imgSrc} alt={data.imgName} className={styles.image} />
-                            <div className={styles.imagesCategory}>{data.categories}</div>
-                            <div className={styles.imagesName}>{data.imgName}</div>
+                        <div key={index} className={styles.oneProduct} onClick={()=>router.push(`/products/${data._id}`)}>
+                            <img src={"data:image/jpeg;base64," + data.media.data} alt={data.name} className={styles.image} />
+                            <div className={styles.imagesCategory}>{data.tags.join(", ")}</div>
+                            <div className={styles.imagesName}>{data.name}</div>
 
                         </div>)
                 })

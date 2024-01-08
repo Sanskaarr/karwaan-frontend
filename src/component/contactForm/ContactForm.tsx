@@ -20,7 +20,6 @@ export default  function ContactForm() {
 //   setMessageToShow(response.message);
 // }
 // }catch(e){
-//   console.log("error",e);
 // }
 //   }
   useEffect(()=>{

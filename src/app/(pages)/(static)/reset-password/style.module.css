@@ -1,0 +1,25 @@
+.resetPassword{
+    padding-top: 67px;
+    background: white;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    color: black;
+    
+}
+.resetPasswordContainer{
+  width: 50%;
+}
+ 
+@media (max-width:450px) {
+
+  .resetPasswordContainer{
+      width: 100%;
+      padding: 0;
+  }
+    
+  .contactForm h1{
+    text-align: center;
+  }
+    
+}

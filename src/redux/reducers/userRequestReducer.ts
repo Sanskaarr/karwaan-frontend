@@ -121,7 +121,7 @@ const initialState = {
     }
 } as InitialState
 
-export const userRequests = createSlice({
+export const userRequests= createSlice({
   name: "USER REQUESTS",
   initialState,
   reducers: {

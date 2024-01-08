@@ -73,7 +73,7 @@
     font-weight: normal;
     white-space:noWrap;
     font-size: 16px;
-
+    text-transform: capitalize;
 }
 .filterByOption:hover,
 .sortedByOption:hover{
@@ -102,6 +102,8 @@
 }
 .image{
     width: 100%;
+    height: 172px;
+
 }
 .image:hover {
     opacity: 0.5;

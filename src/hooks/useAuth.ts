@@ -71,20 +71,16 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
                 password: password
             });
             const response = await postCall();
-            console.log("response",response)
             if(response.status === "success"){
                 dispatch(signin_success({user: response.data.user, token: response.data.token}));
                 dispatch(update_user_data({...response.data.user, token:response.data.token}));
                 localStorage.setItem('user',JSON.stringify({...response.data.user, token:response.data.token}));
                 if(response.data.user.isEmailValid === true){
-            console.log("success 1",response)
-
                    toast.success(response.message&&response.message, {
                     toastId: 'success1',
                 });
                    setTimeout(()=>router.push('/shop'),3000)
                 }else{
-                    console.log("success 2",response)
                     toast.success(response.message&&response.message, {
                         toastId: 'success2',
                     });
@@ -107,10 +103,8 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
         try {
             const {postCall} = useAxios('/api/v1/user/send-verification-email', {email: email})
             const response = await postCall();  
-            console.log("gdgdf",response);
             if(response.status === "success"){
                 dispatch(sendVerifyEmail_success());
-                    console.log("success")
                     return toast.success("Mail has been send. token valid for 15 minitues");
             }
         } catch (error:any) {
