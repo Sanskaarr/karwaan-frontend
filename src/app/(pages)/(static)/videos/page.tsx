@@ -27,7 +27,7 @@ export default function Videos() {
   }, [handleGetAllProduct]);
 
   const handleScroll = (direction: any) => {
-    const scrollAmount = 5000000; // Adjust the scroll amount as needed
+    const scrollAmount = 600; // Adjust the scroll amount as needed
     const container = videosContainerRef.current;
 
     if (container) {
@@ -78,11 +78,13 @@ export default function Videos() {
 
         {/* Scroll Bar */}
         <div className={styles.videosScrollBar}>
-          <div className={styles.videosScrollBarLeft} onMouseEnter={() => handleScroll('left')}>
+          <div className={styles.videosScrollBarLeft} onClick={(e) => handleScroll('left')}>
             <WestIcon className={styles.videosIcons} />
+          <div className={styles.videosScroll}>Scroll</div>
           </div>
-          <div className={styles.videosScrollBarCenter}>{response && response[0]?.name}</div>
-          <div className={styles.videosScrollBarRightSide} onMouseEnter={() => handleScroll('right')}>
+          <div className={styles.videosScrollBarCenter}>{response && response.map(()=>{})}</div>
+          <div className={styles.videosScrollBarRightSide} onClick={(e) => handleScroll('right')}>
+          <div className={styles.videosScroll}>Scroll</div>
             <EastIcon className={styles.videosIcons} />
           </div>
         </div>

@@ -9,16 +9,22 @@ import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
 const shop = () => {
     const [isItemInCart,setIsItemInCart]=useState<boolean>(false);
+
     const {ImageId} = useParams<{ ImageId: string }>()
     const { handleGetProduct, handleGetAllProduct, response ,singleResponse} = useProduct(null,null,null,ImageId);
     if(typeof(window)!=='undefined'){
+      
         const {token,_id}=JSON.parse(localStorage.getItem("user") as string);
-        var { handleAddItemToCart} = useCart(token,ImageId,_id);
+        var { handleAddItemToCart} = useCart({token:token,productId:ImageId,userId:_id});
     }
-
+ useEffect(()=>{
+   let cartItems=JSON.parse( localStorage.getItem("cartItems") as string);
+        if(cartItems){
+          if (cartItems.find((productId:string)=>productId===ImageId))setIsItemInCart(true);
+        }
+ },[isItemInCart])
     useEffect(() => {
         // Call the handleGetAllProduct function when the component mounts or when dependencies change
-       
         handleGetProduct();
         handleGetAllProduct();
 
@@ -33,11 +39,11 @@ const shop = () => {
     // const nextProductIndex=response||currrentIndex&&response[currrentIndex+1]._id;
     return ( 
         <div className={styles.singleProductPage}>
-        <div className={styles.singleProductPageSlider}>
+        {/* <div className={styles.singleProductPageSlider}>
         <div className={styles.singleProductPageSliderButton} onClick={()=>router.push(`/products/${response[response.findIndex((obj:any) => {obj._id === singleResponse._id||obj.media.type === singleResponse.media.type})-1]._id}`)}><KeyboardArrowLeftIcon  style={{backgroundColor:"white",color:"black"}} className={styles.icons}/></div>
         <div className={styles.singleProductPageSliderButton} onClick={()=>router.push(`/products/${response[response.findIndex((obj:any) => {obj._id === singleResponse._id||obj.media.type === singleResponse.media.type})+1]._id}`)}><KeyboardArrowRightIcon style={{backgroundColor:"white",color:"black"}} className={styles.icons}/></div>
     
-        </div>
+        </div> */}
             
         <div className={styles.singleProductPageUpperSection}>
         <div className={styles.singleProductPageUpperLeftSection}>
@@ -57,9 +63,9 @@ const shop = () => {
             <option value="24">24" X 36"</option>
          </select>
          <div className={styles.buttons}>
-         <button className={styles.button} onClick={(e:any)=>{handleAddItemToCart(e); setIsItemInCart(true)}}>Add To Cart</button>
+        {isItemInCart? <button className={styles.button} >Item is Added</button>:
+         <button className={styles.button} onClick={(e:any)=>{handleAddItemToCart(e); setIsItemInCart(true)}}>Add To Cart</button>}
          <button className={styles.button}>Buy</button>
-
          </div>
 
         </div>

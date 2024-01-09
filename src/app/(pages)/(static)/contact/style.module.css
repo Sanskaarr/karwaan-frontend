@@ -6,6 +6,8 @@
     top: 0;
     left: 0;
     display: flex;
+    color: #000;
+   
     
 }
 .contactFirstPartition{
@@ -51,6 +53,7 @@
  @media (max-width:750px) {
     .contact{
         flex-direction: column;
+        padding-top: 67px;
     }
     .contactFirstPartition,
     .contactSecondPartition{

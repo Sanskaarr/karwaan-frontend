@@ -33,6 +33,11 @@ type InitialState = {
         error: any,
         isPasswordReset:boolean,
     },
+    otp: {
+        loading: boolean,
+        error: any,
+        isOtpSend:boolean,
+    },
     getUser: {
         loading: boolean,
         error: any,
@@ -43,6 +48,7 @@ type InitialState = {
         error: any,
         status:boolean,
     },
+  
     updatePhoneNumber: {
         loading: boolean,
         error: any,
@@ -93,6 +99,11 @@ const initialState = {
         loading: false,
         error: null,
         isPasswordReset:false,
+    },
+    otp: {
+        loading: false,
+        error: null,
+        isOtpSend:false,
     },
     getUser: {
         loading: false,
@@ -228,6 +239,22 @@ export const userRequests= createSlice({
             state.resetPassword.error =  action.payload.error;
             state.resetPassword.isPasswordReset =  false;
         },
+    //      otp reducers
+    otp_request: (state) => {
+            state.otp.loading = true;
+            state.otp.error = null;
+            state.otp.isOtpSend = false;
+        },
+        otp_success: (state) => {
+            state.otp.loading = false;
+            state.otp.error = null;
+            state.otp.isOtpSend = true;
+        },
+        otp_failure: (state, action) => {
+            state.otp.loading = false;
+            state.otp.error =  action.payload.error;
+            state.otp.isOtpSend =  false;
+        },
         // getUser
         getUser_request: (state) => {
             state.getUser.loading = true;
@@ -336,6 +363,10 @@ export const {
     resetPassword_request,
     resetPassword_success,
     resetPassword_failure,
+    //otp reducers
+    otp_request,
+    otp_success,
+    otp_failure,
     // getUser
     getUser_request,
     getUser_success,

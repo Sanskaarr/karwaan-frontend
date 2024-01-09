@@ -1,6 +1,19 @@
-import styles from './style.module.css'
+'use client'
 import {clientData} from "@/constants/ClientsData"
-export default  function Client() {
+import React, { useEffect } from 'react'
+import styles from './style.module.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+    export default  function Client() {
+  
+      useEffect(() => {
+        // Call the handleGetAllProduct function when the component mounts or when dependencies change
+           AOS.init({
+                  duration: 800,
+                  once: false,
+              })
+       
+      }, []);
 
   return (
     <div className={styles.clientPage}>
@@ -8,8 +21,8 @@ export default  function Client() {
         <div className={styles.clients}>
           {
             clientData.map((data)=>{
-              return (<div className={styles.oneCard} key={data.id}>
-                <div className={styles.blogCardImg}>
+              return (<div data-aos="fade-up" className={styles.oneCard} key={data.id}>
+                <div  className={styles.blogCardImg}>
               <img className={styles.companyLogo} src={data.imgSrc} alt={"image"+data.id}/>
                 </div>
               <div className={styles.companyName}>{data.name}</div>

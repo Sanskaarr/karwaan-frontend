@@ -17,7 +17,7 @@ type Params = {
     cartItemId?: string | null;
 }
 
-export const useCart = ({token, productId, userId, cartItemId}: Params) => {
+export const useCart = ({ token, productId, userId, cartItemId }: Params) => {
     const dispatch = useAppDispatch();
     const [cartItems, setCartItems] = useState<any>(undefined);
     // handle Add Item To Cart
@@ -33,11 +33,18 @@ export const useCart = ({token, productId, userId, cartItemId}: Params) => {
 
             if (result.status === "success") {
                 dispatch(addItemToCart_success());
-
                 if (result.message === "Item is already in cart") {
                     toast.warn(result.message);
                 } else {
-                    const products=[];
+                    let cartItems = JSON.parse(localStorage.getItem("cartItems") as string);
+                    if (cartItems) {
+                        cartItems.push(productId);
+                        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+                    } else {
+                        let products = [];
+                        products.push(productId);
+                        cartItems = localStorage.setItem("cartItems", JSON.stringify(products));
+                    }
                     toast.success(result.message);
                 }
             }
@@ -59,17 +66,25 @@ export const useCart = ({token, productId, userId, cartItemId}: Params) => {
             let endpoint = `/api/v1/cart-item/${userId}`;
             const { getCall } = useAxios(endpoint, null, token);
             const res = await getCall();
-            
-            if(!res){
+
+            if (!res) {
                 return console.log("Undefined at line 65");
             }
-            
+
             if (res?.status === "success") {
                 dispatch(addItemToCart_success());
+                let cartItems = JSON.parse(localStorage.getItem("cartItems") as string);
+                if (res.data.length) {
+                    let products = res.data.map((product: any) => product.product_details._id);
+                    cartItems = localStorage.setItem("cartItems", JSON.stringify(products));
+                } else {
+                    localStorage.removeItem("cartItems")
+                }
+
                 setCartItems(res.data);
-                console.log(cartItems)
+                console.log("cartItems", res.data.map((product: any) => product.product_details._id))
                 return cartItems;
-            }    
+            }
         } catch (error: any) {
             dispatch(addItemToCart_failure(error.message));
 
@@ -82,9 +97,9 @@ export const useCart = ({token, productId, userId, cartItemId}: Params) => {
         }
     };
     // handle remove Item
-    const HandleRemoveItemFromCart = async (e: any, cartItemId: string) => {
+    const HandleRemoveItemFromCart = async (e: any, cartItemId: string, productId: string | null) => {
         e.preventDefault();
-        if(!cartItemId) return;
+        if (!cartItemId) return;
         dispatch(removeItemFromCart_request());
         try {
             let endpoint = `/api/v1/cart-item/${cartItemId}`;
@@ -94,7 +109,15 @@ export const useCart = ({token, productId, userId, cartItemId}: Params) => {
             const result = await deleteCall();
 
             if (result.status === "success") {
+                console.log("chal bhai", cartItems, result)
                 dispatch(removeItemFromCart_success());
+                const updatedCartItems = cartItems.filter((cartItem: any) => cartItem.product_details._id !== result.data.removedItem.productId);
+                if (updatedCartItems.length) {
+                    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+                } else {
+                    localStorage.removeItem("cartItems");
+                }
+                setCartItems(updatedCartItems);
             }
         } catch (error: any) {
             dispatch(removeItemFromCart_failure(error.message));
@@ -110,11 +133,14 @@ export const useCart = ({token, productId, userId, cartItemId}: Params) => {
         dispatch(emptyCart_request());
         try {
             let endpoint = `/api/v1/cart-item/empty-cart/${userId}`;
-            const { deleteCall } = useAxios(endpoint,null, token);
+            const { deleteCall } = useAxios(endpoint, null, token);
             const result = await deleteCall();
 
             if (result.status === "success") {
                 dispatch(emptyCart_success());
+                localStorage.removeItem("cartItems");
+                setCartItems(cartItems.length===0);
+                
             }
         } catch (error: any) {
             dispatch(emptyCart_failure(error.message));

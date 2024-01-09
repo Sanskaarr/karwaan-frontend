@@ -1,5 +1,5 @@
 .Picture {
-  margin-top: 67px;
+  /* margin-top: 67px; */
   background: white;
 }
 .PictureSection {
@@ -173,7 +173,6 @@
 }
 /* old */
 .Picture {
-  margin-top: 67px;
   background: white;
 }
 .PictureSection {

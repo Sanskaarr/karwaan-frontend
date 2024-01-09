@@ -50,7 +50,7 @@ const shop = () => {
 
                     </div>
 
-                    <div className={styles.shopProductfilter}
+                    {/* <div className={styles.shopProductfilter}
                         onClick={() => setIsOptionVisible({ filter: false, sortedBy: !isOptionVisible.sortedBy })}
                         data-aos="zoom-in-left">Sorted By:-
 
@@ -61,7 +61,8 @@ const shop = () => {
                             <li className={styles.sortedByOption}>Best Selling</li>
                             <li className={styles.sortedByOption}>Price: Low To High</li>
                             <li className={styles.sortedByOption}>Price: High To Low</li>
-                        </ul></div>
+                        </ul>
+                        </div> */}
 
                 </div>
 

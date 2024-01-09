@@ -7,6 +7,8 @@ import 'aos/dist/aos.css';
 import { useProduct } from '@/hooks/useProduct';
 import { useAppSelector } from '@/redux/hooks';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import InstagramWidget from '@/component/InstagramWidget/InstagramWidget';
+import { ClipLoader } from 'react-spinners';
 
 const shop = () => {
     const { handleGetAllProduct, response } = useProduct();
@@ -42,18 +44,21 @@ const shop = () => {
     const [isOptionVisible, setIsOptionVisible] = useState({ filter: false, sortedBy: false })
     const router = useRouter();
     const {scrollYProgress}=useScroll();
-    let y=useTransform(scrollYProgress,[0,1],["0%","20%"]);
+    let y=useTransform(scrollYProgress,[0,1],["0%","50%"]);
     return (
         <div className={styles.shop}>
-            <motion.div style={{y}} className={styles.shopBanner} data-aos="fade-up"><p>Karwaan Prints</p>
-                <button className={styles.shopNow} onClick={() => router.push("/products")}>Shop Now</button></motion.div>
+        <div className={styles.shopBannerContainer}>
+            
+            <div  className={styles.shopBanner} data-aos="fade-up"><p>Karwaan Prints</p>
+                <button className={styles.shopNow} onClick={() => router.push("/products")}>Shop Now</button></div>
             <div className={styles.shopProductSection}>
                 <div className={styles.shopProductOurPrints} data-aos="fade-up">Our Prints</div>
-
+              
 
             </div>
+            </div>
             <div className={styles.shopProducts} >
-                {response&&response.slice(0, 6).map((data:any, index:number) => {
+                {response?response.slice(0, 6).map((data:any, index:number) => {
                     return (
                         <div data-aos="fade-up" key={index} className={styles.oneProduct}  onClick={()=>router.push(`/products/${data._id}`)}>
                             <img src={"data:image/jpeg;base64,"+data.media.data} alt={data.name} className={styles.image} />
@@ -61,12 +66,14 @@ const shop = () => {
                             <div className={styles.imagesName}>{data.name}</div>
 
                         </div>)
-                })
+                }):<div style={{display:"flex",alignItems:"center", justifyContent:"center"}}>
+                <ClipLoader  color="white"  size={15} speedMultiplier={0.5}/>
+               </div>
 
                 }
             </div>
             <div className={styles.BigShopProducts}>
-                {response&&response.slice(0, 2).map((data:any, index:number) => {
+                {response?response.slice(1, 3).map((data:any, index:number) => {
                     const animation = index % 2 === 0 ? "fade-up" : "fade-down";
                     return (
 
@@ -79,11 +86,18 @@ const shop = () => {
                             </div>
                            
                         </div>)
-                })
+                }): <div style={{display:"flex",alignItems:"center", justifyContent:"center"}}>
+                <ClipLoader  color="white" cssOverride={{}}  size={15} speedMultiplier={0.5}/>
+               </div>
 
                 }
             </div>
-
+            <div className={styles.instaPost}>
+            <InstagramWidget />
+        </div>
+            {/* <div className={styles.instaPost}>
+           <iframe className={styles.post} style={{border: "0", width: "100%", height: "200%", objectFit:"contain"}} scrolling="no" src="https://embedsocial.com/api/pro_hashtag/218878fa5b19ed9f8638b94316c7dcb2edf5c752"></iframe>
+        </div> */}
         </div>
     )
 }

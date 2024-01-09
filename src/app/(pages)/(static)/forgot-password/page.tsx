@@ -1,7 +1,13 @@
+'use client'
 import React, { useState } from 'react'
 import styles from './style.module.css'
+import { ClipLoader } from 'react-spinners';
+import { useAppSelector } from '@/redux/hooks';
+import { useUser } from '@/hooks/useUser';
 const forgotPassword = () => {
   const [email,setEmail]=useState<string>("");
+  const  isForgetLoading:boolean = useAppSelector((state:any) => state.userRequest.forgotPassword.loading);
+const {handleForgetPasswordUser}=useUser();
   return (
     <div className={styles.VerifyMail} >
           <form className={styles.contactForm} >
@@ -15,7 +21,11 @@ const forgotPassword = () => {
      required/>
     <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
     </div>
-    <button className={styles.Signin}>Verify Mail</button>
+    <button className={styles.Signin} onClick={(e)=>handleForgetPasswordUser(e,email)}>
+      {isForgetLoading?
+    <div style={ { display: "flex", alignItems: "center", justifyContent:"center" }}>
+                            <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
+                        </div>: "Verify Mail"}</button>
     
 
 

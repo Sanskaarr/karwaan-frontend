@@ -1,8 +1,12 @@
 .shop{
-   padding-top: 67px;
    background: white;
    width: 100vw !important;
    overflow: hidden;
+}
+.shopBannerContainer{
+    width: 100%;
+    overflow-y: hidden;
+    height: 80vh;
 }
 .shopBanner{
     width: 100%;
@@ -31,9 +35,9 @@
 }
 .shopNow:hover,
 .BigImagesNameShopNow:hover{
-    background:#38cee8;
+    background:#363636;
     cursor: pointer;
-
+color: white;
 }
 .shopBanner p:hover{
     cursor: pointer;
@@ -132,6 +136,8 @@
 .image{
     width: 100%;
     height: 172px;
+    object-fit: cover;
+
 }
 .oneProduct .image:hover {
     opacity: 0.5;
@@ -171,7 +177,23 @@
     font-size: 15px;
     font-weight: bold;
 }
-@media (max-width:657px) {
+/* .instaPost{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    max-height: 550px;
+
+}
+.post{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+
+} */
+.post #es-widget-header-container-template{
+    display: none;
+  }
+@media (max-width:775px) {
    .shopProducts{
     display: flex;
     justify-content: center;

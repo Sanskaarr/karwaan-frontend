@@ -6,9 +6,9 @@ import styles from './style.module.css'
 function page (){
 const {orderId} = useParams<{ orderId: string }>()
 console.log("orderID",orderId);
-const {updateOrderPaymentStatus, checkoutResponse}=useOrder(null, null, null, orderId);
+const {updateOrderPaymentStatus}=useOrder(null, null, null, orderId);
 useEffect(()=>{updateOrderPaymentStatus()},[orderId]);
-console.log( 'checkoutResponse' ,checkoutResponse&&checkoutResponse);
+// console.log( 'checkoutResponse' ,checkoutResponse&&checkoutResponse);
   return (
 
     <div className={styles.payment_status}>

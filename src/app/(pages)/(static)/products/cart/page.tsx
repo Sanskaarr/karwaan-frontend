@@ -9,18 +9,16 @@ import { useOrder } from '@/hooks/UseOrder';
 
 
 const HomePage: React.FC = () => {
-  const [total, setTotal] = useState<number>(0);
-
   const router = useRouter();
-  const [cartId, setCartId] = useState<string | null>(null);
-
-  const {handleCreateOrder} = useOrder();
   
   if (typeof (window) !== 'undefined') {
     var { token, _id  } = JSON.parse(localStorage.getItem("user") as string);
     var {handleGetAllItem, cartItems, HandleEmptyCart, HandleRemoveItemFromCart} = useCart({userId: _id, token: token});
+    console.log("cartItems",cartItems);
   }
-
+  if(cartItems?.length){
+  var {handleCreateOrder} = useOrder(token,_id,cartItems.map((product :{_id:string})=>product._id));
+}
   useEffect(() => {
     handleGetAllItem();
   }, [token, _id]);
@@ -41,7 +39,7 @@ const HomePage: React.FC = () => {
                       <div className={styles.cartItemInfo}>{data?.product_details.name}</div>
                       <div className={styles.cartItemInfo}>{data?.product_details.tags.join(", ")}</div>
                       <div className={styles.cartItemInfo}>{data?.product_details.price + " "}<CurrencyRupeeIcon className={styles.rupee} /></div>
-                      <button className={styles.cartItemRemove} onClick={(e) => {HandleRemoveItemFromCart(e, data?._id)}}>Remove</button>
+                      <button className={styles.cartItemRemove} onClick={(e) => {HandleRemoveItemFromCart(e, data._id,data.product_details._d)}}>Remove</button>
                     </div>
                   </div>
                 )

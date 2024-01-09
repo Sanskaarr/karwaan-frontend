@@ -1,5 +1,5 @@
 import Footer from "@/component/footer/Footer"
-
+import styles from './style.module.css'
 export default async function Layout({
   children,
 }: {
@@ -7,7 +7,7 @@ export default async function Layout({
 }) {
 
   return (
-    <div >
+    <div className={styles.bodyContainer}>
       {children}
       <Footer/>
     </div>

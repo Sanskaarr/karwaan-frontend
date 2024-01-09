@@ -3,17 +3,17 @@ import { useAxios } from "./useAxios"
 import axios from 'axios'
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../redux/hooks";
-import { deleteUser_failure, deleteUser_request, deleteUser_success, getUser_failure, getUser_request, getUser_success, resetPassword_failure, resetPassword_request, resetPassword_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success } from "../redux/reducers/userRequestReducer";
+import { deleteUser_failure, deleteUser_request, deleteUser_success, forgotPassword_failure, forgotPassword_request, forgotPassword_success, getUser_failure, getUser_request, getUser_success, otp_failure, otp_request, otp_success, resetPassword_failure, resetPassword_request, resetPassword_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success } from "../redux/reducers/userRequestReducer";
 import { update_user_data } from "../redux/reducers/userReducer";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-export const useUser = (token?: string | null, _id?: string | null, firstName?: string|null , lastName?: string|null ,email?: string|null ,phoneNumber?: string|null) => {
+export const useUser = (token?: string | null, _id?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const [updatedResponse,setUpdatedResponse]=useState<any>(null);
+    const [updatedResponse, setUpdatedResponse] = useState<any>(null);
     // handle Get User
     const handleGetUser = async () => {
-        if(!_id) return;
+        if (!_id) return;
         dispatch(getUser_request());
         // if(!token) return;
         try {
@@ -131,16 +131,20 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             }
         }
     }
-    // pending
     // handle Update Fields User
-    const handleUpdateFieldsUser = async (e:any,emailId?:string|null, phoneNo?:string|null) => {
+    type fields = {
+        e: any,
+        emailId?: string | null,
+        phoneNo?: string | null
+    };
+    const handleUpdateFieldsUser = async ({ e, emailId, phoneNo }: fields) => {
         e.preventDefault();
-        if(!firstName && !lastName && !emailId&& !phoneNo) return;
+        if (!firstName && !lastName && !emailId && !phoneNo) return;
         const user = JSON.parse(localStorage.getItem("user") as string);
         dispatch(updateUser_request());
         try {
             const { putCall } = useAxios(`/api/v1/user/${_id}`, {
-                ...user, firstName: firstName, lastName: lastName, email:emailId, phoneNumber:phoneNo
+                ...user, firstName: firstName, lastName: lastName, email: emailId, phoneNumber: phoneNo
             }, token);
 
             const response = await putCall();
@@ -148,14 +152,20 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (response.status === "success") {
                 dispatch(updateUser_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
-                localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
-                console.log("dat aya", response.data)
-                dispatch(update_user_data(response.data));
+            
                 toast.success(response.message && response.message);
+                if (response.message === "An otp has been sent to your new phone number, please use that otp to verify your phone number.") {
+                    localStorage.setItem('user', JSON.stringify({ ...data, ...response.data.user }));
+                    dispatch(update_user_data(response.data.user));
+                    router.push('/otp')
+                }else{
+                    localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
+                    dispatch(update_user_data(response.data));
+                }
                 setUpdatedResponse(response);
                 return;
-            } 
-            
+            }
+
         } catch (error: any) {
             dispatch(updateUser_failure(error.message));
             if (axios.isAxiosError(error)) {
@@ -165,15 +175,48 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
         }
 
     }
-    // handle Update Fields User
-    const handleResetPasswordUser = async (e:any, newPassword?:string|null, confirmPassword?:string|null) => {
+    // handle send Otp
+    const handleSendOtp = async (e: any, otp?: number | null,) => {
+        e.preventDefault();
+        if (!otp) return;
+        const user = JSON.parse(localStorage.getItem("user") as string);
+        dispatch(otp_request());
+        try {
+            const { putCall } = useAxios(`/api/v1/user/validate-otp/${_id}`, {
+                otp: otp,
+            }, token);
+
+            const response = await putCall();
+
+            if (response.status === "success") {
+                dispatch(otp_success());
+                const data: any = JSON.parse(localStorage.getItem("user") as string);
+                localStorage.setItem('user', JSON.stringify({ ...data, isPhoneNumberValid: true }));
+                dispatch(update_user_data({ ...data, isPhoneNumberValid: true }));
+                toast.success(response.message && response.message);
+                router.push('/products/my-account')
+                setUpdatedResponse(response);
+                return;
+            }
+
+        } catch (error: any) {
+            dispatch(otp_failure(error.message));
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+                dispatch(updateUser_failure(error.response?.data.message));
+            }
+        }
+
+    }
+    // handle Reset Password 
+    const handleResetPasswordUser = async (e: any, newPassword?: string | null, confirmPassword?: string | null) => {
         e.preventDefault();
         // if(!firstName && !lastName && !emailId&& !phoneNo) return;
         const user = JSON.parse(localStorage.getItem("user") as string);
         dispatch(resetPassword_request());
         try {
             const { putCall } = useAxios(`/api/v1/user/reset-password/${token}`, {
-                ...user, newPassword: newPassword, confirmNewPassword: confirmPassword, _id:_id
+                newPassword: newPassword, confirmNewPassword: confirmPassword, _id: _id
             });
 
             const response = await putCall();
@@ -185,10 +228,11 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
                 console.log("dat aya", response)
                 dispatch(update_user_data(response.data));
                 toast.success(response.message && response.message);
+                setTimeout(() => router.push('/'), 2000)
                 // setUpdatedResponse(response);
                 return;
-            } 
-            
+            }
+
         } catch (error: any) {
             dispatch(resetPassword_failure(error.message));
             if (axios.isAxiosError(error)) {
@@ -198,6 +242,42 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
         }
 
     }
+    // handle forget Password 
+    const handleForgetPasswordUser = async (e: any, email?: string | null) => {
+        e.preventDefault();
+        // if(!firstName && !lastName && !emailId&& !phoneNo) return;
+        const user = JSON.parse(localStorage.getItem("user") as string);
+        dispatch(forgotPassword_request());
+        try {
+            const { postCall } = useAxios(`/api/v1/user/forgot-password`, {
+                email: email
+            });
+
+            const response = await postCall();
+
+            if (response.status === "success") {
+                dispatch(forgotPassword_success());
+                const data: any = JSON.parse(localStorage.getItem("user") as string);
+                // localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
+                console.log("dat aya", response)
+                dispatch(update_user_data(response.data));
+                toast.success(response.message && response.message);
+                // setUpdatedResponse(response);
+                return;
+            }
+
+        } catch (error: any) {
+            dispatch(forgotPassword_failure(error.message));
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+                dispatch(forgotPassword_failure(error.response?.data.message));
+            }
+        }
+
+    }
+    // pending
+
+
     // handle Update Phone Number User
     const handleUpdatePhoneNumberUser = async (e: any) => {
         e.preventDefault();
@@ -211,7 +291,7 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (response.status === "success") {
                 dispatch(updatePhoneNumber_success());
                 dispatch(update_user_data(response.data.user));
-                localStorage.setItem('user', JSON.stringify({ ...response.data.user, token: response.data.token }));
+                // localStorage.setItem('user', JSON.stringify({ ...response.data.user, token: response.data.token }));
                 return function success() {
                     toast.success(response.message && response.message);
                 }()
@@ -225,5 +305,5 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
         }
     }
 
-    return { handleGetUser, handleDeleteUser, handleLogOutUser, handleResetPasswordUser, handleUpdateFieldsUser,updatedResponse, handleUpdatePhoneNumberUser, handleVerifyMailUser }
+    return { handleGetUser, handleDeleteUser, handleSendOtp, handleLogOutUser, handleResetPasswordUser, handleForgetPasswordUser, handleUpdateFieldsUser, updatedResponse, handleUpdatePhoneNumberUser, handleVerifyMailUser }
 } 

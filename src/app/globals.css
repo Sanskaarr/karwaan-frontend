@@ -15,8 +15,9 @@
 html,body{
   min-height: 100vh !important;
   background: white !important;
-  width: 100% !important;
+  width: 100vw !important;
   overflow-x: hidden !important;
+  
 }
 
 .backdrop {
@@ -281,3 +282,4 @@ a {
     color-scheme: dark;
   }
 }
+/* embed */

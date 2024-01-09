@@ -85,10 +85,11 @@ export default  function Signup() {
        <div className={styles.visibility} onClick={()=>setIsPassVisible(!isPassVisible)}>{isPassVisible?<VisibilityOutlinedIcon/>:<VisibilityOffOutlinedIcon/>}</div>
     </div>
   
-    <button className={styles.Signup} onClick={handleSignup} >Sign up 
-    <div style={!loading?{display:"none"}:{display:"flex",alignItems:"center"}}>
+    <button className={styles.Signup} onClick={handleSignup} >{loading?
+    <div style={{display:"flex",alignItems:"center", justifyContent:"center"}}>
  <ClipLoader  color="white" cssOverride={{}}  size={15} speedMultiplier={0.5}/>
-</div>
+</div>:
+"Sign up" }
     </button>
     {/* <button className={styles.Signup} onClick={()=>{router.push("/verifymail")}}>Sign up</button> */}
     <div className={styles.forgotPassword} onClick={()=>router.push("/signin")}>Returning Customer? Sign In →</div>

@@ -12,10 +12,9 @@ import { useRouter } from "next/navigation";
 export const useOrder= (token?: string | null, userId?: string | null, products?:string|null, orderId?:string|null) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const [orderResponse, setOrderResponse] = useState<any>(null);
-    const [checkoutResponse, setCheckoutResponse] = useState<any>(null);
     // create Order
     const handleCreateOrder= async (e: any) => {
+        e.preventDefault();
         dispatch(createOrder_request());
 
         try {
@@ -29,9 +28,9 @@ export const useOrder= (token?: string | null, userId?: string | null, products?
 
             if (result.status === "success") {
                 dispatch(createOrder_success());
-                setOrderResponse(result);
+                // setOrderResponse(result);
                 toast.success(result.message);
-                setTimeout(()=>router.push( result.data.payment_details.short_url),3000)  
+                setTimeout(()=>router.push( result.data.payment_details.short_url),1000)  
             }
         } catch (error: any) {
             dispatch(createOrder_failure(error.message));
@@ -45,7 +44,7 @@ export const useOrder= (token?: string | null, userId?: string | null, products?
   
     // update Order Payment Status 
     const updateOrderPaymentStatus= async () => {
-        dispatch(createOrder_request());
+        dispatch(updateOrderPaymentStatus_request());
 
         try {
             let endpoint = `/api/v1/order/${orderId}`;
@@ -54,21 +53,21 @@ export const useOrder= (token?: string | null, userId?: string | null, products?
             const result = await putCall();
 
             if (result.status === "success") {
-                dispatch(createOrder_success());
-                setCheckoutResponse(result);
+                dispatch(updateOrderPaymentStatus_success());
                 toast.success(result.message);
             }
         } catch (error: any) {
-            dispatch(createOrder_failure(error.message));
+            dispatch(updateOrderPaymentStatus_failure(error.message));
 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
-                dispatch(createOrder_failure(error.response?.data.message));
+                dispatch(updateOrderPaymentStatus_failure(error.response?.data.message));
             }
         }
     };
   
 
-    return {  handleCreateOrder, orderResponse ,updateOrderPaymentStatus, checkoutResponse};
+    return {  handleCreateOrder ,updateOrderPaymentStatus};
+    // return {  handleCreateOrder, orderResponse ,updateOrderPaymentStatus, checkoutResponse};
 };
 

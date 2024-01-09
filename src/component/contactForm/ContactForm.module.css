@@ -28,6 +28,7 @@
   font-size: 14px;
   padding: 5px 0 2px 5px;
   margin-bottom: 24px;
+  color: #000;
   background-color: white;
 }
 .inputField:focus ~ label,
