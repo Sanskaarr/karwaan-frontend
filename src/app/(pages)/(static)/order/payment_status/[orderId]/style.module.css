@@ -1,6 +1,5 @@
 .payment_status{
-    padding-top: 67px;
-    min-height: 90vh;
+    /* min-height: 90vh; */
     color: black;
     display: flex;
     align-items: center;

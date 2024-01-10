@@ -35,7 +35,7 @@ export default function navbar() {
 
                     {/* karwaan logo shown in all route except home page */}
                     {(pathname === "/") ?
-                        <div className={`${styles.contact} ${styles.uppercase} ${styles.hover}`} style={pathname === "/" ? { color: "white" } : (pathname === "/contact" || pathname === "/user") ? { visibility: "hidden", pointerEvents: "none" } : { color: "black" }}>Contact us</div>
+                        <div className={`${styles.contact} ${styles.uppercase} ${styles.hover}`} style={pathname === "/" ? { color: "white" } : (pathname === "/contact" || pathname === "/user"|| pathname==="/gallery/*") ? { visibility: "hidden", pointerEvents: "none" } : { color: "black" }}>Contact us</div>
                         :
                         <div className={`${styles.logoDiv} ${styles.hover}`}>
                             <a onClick={() => router.push("/")} style={pathname === "/" ? { color: "white" } : pathname === "/contact" ? { display: "none" } : { filter: " invert(100%) sepia(100%) saturate(0%) hue-rotate(71deg) brightness(104%) contrast(104%)" }} >

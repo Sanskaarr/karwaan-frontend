@@ -69,6 +69,8 @@ const shop = () => {
             </div>
             <div className={styles.shopProducts}>
                 {response&&response.map((data:any, index:number) => {
+                    console.log("mera data",data);
+                    if(data.media.type==="video")return ;
                     return (
                         <>
                             <div data-aos="zoom-in-up" key={index} className={styles.oneProduct} onClick={()=>router.push(`/products/${data._id}`)}>

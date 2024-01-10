@@ -1,0 +1,40 @@
+.mainGallary{
+    height: 100vh;
+    width: 100vw;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.mainGallaryBackground{
+    width: 100vw;
+    height: 100vh;
+    /* background: red; */
+    position: absolute;
+    z-index: 0;
+
+}
+.imageSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+.mainGallaryImage{
+    width: 80vw;
+    max-height: 400px;
+    object-fit: contain;
+}
+.nextArrows >svg,
+.prevArrows >svg{
+    color: black !important;
+    height: 300px;
+    width: 60px;
+    object-fit: contain;
+}
+.nextArrows:hover,
+.prevArrows:hover{
+    cursor: pointer;
+}

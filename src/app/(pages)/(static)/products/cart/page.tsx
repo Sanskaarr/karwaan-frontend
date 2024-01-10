@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useCart } from '@/hooks/useCart';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useOrder } from '@/hooks/UseOrder';
+import { ClipLoader } from 'react-spinners';
 
 
 const HomePage: React.FC = () => {
@@ -17,7 +18,7 @@ const HomePage: React.FC = () => {
     console.log("cartItems",cartItems);
   }
   if(cartItems?.length){
-  var {handleCreateOrder} = useOrder(token,_id,cartItems.map((product :{_id:string})=>product._id));
+  var {handleCreateOrder} = useOrder(token,_id,cartItems.map((product :any)=>product.product_details._id));
 }
   useEffect(() => {
     handleGetAllItem();
@@ -26,6 +27,7 @@ const HomePage: React.FC = () => {
     <div className={styles.cart}>
       <h1 className={styles.shoppingCart}>Shopping Cart</h1>
       {cartItems ?
+      cartItems.length?
         (<div className={styles.cartContanier}>
           {/* products */}
           <div className={styles.products}>
@@ -52,11 +54,15 @@ const HomePage: React.FC = () => {
             <h2 className={styles.checkoutHeading}>subtotal</h2>
             <div className={styles.subtotal}>{cartItems && cartItems.reduce((total: any, current: any) => { return total + current.product_details.price }, 0)} <CurrencyRupeeIcon className={styles.rupee} /></div>
             <button className={styles.checkoutBtn} onClick={(e)=>handleCreateOrder(e)}>checkout</button>
-            <div className={styles.continueShopting} onClick={() => router.push('/shop')}> Continue Shopping →</div>
-            <div className={styles.emptyCart} onClick={(e) =>{HandleEmptyCart(e)}}> Empty cart →</div>
+            <div style={{marginTop:"10px"}} className={styles.continueShopting} onClick={() => router.push('/shop')}> Continue Shopping →</div>
+            <div style={{marginTop:"2px"}} className={styles.emptyCart} onClick={(e) =>{HandleEmptyCart(e)}}> Empty cart →</div>
           </div>
         </div>) :
-        <div className={styles.cartIsEmpty}>There are no items in your cart. <span onClick={() => router.push('/shop')}> Continue Shopping →</span> </div>
+       ( <div className={styles.cartIsEmpty}>There are no items in your cart. <span  onClick={() => router.push('/shop')}> Continue Shopping →</span> </div> )
+        :
+        <div style={{display:"flex",alignItems:"center", justifyContent:"center", position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)"}}>
+        <ClipLoader color="blue" cssOverride={{}}  size={50} speedMultiplier={0.5}/>
+       </div>
       }
     </div>
   );

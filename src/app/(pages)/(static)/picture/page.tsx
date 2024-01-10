@@ -9,219 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/useProduct';
 import { useAppSelector } from '@/redux/hooks';
 import { ClipLoader } from 'react-spinners';
-// temp
-const tempData = [
-  {
-    imgName: "mountain",
-    categories: "dark",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "dark",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-  {
-    imgName: "mountain",
-    categories: "all",
-    imgSrc: "https://karwaan.b-cdn.net/gallery/Cityscapes1.jpg"
-  },
-]
+
 export default function Picture() {
   const [filter, setFilter] = useState<string>("all");
   const filterOptions = ["all", 'landscape', 'cityscape', 'dark', 'people', 'uncategorized'];
@@ -239,6 +27,9 @@ export default function Picture() {
   // const filterOptions = ["all", "landscape", "cityscape", "dark", "people", "uncategorized"]
   const router = useRouter();
   return (
+   
+
+     
     <div className={styles.Picture}>
       <div className={styles.PictureSection}>
         <div className={styles.PictureSectionHome}>
@@ -246,13 +37,13 @@ export default function Picture() {
         </div>
         {!isMenuHide && <div className={styles.PictureSectionFilter}>
           <h3 className={styles.desktopViewFilter}>filter:</h3>
-          <h3 className={styles.mobileViewFilter} onClick={() => setIsFilterMenu(!isFilterMenu)}>filter by:{"selected option"}</h3>
+          <h3 className={styles.mobileViewFilter} onClick={() => setIsFilterMenu(!isFilterMenu)}>filter by:{filter}</h3>
           <ul style={
             !isFilterMenu ?
               {
-                visibility: "hidden",
-                transform: "translate(0,-50%)",
-                transition: "ease-in 0.5s",
+                visibility: "visible",
+                transform: "translate(0,-100%)",
+                transition: "all 0.5s ease-in",
                 zIndex: "-6",
                 pointerEvents: "none",
 
@@ -260,7 +51,7 @@ export default function Picture() {
               : {
                 visibility: "visible",
                 transform: "translate(0,0)",
-                transition: "ease-in 0.5s",
+                transition:"all 0.5s ease-in",
                 pointerEvents: "all",
               }}
           >
@@ -280,7 +71,7 @@ export default function Picture() {
               if (data.media.type !== "image") return;
               return (
                 <div className={styles.imageSection}>
-                  <img className={styles.gallaryImage} src={"data:image/jpeg;base64," + data.media.data} alt={"image" + index} />
+                  <img className={styles.gallaryImage} src={"data:image/jpeg;base64," + data.media.data} alt={"image" + index} onClick={()=>router.push(`/gallery/${data._id}`)} />
                   <div className={styles.gallaryImageText}>{data.name}</div>
                 </div>
               )
