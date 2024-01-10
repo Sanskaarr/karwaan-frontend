@@ -39,7 +39,7 @@ export default function navbar() {
                         :
                         <div className={`${styles.logoDiv} ${styles.hover}`}>
                             <a onClick={() => router.push("/")} style={pathname === "/" ? { color: "white" } : pathname === "/contact" ? { display: "none" } : { filter: " invert(100%) sepia(100%) saturate(0%) hue-rotate(71deg) brightness(104%) contrast(104%)" }} >
-                                <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} />
+                                <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} alt="not found" />
                             </a>
                         </div>}
                     {/* if menu is close than this  */}
@@ -51,7 +51,7 @@ export default function navbar() {
                                 //  changeHomeTheme(true);
                             }}>
                             <a onClick={() => router.push("/")} style={pathname === "/" ? { color: "white" } : { display: "none" }} >
-                                <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} />
+                                <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} alt="not found" />
                             </a>
                         </div>
                         {/* if we are on shop route then hide menu and show user or signin/signup */}

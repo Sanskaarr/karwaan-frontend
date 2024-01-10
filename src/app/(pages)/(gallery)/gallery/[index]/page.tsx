@@ -14,7 +14,7 @@ export default function Gallery() {
   useEffect(() => {
     // Call the handleGetAllProduct function when the component mounts or when dependencies change
     handleGetAllProduct();
-  }, []);
+  }, [handleGetAllProduct]);
   
   const { index } = useParams<{ index: string }>()
   const currentIndex:number=response?.findIndex((data :any)=>data._id===index) ;

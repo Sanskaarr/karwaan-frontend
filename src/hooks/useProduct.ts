@@ -6,9 +6,7 @@ import {
   getAllProduct_request, getAllProduct_success, getAllProduct_failure,
   getProduct_request, getProduct_success, getProduct_failure
 } from "../redux/reducers/ProductReqestReducer";
-import { update_product_data } from "@/redux/reducers/ProductReducer";
-import { useEffect, useState } from "react";
-import { stringify } from "querystring";
+import {  useState } from "react";
 
 export const useProduct = (type?: string|null, tag?: string|null, searchQuery?: string|null, id?: string) => {
   const dispatch = useAppDispatch();

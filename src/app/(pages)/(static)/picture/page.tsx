@@ -19,7 +19,7 @@ export default function Picture() {
   useEffect(() => {
     // Call the handleGetAllProduct function when the component mounts or when dependencies change
     handleGetAllProduct();
-  }, []);
+  }, [handleGetAllProduct]);
 
 
   const [isMenuHide, setIsMenuHide] = useState<boolean>(false);
@@ -70,7 +70,7 @@ export default function Picture() {
            response.map((data: any, index: number) => {
               if (data.media.type !== "image") return;
               return (
-                <div className={styles.imageSection}>
+                <div key={index} className={styles.imageSection}>
                   <img className={styles.gallaryImage} src={"data:image/jpeg;base64," + data.media.data} alt={"image" + index} onClick={()=>router.push(`/gallery/${data._id}`)} />
                   <div className={styles.gallaryImageText}>{data.name}</div>
                 </div>

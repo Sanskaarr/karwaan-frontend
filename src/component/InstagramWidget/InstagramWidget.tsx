@@ -12,7 +12,7 @@ const InstagramWidget: React.FC = () => {
       }
       js = d.createElement(s);
       js.id = id;
-      js.src = 'https://embedsocial.com/cdn/ht.js';
+      // js.src = 'https://embedsocial.com/cdn/ht.js';
       // Narrow down the type to HTMLScriptElement
       const scriptElement = js as HTMLScriptElement;
       // Accessing src property safely

@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "extends": [
+    "plugin:react-hooks/recommended"
+  ],
   "dependencies": {
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
@@ -36,6 +39,8 @@
     "typescript": "5.3.3"
   },
   "devDependencies": {
-    "@types/aos": "^3.0.7"
+    "@types/aos": "^3.0.7",
+    "eslint-plugin-react-hooks": "^4.6.0"
   }
+  
 }

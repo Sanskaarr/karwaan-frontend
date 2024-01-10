@@ -17,7 +17,7 @@ const _id = searchParams.get('id');
    useEffect(()=>{
     if(token&&_id)
     handleVerifyMailUser();
-   },[]) 
+   },[_id,token]) 
 
   return (
     <div className={styles.verifyEmail}>

@@ -1,4 +1,4 @@
-// components/NoRightClick.tsx
+'use client'
 import React, { useEffect } from 'react';
 
 const NoRightClick: React.FC = () => {

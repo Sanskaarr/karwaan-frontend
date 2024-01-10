@@ -23,7 +23,6 @@ export default async function RootLayout({
   return (
     <html lang="en" >
       <body className={poppins.className} suppressContentEditableWarning={true} suppressHydrationWarning={true} >
-      {/* <body className={poppins.className} suppressContentEditableWarning={true} suppressHydrationWarning={true} onContextMenu={false}> */}
         <Providers>
           {children}
         </Providers>
