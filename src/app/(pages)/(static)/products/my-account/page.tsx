@@ -100,7 +100,7 @@ function page() {
                                 { background: "gray", pointerEvents: "none" }}>
                         {!isUpdateUserLoading || ((firstName === formData.firstName) && (lastName === formData.lastName)) ? "update fields" :
                             <div >
-                                <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
+                                <ClipLoader color="white"  size={15} speedMultiplier={0.5} />
                             </div>}
                     </button>
                 </form>
@@ -167,7 +167,7 @@ function page() {
 
             {/* change password */}
             <div className={styles.resetPassword}>
-                <ResetPassword token={token!} _id={_id!} />
+                {/* <ResetPassword token={token!} _id={_id!} /> */}
                 <p className={styles.message} onClick={(e) => router.push('/forgot-password')}>Forgot Password ?</p>
             </div>
 

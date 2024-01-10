@@ -54,7 +54,6 @@ export const useOrder = (token?: string | null, userId?: string | null, products
             if (result.status === "success") {
                 dispatch(updateOrderPaymentStatus_success());
                 console.log("result",result);
-                toast.success(result.message);
                 return result;
             }
             // console.log("result",result);

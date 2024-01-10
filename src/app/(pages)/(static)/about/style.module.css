@@ -25,6 +25,7 @@
 .aboutKarwaan p{
    font-weight: normal; 
    color: black;
+   text-align: center !important;
    max-width: 80%;
 }
 /* --------in media-------- */
@@ -64,6 +65,9 @@
     color: white;
 }
 @media (max-width:1000px) {
+   .aboutKarwaan{
+    padding: 0 10px;
+   }
     .ourWorkImages{
         width: 100%;
         display: flex;
