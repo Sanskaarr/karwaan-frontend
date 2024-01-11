@@ -1,6 +1,6 @@
 'use client'
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+// import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+// import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
 import { useParams, useRouter } from 'next/navigation';
@@ -8,6 +8,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
 import withAuth from '@/component/RoutesProtect/withAuth';
+import { toast } from 'react-toastify';
 const shop = () => {
     const [isItemInCart,setIsItemInCart]=useState<boolean>(false);
 
@@ -15,7 +16,7 @@ const shop = () => {
     const { handleGetProduct, handleGetAllProduct, response ,singleResponse} = useProduct(null,null,null,ImageId);
     if(typeof(window)!=='undefined'){
       
-        const {token,_id}=JSON.parse(localStorage.getItem("user") as string);
+        var {token,_id}=JSON.parse(localStorage.getItem("user") as string);
         var { handleAddItemToCart} = useCart({token:token,productId:ImageId,userId:_id});
     }
  useEffect(()=>{
@@ -54,17 +55,17 @@ const shop = () => {
       {singleResponse&&   <p>{singleResponse.tags.join(", ")}</p>}
          {singleResponse&&<h3 style={{color:"black"}}>{singleResponse.price+" "}<CurrencyRupeeIcon/></h3>}
         {singleResponse&& <p>{singleResponse.description}</p>}
-         <p>SIZE</p>
+         {/* <p>SIZE</p>
          <select>
             <option value="8">8" X 12"</option>
             <option value="12">12" X 18"</option>
             <option value="16">16" X 24"</option>
             <option value="20">20" X 30"</option>
             <option value="24">24" X 36"</option>
-         </select>
+         </select> */}
          <div className={styles.buttons}>
         {isItemInCart? <button className={styles.button} >Item is Added</button>:
-         <button className={styles.button} onClick={(e:any)=>{handleAddItemToCart(e); setIsItemInCart(true)}}>Add To Cart</button>}
+         <button className={styles.button} onClick={(e:any)=>{(token)?handleAddItemToCart(e):router.push("/signup"); setIsItemInCart(true)}}>Add To Cart</button>}
          <button className={styles.button}>Buy</button>
          </div>
 

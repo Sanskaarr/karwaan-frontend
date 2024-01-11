@@ -9,6 +9,7 @@
 }
 .mainGallaryBackground{
     width: 100vw;
+    width: 100vw;
     height: 100vh;
     /* background: red; */
     position: absolute;
@@ -26,6 +27,8 @@
     width: 80vw;
     max-height: 400px;
     object-fit: contain;
+    /* transform: translate(0,0) !important; */
+
 }
 .nextArrows >svg,
 .prevArrows >svg{

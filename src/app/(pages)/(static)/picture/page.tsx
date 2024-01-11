@@ -4,27 +4,39 @@ import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/useProduct';
-import { useAppSelector } from '@/redux/hooks';
 import { ClipLoader } from 'react-spinners';
 
 export default function Picture() {
+  const pictureContainerRef = useRef<any>(null);
   const [filter, setFilter] = useState<string>("all");
   const filterOptions = ["all", 'landscape', 'cityscape', 'dark', 'people', 'uncategorized'];
-  // const filterOptions = ["Landscapes", "Cityscapes", "People", "Black and white", "Uncategorized"];
   const { handleGetAllProduct, response } = useProduct('image', filter);
 
   useEffect(() => {
     // Call the handleGetAllProduct function when the component mounts or when dependencies change
     handleGetAllProduct();
-  }, [handleGetAllProduct]);
+  }, [filter]);
 
 
   const [isMenuHide, setIsMenuHide] = useState<boolean>(false);
   const [isFilterMenu, setIsFilterMenu] = useState<boolean>(false);
-  // const filterOptions = ["all", "landscape", "cityscape", "dark", "people", "uncategorized"]
+  const handleScroll = (direction: any) => {
+    const scrollAmount = 600; // Adjust the scroll amount as needed
+    const container = pictureContainerRef.current;
+    if (container) {
+      if (direction === 'left') {
+        container.scrollLeft -= scrollAmount;
+     
+      } else if (direction === 'right') {
+        container.scrollLeft += scrollAmount;
+     
+      }
+    }
+  };
+
   const router = useRouter();
   return (
    
@@ -32,21 +44,76 @@ export default function Picture() {
      
     <div className={styles.Picture}>
       <div className={styles.PictureSection}>
-        <div className={styles.PictureSectionHome}>
-          <span onClick={() => router.push("/")}>Home</span>
+        <div className={styles.PictureSectionHome}style={{position:"relative",zIndex:'3',background:"white"}}>
+          <span onClick={() => router.push("/")} >Home</span>
         </div>
-        {!isMenuHide && <div className={styles.PictureSectionFilter}>
-          <h3 className={styles.desktopViewFilter}>filter:</h3>
+        {
+         <div className={styles.PictureSectionFilter} style={  isMenuHide ?
+          {
+            visibility: "hidden",
+            width:"1px",
+            transition: "all 0.5s ease-in",
+            pointerEvents: "none",
+          }
+          : {
+            visibility: "visible",
+            width:"160px",
+            transition:"all 0.5s ease-in",
+            pointerEvents: "all",
+          }}>
+          <h3 className={styles.desktopViewFilter}     style={
+            isMenuHide ?
+              {
+                visibility: "visible",
+                transform: "translate(-165px,0)",
+                transition: "all 0.5s ease-in",
+                pointerEvents: "none",
+              }
+              : {
+                visibility: "visible",
+                transform: "translate(0,0)",
+                transition:"all 0.5s ease-in",
+                pointerEvents: "all",
+              }}>filter:</h3>
           <h3 className={styles.mobileViewFilter} onClick={() => setIsFilterMenu(!isFilterMenu)}>filter by:{filter}</h3>
-          <ul style={
+          <ul className={styles.mobileList} style={
             !isFilterMenu ?
               {
                 visibility: "visible",
+                // transform: "translate(0,-100%)",
                 transform: "translate(0,-100%)",
-                transition: "all 0.5s ease-in",
-                zIndex: "-6",
+                transition: "all 3s ease-in",
+                zIndex: "-1",
                 pointerEvents: "none",
+                // height:"30px"
 
+              }
+              : {
+                visibility: "visible",
+                // transform: "translate(0,0)",
+                transform: "translate(0,0)",
+                transition:"all 3s ease-in",
+                pointerEvents: "all",
+                // height:"200px"
+
+              }}
+          >
+            {
+              filterOptions.map((option, index) => {
+                return (
+                  <li key={index} style={option === filter ? { textDecoration: "line-through" ,zIndex:"-1"} : { textDecoration: "none",zIndex:"-1" }} onClick={() => {setIsFilterMenu(false); setFilter(option) }}>{option}</li>
+                )
+              })
+            }
+          </ul>
+          <ul className={styles.desktopList}
+           style={
+            isMenuHide ?
+              {
+                visibility: "visible",
+                transform: "translate(-165px,0)",
+                transition: "all 0.5s ease-in",
+                pointerEvents: "none",
               }
               : {
                 visibility: "visible",
@@ -58,13 +125,15 @@ export default function Picture() {
             {
               filterOptions.map((option, index) => {
                 return (
-                  <li key={index} style={option === filter ? { textDecoration: "line-through" } : { textDecoration: "none" }} onClick={(e: any) => {setIsFilterMenu(false); setFilter(option) }}>{option}</li>
+                  <li key={index} style={option === filter ? { textDecoration: "line-through" ,zIndex:"-1"} : { textDecoration: "none",zIndex:"-1" }}
+                   onClick={(e: any) => {setIsFilterMenu(false); setFilter(option) }}>{option}</li>
                 )
               })
             }
           </ul>
         </div>}
-        <div className={styles.PictureGallary}>
+        <div className={styles.PictureGallary}
+          ref={pictureContainerRef}>
           {
             response ?response.length?
            response.map((data: any, index: number) => {
@@ -90,7 +159,7 @@ export default function Picture() {
       {/* scroll bar */}
       <div className={styles.PictureScrollBar}>
         <div className={styles.PictureScrollBarLeft}
-          style={!isMenuHide ? { visibility: "hidden", pointerEvents: "none", transition: "all 0.4s" } : { visibility: "visible", pointerEvents: "all", transition: "all 0.4s" }}>
+          style={!isMenuHide ? { visibility: "hidden", pointerEvents: "none", transition: "all 0.4s" } : { visibility: "visible", pointerEvents: "all", transition: "all 0.4s" }} onClick={(e) => handleScroll('left')}>
           <WestIcon className={styles.pictureIcons} />
           <div className={styles.PictureScroll}>Scroll</div>
         </div>
@@ -102,7 +171,7 @@ export default function Picture() {
             <div className={styles.pictureMenuHide} onClick={() => setIsMenuHide(!isMenuHide)}>
               <VisibilityOffIcon /> Hide
             </div>}
-          <div className={styles.PictureScrollBarRight}>
+          <div className={styles.PictureScrollBarRight} onClick={(e) => handleScroll('right')}>
             <div className={styles.PictureScroll}>Scroll</div>
             <EastIcon className={styles.pictureIcons} />
           </div>

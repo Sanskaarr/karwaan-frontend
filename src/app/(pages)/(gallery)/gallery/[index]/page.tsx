@@ -45,12 +45,23 @@ useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}}
             <div className={styles.prevArrows}  onClick={() => handleCounter(-1)}>
               <KeyboardArrowLeftIcon />
             </div>
-            <AnimatePresence>
+       
 
-              <motion.img key={counter} initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -50, opacity: 0 }} className={styles.mainGallaryImage} src={"data:image/jpeg;base64," + response[counter]?.media?.data} alt={"image" + counter} />
-            </AnimatePresence>
+              <motion.img key={counter}
+              initial={{ opacity: 0.3 , x: 0, y: 0 }}
+              animate={{ opacity: 1 , x: 0, y: 0 }}
+              transition={{ ease: "easeIn", delay: 0.1 }}
+                className={styles.mainGallaryImage} src={"data:image/jpeg;base64," + response[counter]?.media?.data} alt={"image" + counter} />
+        
+            {/* <AnimatePresence>
+
+              <motion.img key={counter}
+              initial={{ opacity: 0 , x: 0, y: 0 }}
+              animate={{ opacity: 1 , x: 0, y: 0 }}
+              exit={{ opacity: 0, x: 0, y: 0  }}
+              transition={{ ease: "linear", delay: 0.2 }}
+                className={styles.mainGallaryImage} src={"data:image/jpeg;base64," + response[counter]?.media?.data} alt={"image" + counter} />
+            </AnimatePresence> */}
 
             <div className={styles.nextArrows} onClick={() => handleCounter(1)}>
               <KeyboardArrowRightIcon />

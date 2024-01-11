@@ -39,6 +39,9 @@ export const useOrder = (token?: string | null, userId?: string | null, products
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(createOrder_failure(error.response?.data.message));
+                if(error.response?.status===403){
+                    router.push("/signup");
+                }
             }
         }
     };
@@ -62,7 +65,11 @@ export const useOrder = (token?: string | null, userId?: string | null, products
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(updateOrderPaymentStatus_failure(error.response?.data.message));
+                if(error.response?.status===403){
+                    router.push("/signup");
+                }
             }
+
         }
     };
 

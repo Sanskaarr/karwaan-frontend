@@ -1,5 +1,4 @@
 
-/* old */
 .Picture {
   background: white;
 }
@@ -28,15 +27,21 @@
   width: 500%;
 }
 .desktopViewFilter {
+  color: black;
   display: block;
 }
 .mobileViewFilter {
   display: none;
 }
+.mobileViewFilter{
+  position: relative;
+  z-index: 999;
+  background: white;
+}
 .PictureSectionFilter > ul {
   margin-right: 20px;
   visibility: visible !important;
-  transform: translate(0, 0) !important;
+  /* transform: translate(0, 0) !important; */
   transition: ease-in 0.5s !important;
   pointer-events: all !important;
 }
@@ -135,8 +140,19 @@
 .pictureMenuHide:hover {
   cursor: pointer;
 }
-
+.mobileList{
+  display: none;
+}
+.desktopList{
+  display: block;
+}
 @media (max-width: 1028px) {
+  .desktopList{
+    display: none;
+  }
+  .mobileList{
+    display: block;
+  }
   .ClipLoader{
     position: absolute;
     left: 50%;
@@ -151,8 +167,10 @@
     flex-direction: column;
   }
   .PictureSectionFilter {
+    visibility: visible !important;
+    pointer-events: all !important;
     position: relative;
-    width: 100vw;
+    width: 100vw !important;
   }
   .desktopViewFilter {
     display: none;
@@ -177,7 +195,7 @@
     background: white;
     z-index: 3;
     width: 100vw;
-    transform: translate(0,50) !important;
+    /* transform: translate(0,50) !important; */
   }
   
   .PictureScrollBar,
@@ -208,174 +226,3 @@
     } 
 
 }
-
-/* new */
-/* .Picture {
- 
-  background: white;
-}
-.PictureSection {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.PictureSectionHome {
-  padding-bottom: 20px;
-  border-right: 2px solid black;
-  height: 480px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 3;
-}
-.PictureSectionHome > span {
-  transform: rotate(-90deg);
-  display: flex;
-  color: blue;
-}
-.PictureSectionHome > span:hover {
-  cursor: pointer;
-}
-.PictureSectionHome > hr {
-  width: 500%;
-}
-.desktopViewFilter {
-  display: block;
-  color: black;
-}
-.mobileViewFilter {
-  display: none;
-}
-.PictureSectionFilter {
-  margin-left: 20px;
-  animation: sliding 0.3s ease-in 0s 1 forwards;
-}
-@keyframes sliding {
-  0% {
-    transform: translateX(-50%);
-    position: relative;
-    z-index: -3;
-  }
-  80%{
-    position: relative;
-    z-index: 0;
-  }
-  100% {
-    transform: translateX(0%);
-    position: relative;
-    z-index: 0;
-  }
-}
-.PictureSectionFilter > ul {
-  margin-right: 20px;
-  visibility: visible !important;
-  transform: translate(0, 0) !important;
-  transition: ease-in 0.5s !important;
-  pointer-events: all !important;
-}
-.PictureSectionFilter > ul > li {
-  list-style: none;
-  text-transform: lowercase;
-  color: #8d8e8e;
-  font-size: 20px;
-}
-.PictureSectionFilter > ul > li:hover {
-  text-decoration: line-through !important;
-  cursor: pointer;
-}
-.ClipLoader{
-  position: absolute;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  left: 50%;
-  top:50%;
-  transform: translate(-50%,-50%);
-}
-.PictureGallary {
-  width: 78vw;
-  height: 530px;
-  transform: translateX(260px);
-  opacity: 1;
-  display: flex;
-  flex-flow: column wrap;
-  align-content: flex-start;
-  overflow: scroll;
-  margin-left: -230px;
-  transition: all 0.5s ease-in-out;
-}
-
-
-.PictureGallary::-webkit-scrollbar {
-  display: none;
-}
-
-.imageSection {
-  width: 295px;
-  height: 169px;
-  position: relative;
-  margin: 2px;
-  overflow: hidden;
-}
-.imageSection:hover {
-  cursor: pointer;
-}
-.imageSection:hover > .gallaryImageText {
-  transform: translate(-50%, -50%);
-  transition: transform ease-in 0.3s;
-  visibility: visible;
-}
-.imageSection:hover > .gallaryImage {
-  transition: all ease-in 0.3s;
-  filter:grayscale(80%);
-}
-.gallaryImage {
-  width: 295px;
-  height: 169px;
-}
-.gallaryImageText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  color: white;
-  transition: ease-in 0.5s;
-  font-size: 24px;
-  visibility: hidden;
-  font-weight: bold;
-}
-
-
-.PictureScrollBar {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 60px;
-  background: white;
-  color: black;
-}
-.PictureScrollBarRightSide {
-  display: flex;
-  align-items: center;
-}
-.PictureScrollBarLeft,
-.pictureMenuShow,
-.pictureMenuHide,
-.PictureScrollBarRight {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-.PictureScrollBarRight {
-  margin-left: 15px;
-}
-.pictureIcons {
-  margin: 0 5px;
-}
-.PictureScrollBarRight,
-.PictureScrollBarLeft,
-.pictureMenuShow:hover,
-.pictureMenuHide:hover {
-  cursor: pointer;
-} */

@@ -8,7 +8,7 @@ import withAuth from '@/component/RoutesProtect/withAuth';
 function page (){
 const {orderId} = useParams<{ orderId: string }>()
 if(typeof(window)!=="undefined"){
-  var {token}=JSON.parse(localStorage.getItem("user") as string);
+  var token=JSON.parse(localStorage.getItem("user") as string)?.token;
   var {updateOrderPaymentStatus}=useOrder(token, null, null, orderId);
 }
 const[checkoutResponse,setCheckoutResponse]=useState<any>(null);
@@ -55,4 +55,4 @@ useEffect(()=>{
   )
 }
 
-export default withAuth(page);
+export default page;

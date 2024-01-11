@@ -6,7 +6,7 @@ import { useAppDispatch } from "../redux/hooks";
 import { deleteUser_failure, deleteUser_request, deleteUser_success, forgotPassword_failure, forgotPassword_request, forgotPassword_success, getUser_failure, getUser_request, getUser_success, otp_failure, otp_request, otp_success, resetPassword_failure, resetPassword_request, resetPassword_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success } from "../redux/reducers/userRequestReducer";
 import { update_user_data } from "../redux/reducers/userReducer";
 import { useRouter } from "next/navigation";
-import {  useState } from "react";
+import { useState } from "react";
 export const useUser = (token?: string | null, _id?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -26,11 +26,18 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
                 localStorage.setItem('user', JSON.stringify({ ...data, ...response.data.user }));
                 return { ...data, ...response.data.user };
             }
+
         } catch (error: any) {
             dispatch(getUser_failure(error.message));
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(getUser_failure(error.response?.data.message));
+                console.log("kuch toh hua", error.code);
+
+                if (error.code === "403") {
+                    console.log("miracal miracal chal gaya");
+                    router.push("/signup");
+                }
             }
         }
     }
@@ -60,9 +67,12 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             }
             dispatch(update_user_data(userData));
             localStorage.removeItem("user");
+            if (localStorage.getItem('cartItems')) {
+                localStorage.removeItem("cartItems");
+            }
             return function success() {
                 toast.success("loging out");
-                setTimeout(() => router.push('/shop'), 3000)
+                router.push('/shop')
             }()
         }
     }
@@ -78,10 +88,13 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (response.status === "success") {
                 dispatch(deleteUser_success());
                 localStorage.removeItem("user");
+                if (localStorage.getItem('cartItems')) {
+                    localStorage.removeItem("cartItems");
+                }
                 //  const  success=()=>{
                 // };
                 toast.success(response.message && response.message);
-                setTimeout(() => router.push('/'), 3000)
+                router.push('/')
                 dispatch(update_user_data(response.data.user));
                 return;
             }
@@ -146,13 +159,13 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (response.status === "success") {
                 dispatch(updateUser_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
-            
+
                 toast.success(response.message && response.message);
                 if (response.message === "An otp has been sent to your new phone number, please use that otp to verify your phone number.") {
                     localStorage.setItem('user', JSON.stringify({ ...data, ...response.data.user }));
                     dispatch(update_user_data(response.data.user));
                     router.push('/otp')
-                }else{
+                } else {
                     localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
                     dispatch(update_user_data(response.data));
                 }
@@ -198,6 +211,14 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(updateUser_failure(error.response?.data.message));
+                if(error.response?.status===403){
+                    if(localStorage.getItem("user")){
+                     localStorage.removeItem("user");
+                    }
+                    if(localStorage.getItem('cartItems')){ 
+                     localStorage.removeItem("cartItems");
+                }
+                 }
             }
         }
 
@@ -267,7 +288,6 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
         }
 
     }
-    // pending
 
 
     // handle Update Phone Number User

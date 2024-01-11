@@ -10,13 +10,13 @@ import { signup_failure, signup_request, signup_success,
 import { runValidations } from "../utils/runValidations";
 import { update_user_data } from "../redux/reducers/userReducer";
 import { useRouter } from "next/navigation";
-export const useAuth = (email?: string, password?: string, firstName?: string, lastName?: string,token?:string, id?:string) => {
+export const useAuth = (email?: string, password?: string|null, firstName?: string|null, lastName?: string|null,token?:string, id?:string) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
     const handleSignup = async (e: any) => {
         e.preventDefault();
-        const {runSignupValidation} = runValidations(email, password, firstName, lastName);
+        const {runSignupValidation} = runValidations(email, password !, firstName!, lastName!);
         if(runSignupValidation() === false){
             return;
         }
@@ -59,7 +59,7 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
 
     const handleSignin = async (e: any) => {
         e.preventDefault()
-        const {runSigninValidation} = runValidations(email, password);
+        const {runSigninValidation} = runValidations(email, password !);
         const isUserLogin=localStorage.getItem('user');
         if(runSigninValidation() === false&&isUserLogin){
             return ;
@@ -101,7 +101,7 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
         e.preventDefault();
         dispatch(sendVerifyEmail_request());
         try {
-            const {postCall} = useAxios('/api/v1/user/send-verification-email', {email: email})
+            const {postCall} = useAxios('/api/v1/user/send-verification-email', {email: email},token)
             const response = await postCall();  
             if(response.status === "success"){
                 dispatch(sendVerifyEmail_success());
@@ -112,7 +112,15 @@ export const useAuth = (email?: string, password?: string, firstName?: string, l
             if(axios.isAxiosError(error)){
                 toast.error(error.response?.data.message);
                 dispatch(sendVerifyEmail_failure(error.response?.data.message));
-            }
+            
+                if(error.response?.status===403){
+                   if(localStorage.getItem("user")){
+                    localStorage.removeItem("user");
+                   }
+                   if(localStorage.getItem('cartItems')){ 
+                    localStorage.removeItem("cartItems");
+               }
+                }}
         }
     }
  

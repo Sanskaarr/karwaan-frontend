@@ -1,7 +1,6 @@
 .VerifyMail{
-    padding-top: 67px;
     background: white;
-    min-height: 90vh;
+    min-height: 80vh;
     display: flex;
     color: black;
     justify-content: center;

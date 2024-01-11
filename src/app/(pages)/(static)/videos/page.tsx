@@ -12,7 +12,7 @@ import { ClipLoader } from 'react-spinners';
 export default function Videos() {
   const { handleGetAllProduct, response } = useProduct('video');
   const videosContainerRef = useRef<any>(null);
-  const [_, setScrollPosition] = useState(0);
+  // const [_, setScrollPosition] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +43,7 @@ const [currentIndex,setCurrentIndex]=useState<number>(0);
           setCurrentIndex(0);
         }
       }
-      setScrollPosition(container.scrollLeft);
+      // setScrollPosition(container.scrollLeft);
     }
   };
 
@@ -62,8 +62,8 @@ const [currentIndex,setCurrentIndex]=useState<number>(0);
 
           <div className={styles.videosGallary}
             ref={videosContainerRef}
-            onMouseOver={() => setScrollPosition(videosContainerRef.current.scrollLeft)}
-            onMouseLeave={() => setScrollPosition(0)}
+            // onMouseOver={() => setScrollPosition(videosContainerRef.current.scrollLeft)}
+            // onMouseLeave={() => setScrollPosition(0)}
           >
             {response ?
               response.map((data: any, index: number) => (
