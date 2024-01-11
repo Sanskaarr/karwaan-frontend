@@ -77,12 +77,8 @@ import withOutAuth from '@/component/RoutesProtect/withOutAuth';
           <div className={styles.forgotPassword} onClick={() => router.push("/forgot-password")}>Forgot password?</div>
           <div className={styles.forgotPassword} onClick={() => router.push("/signup")}>New Customer? Sign up →</div>
         </div>
-
-
-
       </form>
-    
     </div>
   )
 }
-export default withOutAuth(Signin);
+export default Signin;

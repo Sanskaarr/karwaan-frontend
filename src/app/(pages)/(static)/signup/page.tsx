@@ -99,4 +99,4 @@ import withOutAuth from '@/component/RoutesProtect/withOutAuth';
   </div>
   )
 }
-export default withOutAuth(Signup);
+export default Signup;
