@@ -6,7 +6,7 @@ import { useProduct } from '@/hooks/useProduct';
 import { ClipLoader } from 'react-spinners';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { AnimatePresence, motion } from 'framer-motion';
+import {  motion } from 'framer-motion';
 export default function Gallery() {
 
   const { handleGetAllProduct, response } = useProduct('image');
@@ -14,7 +14,7 @@ export default function Gallery() {
   useEffect(() => {
     // Call the handleGetAllProduct function when the component mounts or when dependencies change
     handleGetAllProduct();
-  }, [handleGetAllProduct]);
+  }, []);
   
   const { index } = useParams<{ index: string }>()
   const currentIndex:number=response?.findIndex((data :any)=>data._id===index) ;
@@ -31,7 +31,7 @@ useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}}
 
     }
   }
-
+console.log("response",response,currentIndex)
  
 
   return (
@@ -39,7 +39,7 @@ useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}}
     <div className={styles.mainGallaryBackground} onClick={()=>router.push('/picture')} ></div>
       
       {
-        response &&currentIndex ?
+        response?
 
           <div className={styles.imageSection}>
             <div className={styles.prevArrows}  onClick={() => handleCounter(-1)}>
@@ -52,17 +52,6 @@ useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}}
               animate={{ opacity: 1 , x: 0, y: 0 }}
               transition={{ ease: "easeIn", delay: 0.1 }}
                 className={styles.mainGallaryImage} src={"data:image/jpeg;base64," + response[counter]?.media?.data} alt={"image" + counter} />
-        
-            {/* <AnimatePresence>
-
-              <motion.img key={counter}
-              initial={{ opacity: 0 , x: 0, y: 0 }}
-              animate={{ opacity: 1 , x: 0, y: 0 }}
-              exit={{ opacity: 0, x: 0, y: 0  }}
-              transition={{ ease: "linear", delay: 0.2 }}
-                className={styles.mainGallaryImage} src={"data:image/jpeg;base64," + response[counter]?.media?.data} alt={"image" + counter} />
-            </AnimatePresence> */}
-
             <div className={styles.nextArrows} onClick={() => handleCounter(1)}>
               <KeyboardArrowRightIcon />
             </div>

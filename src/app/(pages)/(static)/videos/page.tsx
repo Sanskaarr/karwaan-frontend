@@ -65,7 +65,7 @@ const [currentIndex,setCurrentIndex]=useState<number>(0);
             // onMouseOver={() => setScrollPosition(videosContainerRef.current.scrollLeft)}
             // onMouseLeave={() => setScrollPosition(0)}
           >
-            {response ?
+            {response?.length ?
               response.map((data: any, index: number) => (
                 <a key={index} href={"data:video/mp4;base64," + data.media.data}>
                   <video autoPlay muted loop className={styles.videosGallarySection}>
