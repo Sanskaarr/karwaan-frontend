@@ -1,12 +1,11 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styles from './style.module.css'
 import { useRouter } from 'next/navigation'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useProduct } from '@/hooks/useProduct';
-import { useAppSelector } from '@/redux/hooks';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import {  useScroll, useTransform } from 'framer-motion';
 import InstagramWidget from '@/component/InstagramWidget/InstagramWidget';
 import { ClipLoader } from 'react-spinners';
 
@@ -20,13 +19,9 @@ const shop = () => {
                 once: false,
             })
       handleGetAllProduct();
-      console.log("mera response",response);
     }, []);
   
-  
-
-    // const [isOptionVisible, setIsOptionVisible] = useState({ filter: false, sortedBy: false })
-    const router = useRouter();
+      const router = useRouter();
     const {scrollYProgress}=useScroll();
     let y=useTransform(scrollYProgress,[0,1],["0%","50%"]);
     return (
@@ -46,8 +41,9 @@ const shop = () => {
                             <div className={styles.imagesName}>{data.name}</div>
 
                         </div>)
-                }):<div style={{display:"flex",alignItems:"center", justifyContent:"center"}}>
-                <ClipLoader  color="white"  size={15} speedMultiplier={0.5}/>
+                }):<div style={{display:"flex",alignItems:"center",flexDirection:"column", justifyContent:"center", position:"absolute", transform:"translate(-50%,-50%)",top:"50%",left:"50%"}}>
+                <ClipLoader  color="blue"  size={30} speedMultiplier={0.5}/>
+                <p style={{color:"black"}}>loading</p>
                </div>
 
                 }
@@ -75,9 +71,7 @@ const shop = () => {
             <div className={styles.instaPost}>
             <InstagramWidget />
         </div>
-            {/* <div className={styles.instaPost}>
-           <iframe className={styles.post} style={{border: "0", width: "100%", height: "200%", objectFit:"contain"}} scrolling="no" src="https://embedsocial.com/api/pro_hashtag/218878fa5b19ed9f8638b94316c7dcb2edf5c752"></iframe>
-        </div> */}
+      
         </div>
     )
 }

@@ -12,29 +12,36 @@ import { ClipLoader } from 'react-spinners';
 export default function Videos() {
   const { handleGetAllProduct, response } = useProduct('video');
   const videosContainerRef = useRef<any>(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [_, setScrollPosition] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await handleGetAllProduct();
       } catch (error) {
-        console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, [handleGetAllProduct]);
+  }, []);
+const [currentIndex,setCurrentIndex]=useState<number>(0);
 
   const handleScroll = (direction: any) => {
     const scrollAmount = 600; // Adjust the scroll amount as needed
     const container = videosContainerRef.current;
-
     if (container) {
       if (direction === 'left') {
         container.scrollLeft -= scrollAmount;
+        if(currentIndex!==response.length-1){
+          setCurrentIndex(currentIndex+1);
+        }
       } else if (direction === 'right') {
         container.scrollLeft += scrollAmount;
+        if(currentIndex!==0){
+          setCurrentIndex(currentIndex-1);
+        }else{
+          setCurrentIndex(0);
+        }
       }
       setScrollPosition(container.scrollLeft);
     }
@@ -82,7 +89,7 @@ export default function Videos() {
             <WestIcon className={styles.videosIcons} />
           <div className={styles.videosScroll}>Scroll</div>
           </div>
-          <div className={styles.videosScrollBarCenter}>{response && response.map(()=>{})}</div>
+          <div className={styles.videosScrollBarCenter}>{response &&`${currentIndex+1}/${response.length} ${response[currentIndex].name}`}</div>
           <div className={styles.videosScrollBarRightSide} onClick={(e) => handleScroll('right')}>
           <div className={styles.videosScroll}>Scroll</div>
             <EastIcon className={styles.videosIcons} />
@@ -94,59 +101,3 @@ export default function Videos() {
 }
 
 
-
-// export default function Videos() {
-
-//   // const filterOptions = ["Landscapes", "Cityscapes", "People", "Black and white", "Uncategorized"];
-//   const { handleGetAllProduct, response } = useProduct('video');
-
-//   useEffect(() => {
-//     // Call the handleGetAllProduct function when the component mounts or when dependencies change
-//     handleGetAllProduct();
-//   }, []);
-
-
-//   // console.log(response)
-//   const myRef = useRef<any>(null)
-
-//   const router = useRouter();
-
-//   return (
-//     <div className={styles.videos} >
-//       <div className={styles.videosSection}>
-//         <div className={styles.videosSectionHome}>
-//           <span onClick={() => router.push("/")}>Home</span>
-//         </div>
-
-//         <div style={{ color: "black" }} className={styles.motion}>Motion</div>
-//         <div className={styles.videosGallary} >
-//           {
-//             response && response.map((data: any, index: number) => {
-//               return (
-//                 <a key={index} href={"data:video/mp4;base64," + data.media.data} ref={myRef} >
-//                   <video autoPlay muted loop className={styles.videosGallarySection}>
-//                     <source src={"data:video/mp4;base64," + data.media.data} type="video/mp4" />
-//                   </video></a>
-//               )
-//             })
-//           }
-//         </div>
-//       </div>
-
-//       {/* scroll bar */}
-//       <div className={styles.videosScrollBar}>
-//         <div className={styles.videosScrollBarLeft}>
-//           <WestIcon className={styles.videosIcons} />
-//           <div className={styles.videosScroll} onMouseEnter={() => myRef.current.scrollIntoView()  }>Scroll</div>
-//         </div>
-//         <div className={styles.videosScrollBarCenter}>{response && response[0].name}</div>
-//         <div className={styles.videosScrollBarRightSide}>
-//           <div className={styles.videosScrollBarRight}>
-//             <div className={styles.videosScroll} onMouseEnter={() => myRef.current.scrollIntoView({ inline: "end" })  }>Scroll</div>
-//             <EastIcon className={styles.videosIcons} />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }

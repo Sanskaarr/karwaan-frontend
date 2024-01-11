@@ -24,7 +24,7 @@
 }
 .shopNow{
     background: white;
-    color: #000;
+    color: black;
     width: 130px;
     height: 40px;
     position: absolute;
@@ -35,9 +35,8 @@
 }
 .shopNow:hover,
 .BigImagesNameShopNow:hover{
-    background:#363636;
     cursor: pointer;
-color: white;
+    opacity: 0.8;
 }
 .shopBanner p:hover{
     cursor: pointer;
@@ -47,6 +46,7 @@ color: white;
     justify-content: space-between;
     padding-top: 20px;
     flex-wrap: wrap;
+    position: relative;
 }
 .shopProductfilters{
     display: flex;
@@ -175,6 +175,7 @@ color: white;
     width: 130px;
     height: 40px;
     font-size: 15px;
+    border: 0;
     font-weight: bold;
 }
 /* .instaPost{

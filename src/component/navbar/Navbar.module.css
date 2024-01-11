@@ -67,7 +67,7 @@
   align-items: center;
 }
 .menuOptions {
-  font-size: 26px;
+  font-size: 20px;
   background: rgba(0,0,0,0.8);
   position: absolute;
   transition: all ease-in 0.5s;
@@ -198,7 +198,7 @@ cursor: pointer;
 }
 @media (max-width: 1000px) {
  .menuOptions{
-  font-size: 30px;
+  font-size: 20px;
   background: rgba(0,0,0,0.8);
   position: fixed;
   left: 0;

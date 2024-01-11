@@ -16,7 +16,8 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import { useAppSelector } from '@/redux/hooks';
 import { useAuth } from '@/hooks/useAuth';
 import { ClipLoader } from 'react-spinners';
-export default function Signin() {
+import withOutAuth from '@/component/RoutesProtect/withOutAuth';
+ function Signin() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isPassVisible, setIsPassVisible] = useState(false);
   const { handleSignin } = useAuth(formData.email, formData.password);
@@ -84,3 +85,4 @@ export default function Signin() {
     </div>
   )
 }
+export default withOutAuth(Signin);

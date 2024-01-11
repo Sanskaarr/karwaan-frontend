@@ -4,9 +4,9 @@ import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
 import { ClipLoader } from 'react-spinners';
+import withAuth from '@/component/RoutesProtect/withAuth';
 function page (){
 const {orderId} = useParams<{ orderId: string }>()
-console.log("orderID",orderId);
 if(typeof(window)!=="undefined"){
   var {token}=JSON.parse(localStorage.getItem("user") as string);
   var {updateOrderPaymentStatus}=useOrder(token, null, null, orderId);
@@ -18,7 +18,6 @@ const checkOutData=async()=> {if(orderId && token ){
 useEffect(()=>{
   checkOutData();
 },[orderId,token]);
-console.log("checkoutResponse",checkoutResponse&&checkoutResponse);
   return (
     <div className={styles.payment_status}>
       {false?
@@ -56,4 +55,4 @@ console.log("checkoutResponse",checkoutResponse&&checkoutResponse);
   )
 }
 
-export default page
+export default withAuth(page);

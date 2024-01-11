@@ -15,8 +15,9 @@ import { useAppSelector } from '@/redux/hooks';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { ClipLoader } from 'react-spinners';
+import withOutAuth from '@/component/RoutesProtect/withOutAuth';
 
-export default  function Signup() {
+ function Signup() {
   const [formData,setFormData]=useState({firstName:"", lastName:"", email:"", password:""} );
   const router=useRouter();
   const {handleSignup} = useAuth(formData.email, formData.password, formData.firstName,formData.lastName);
@@ -98,3 +99,4 @@ export default  function Signup() {
   </div>
   )
 }
+export default withOutAuth(Signup);

@@ -58,7 +58,7 @@ export default function Picture() {
             {
               filterOptions.map((option, index) => {
                 return (
-                  <li key={index} style={option === filter ? { textDecoration: "line-through" } : { textDecoration: "none" }} onClick={(e: any) => { setFilter(option) }}>{option}</li>
+                  <li key={index} style={option === filter ? { textDecoration: "line-through" } : { textDecoration: "none" }} onClick={(e: any) => {setIsFilterMenu(false); setFilter(option) }}>{option}</li>
                 )
               })
             }
@@ -66,7 +66,7 @@ export default function Picture() {
         </div>}
         <div className={styles.PictureGallary}>
           {
-            response ?
+            response ?response.length?
            response.map((data: any, index: number) => {
               if (data.media.type !== "image") return;
               return (
@@ -75,10 +75,12 @@ export default function Picture() {
                   <div className={styles.gallaryImageText}>{data.name}</div>
                 </div>
               )
-            }) :
-            <div className={styles.ClipLoader}>
+            }) :<p style={{position:"absolute", transform:"translate(-50%,-50%)",top:"50%",left:"50%",color:"black"}}>no product is found.</p>
+            
+            :
+            <div className={styles.ClipLoader} style={{position:"absolute", transform:"translate(-50%,-50%)",top:"50%",left:"50%"}} >
               <ClipLoader color="blue" size={60} speedMultiplier={0.5}  />
-               <div>loading</div>
+               <div style={{color:"black"}}>loading</div>
             </div>
 
           }

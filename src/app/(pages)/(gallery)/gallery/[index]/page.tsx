@@ -1,6 +1,6 @@
 'use client'
 import styles from './style.module.css'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/useProduct';
 import { ClipLoader } from 'react-spinners';
@@ -18,7 +18,6 @@ export default function Gallery() {
   
   const { index } = useParams<{ index: string }>()
   const currentIndex:number=response?.findIndex((data :any)=>data._id===index) ;
-  console.log("currentIndex",currentIndex);
   const [counter, setCounter] = useState<number>(0);
   const router = useRouter();
 useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}},[currentIndex]);
@@ -32,7 +31,6 @@ useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}}
 
     }
   }
-  console.log(response && response)
 
  
 

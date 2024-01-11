@@ -4,6 +4,7 @@ import styles from './style.module.css'
 import { ClipLoader } from 'react-spinners';
 import { useAppSelector } from '@/redux/hooks';
 import { useUser } from '@/hooks/useUser';
+import withAuth from '@/component/RoutesProtect/withAuth';
 const forgotPassword = () => {
   if (typeof window !== 'undefined') {
     var { token, _id } = JSON.parse(localStorage.getItem('user') as string);
@@ -38,4 +39,4 @@ const forgotPassword = () => {
   )
 }
 
-export default forgotPassword
+export default withAuth(forgotPassword)

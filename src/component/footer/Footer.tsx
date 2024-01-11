@@ -17,15 +17,15 @@ const pathname=usePathname();
             <TwitterIcon/>
           </a> */}
       
-          <a href="https://www.linkedin.com/company/karwaanfilms/" className={styles.linkText}>
+          <a href="https://www.linkedin.com/company/karwaanfilms/" target="_blank" className={styles.linkText}>
             <LinkedInIcon/>
           </a>
       
-          <a href="https://instagram.com/karwaan.films" className={styles.linkText}>
+          <a href="https://instagram.com/karwaan.films"target="_blank" className={styles.linkText}>
             <InstagramIcon/>
           </a>
       
-          <a href="https://wa.me/919899009001" className={styles.linkText}>
+          <a href="https://wa.me/919899009001" target="_blank" className={styles.linkText}>
             <WhatsAppIcon/>
           </a>
         </div>

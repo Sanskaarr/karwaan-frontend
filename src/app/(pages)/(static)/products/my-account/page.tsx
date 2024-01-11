@@ -2,8 +2,8 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+// import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+// import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/hooks/useUser';
 import { ClipLoader } from 'react-spinners';
@@ -11,16 +11,20 @@ import { useAuth } from "@/hooks/useAuth";
 import { useAppSelector } from "@/redux/hooks";
 import ResetPassword from "@/component/reset-password/ResetPassword";
 import { toast } from "react-toastify";
+import withAuth from "@/component/RoutesProtect/withAuth";
 
 function page() {
-    const { handleGetUser, handleDeleteUser } = useUser(token, _id);
-
     const router = useRouter();
     if (typeof window !== 'undefined') {
-        var { token, _id } = JSON.parse(localStorage.getItem('user') as string);
-
+        var token = JSON.parse(localStorage.getItem('user') as string)?.token;
+        var  _id = JSON.parse(localStorage.getItem('user') as string)?._id;
+       if(token&&_id){
+        router.push("/");
+       }
         var { firstName, lastName, email, isEmailValid, isPhoneNumberValid, phoneNumber } = JSON.parse(localStorage.getItem("user") as string);
     }
+    const { handleGetUser, handleDeleteUser } = useUser(token, _id);
+
     useEffect(() => {
         handleGetUser();
     }, []);
@@ -44,13 +48,10 @@ function page() {
     const [isLoading] = useState<loading>({ updateField: false, updateEmail: false, updatePass: false });
     //  loading states
     const isUpdateUserLoading: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
-    const isUpdatePhoneNumberLoading: boolean = useAppSelector((state: any) => state.userRequest.updatePhoneNumber.loading);
     const isVerifyLoading: boolean = useAppSelector((state: any) => state.userRequest.sendVerifyEmail.loading);
-    const isDeleteUserLoading: boolean = useAppSelector((state: any) => state.userRequest.deleteUser.loading);
 
     // update field
-    var { handleUpdateFieldsUser, updatedResponse } = useUser(token, _id, formData.firstName, formData.lastName);
-    console.log("updatedResponse", updatedResponse);
+    var { handleUpdateFieldsUser } = useUser(token, _id, formData.firstName, formData.lastName);
     // phone number regex
     const phoneNumberRegex = /^[6-9]\d{9}$/;
     // verify email
@@ -60,8 +61,6 @@ function page() {
     const close = () => setModalOpen(false);
     const open = () => setModalOpen(true);
 
-    console.log(formData.phoneNumber, typeof (formData.phoneNumber), phoneNumber, typeof (phoneNumber + ""), phoneNumber + "")
-    console.log("kya sahi bola", "" == "")
 
     // const {firstName,lastName,email}=useAppSelector((state)=>state.user.user);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -167,7 +166,7 @@ function page() {
 
             {/* change password */}
             <div className={styles.resetPassword}>
-                {/* <ResetPassword token={token!} _id={_id!} /> */}
+                <ResetPassword token={token!} _id={_id!} />
                 <p className={styles.message} onClick={(e) => router.push('/forgot-password')}>Forgot Password ?</p>
             </div>
 
@@ -177,7 +176,7 @@ function page() {
                 <h2>delete account</h2>
                 <Button className={styles.submitButton} style={{ width: "50px", height: "140px" }} onPress={onOpen}>Delete My Account</Button>
                 <Modal
-                    backdrop="blur"
+                    style={{filter:"brightness(0.6)"}}
                     isOpen={isOpen}
                     onOpenChange={onOpenChange}
 
@@ -208,4 +207,4 @@ function page() {
     )
 }
 
-export default page
+export default withAuth(page);

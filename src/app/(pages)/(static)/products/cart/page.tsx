@@ -7,6 +7,7 @@ import { useCart } from '@/hooks/useCart';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useOrder } from '@/hooks/UseOrder';
 import { ClipLoader } from 'react-spinners';
+import withAuth from '@/component/RoutesProtect/withAuth';
 
 
 const HomePage: React.FC = () => {
@@ -15,7 +16,6 @@ const HomePage: React.FC = () => {
   if (typeof (window) !== 'undefined') {
     var { token, _id  } = JSON.parse(localStorage.getItem("user") as string);
     var {handleGetAllItem, cartItems, HandleEmptyCart, HandleRemoveItemFromCart} = useCart({userId: _id, token: token});
-    console.log("cartItems",cartItems);
   }
   if(cartItems?.length){
   var {handleCreateOrder} = useOrder(token,_id,cartItems.map((product :any)=>product.product_details._id));
@@ -68,4 +68,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default withAuth(HomePage);

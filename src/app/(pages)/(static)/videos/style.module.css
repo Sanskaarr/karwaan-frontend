@@ -137,8 +137,9 @@
 .videosIcons {
   margin: 0 5px;
 }
-.videosScrollBarRight,
-.videosScrollBarLeft,
+.videosScrollBarRight:hover,
+.videosScrollBarLeft:hover,
+.videosScrollBarRightSide,
 .videosMenuShow:hover,
 .videosMenuHide:hover {
   cursor: pointer;

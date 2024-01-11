@@ -22,6 +22,8 @@ export const useCart = ({ token, productId, userId, cartItemId }: Params) => {
     const [cartItems, setCartItems] = useState<any>(undefined);
     // handle Add Item To Cart
     const handleAddItemToCart = async (e: any) => {
+        dispatch( addItemToCart_request());
+
         try {
             let endpoint = '/api/v1/cart-item';
 
@@ -60,19 +62,15 @@ export const useCart = ({ token, productId, userId, cartItemId }: Params) => {
 
     // handle Get All Item
     const handleGetAllItem = async () => {
-        dispatch(addItemToCart_request());
+        dispatch( getAllCartItems_request());
 
         try {
             let endpoint = `/api/v1/cart-item/${userId}`;
             const { getCall } = useAxios(endpoint, null, token);
             const res = await getCall();
 
-            if (!res) {
-                return console.log("Undefined at line 65");
-            }
-
             if (res?.status === "success") {
-                dispatch(addItemToCart_success());
+                dispatch( getAllCartItems_success());
                 let cartItems = JSON.parse(localStorage.getItem("cartItems") as string);
                 if (res.data.length) {
                     let products = res.data.map((product: any) => product.product_details._id);
@@ -82,15 +80,14 @@ export const useCart = ({ token, productId, userId, cartItemId }: Params) => {
                 }
 
                 setCartItems(res.data);
-                console.log("cartItems", res.data.map((product: any) => product.product_details._id))
                 return cartItems;
             }
         } catch (error: any) {
-            dispatch(addItemToCart_failure(error.message));
+            dispatch( getAllCartItems_failure(error.message));
 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
-                dispatch(addItemToCart_failure(error.response?.data.message));
+                dispatch( getAllCartItems_failure(error.response?.data.message));
             }
 
             toast.error(error.message);
@@ -109,7 +106,6 @@ export const useCart = ({ token, productId, userId, cartItemId }: Params) => {
             const result = await deleteCall();
 
             if (result.status === "success") {
-                console.log("chal bhai", cartItems, result)
                 dispatch(removeItemFromCart_success());
                 const updatedCartItems = cartItems.filter((cartItem: any) => cartItem.product_details._id !== result.data.removedItem.productId);
                 if (updatedCartItems.length) {

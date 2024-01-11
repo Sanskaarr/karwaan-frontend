@@ -7,6 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
+import withAuth from '@/component/RoutesProtect/withAuth';
 const shop = () => {
     const [isItemInCart,setIsItemInCart]=useState<boolean>(false);
 
@@ -31,8 +32,7 @@ const shop = () => {
     }, [ImageId]);
  
     const router=useRouter()              
-    console.log(singleResponse&&singleResponse)
-    console.log(response&&response)
+
  
     // const currrentIndex=response&&response.findIndex((obj:any) => {obj._id === singleResponse._id&&obj.media.type === singleResponse.media.type._id});
     // const previouProductIndex=response||currrentIndex&&response[currrentIndex-1]._id;
@@ -91,4 +91,4 @@ const shop = () => {
     )
 }
 
-export default shop
+export default withAuth(shop);

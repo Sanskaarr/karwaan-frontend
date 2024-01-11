@@ -52,8 +52,8 @@
  }
  @media (max-width:750px) {
     .contact{
-        flex-direction: column;
-        padding-top: 67px;
+        flex-direction: column-reverse;
+        
     }
     .contactFirstPartition,
     .contactSecondPartition{

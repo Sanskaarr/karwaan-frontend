@@ -7,6 +7,7 @@ import { useAppSelector } from '@/redux/hooks'
 // import { ToastContainer } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css';
 import { ClipLoader } from 'react-spinners'
+import withAuth from '@/component/RoutesProtect/withAuth'
 const VerifyMail = () => {
   const router=useRouter()
   if(typeof(window)!=="undefined"){
@@ -51,4 +52,4 @@ const VerifyMail = () => {
   )
 }
 
-export default VerifyMail
+export default withAuth(VerifyMail);

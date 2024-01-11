@@ -73,8 +73,6 @@
 }
 .homeAbout {
   margin-bottom: 50px;
-  font-weight:800;
-
 }
 
 .bottomLine {
@@ -104,12 +102,10 @@
 .homeVideo{
   position: relative;
   left: 100px;
-  font-weight:800;
 }
 .homePicture{
   position: relative;
   right: 100px;
-  font-weight:800;
 
 }
 .slideVideos{
@@ -146,7 +142,7 @@
   position: relative;
   z-index: 2;
   font-size: 50px;
-  font-weight: 800;
+  
 }
 .homePicture:hover~ .slidePictures {
   transform: translate(40%, 0%) !important;

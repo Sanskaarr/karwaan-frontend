@@ -1,9 +1,11 @@
+'use client'
 import styles from './style.module.css'
 import ContactForm from '@/component/contactForm/ContactForm'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-export default  function Contact() {
+import withAuth from '@/component/RoutesProtect/withAuth';
+function Contact() {
 
   return (
     <div className={styles.contact}>
@@ -41,3 +43,4 @@ export default  function Contact() {
     </div>
   )
 }
+export default  withAuth(Contact);

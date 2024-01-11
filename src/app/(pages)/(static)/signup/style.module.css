@@ -1,7 +1,6 @@
 .login {
   background: white;
   display: flex;
-  padding-top: 67px;
   min-height: 80vh;
   color: black;
 
@@ -108,6 +107,12 @@ cursor: pointer;
   color: #000;
 }
 @media (max-width: 650px) {
+  .contactForm{
+    width: auto;
+  }
+  .contactForm>h1{
+   text-align: center;
+  }
   .login {
     justify-content: center;
   }

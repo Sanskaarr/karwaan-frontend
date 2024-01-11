@@ -19,7 +19,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
   return (
     <html lang="en" >
       <body className={poppins.className} suppressContentEditableWarning={true} suppressHydrationWarning={true} >

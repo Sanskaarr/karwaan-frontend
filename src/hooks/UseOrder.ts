@@ -53,11 +53,8 @@ export const useOrder = (token?: string | null, userId?: string | null, products
             const result = await putCall();
             if (result.status === "success") {
                 dispatch(updateOrderPaymentStatus_success());
-                console.log("result",result);
                 return result;
             }
-            // console.log("result",result);
-
            
         } catch (error: any) {
             dispatch(updateOrderPaymentStatus_failure(error.message));

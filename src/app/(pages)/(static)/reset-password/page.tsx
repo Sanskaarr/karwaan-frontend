@@ -20,13 +20,12 @@ const [formData, setFormData] = useState<formType>({password:"",confirmNewPasswo
 const [isPassVisible, setIsPassVisible] = useState({ existPass: false, newPass: false, confirmNewPass: false });
   const {handleResetPasswordUser} = useUser(token, _id);
   const  isResetPasswordLoading:boolean = useAppSelector((state:any) => state.userRequest.resetPassword.loading);
-console.log(token,_id,"bdaef02eddfec95fcb5b0d85ba6b2d85e1d9544b7e0dcebe"===token)
   return (
     
     <div className={styles.resetPasswordContainer}>
  <div className={styles.resetPassword}> 
  <form className={styles.contactForm} >
-            <h2>Reset Password</h2>
+            <h1>Reset Password</h1>
           
                     <div className={styles.password}>
                         <input className={styles.inputField} type={isPassVisible.newPass ? "text" : "password"} name='password' id='newPassword'

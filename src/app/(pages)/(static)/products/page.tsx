@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './style.module.css'
-import { motion } from 'framer-motion'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useProduct } from '@/hooks/useProduct';
@@ -10,7 +9,6 @@ import { useRouter } from 'next/navigation';
 const shop = () => {
     const [filter, setFilter] = useState<string>("");
     const filterOptions = ['landscape', 'cityscape', 'dark', 'people', 'uncategorized'];
-    // const filterOptions = ["Landscapes", "Cityscapes", "People", "Black and white", "Uncategorized"];
     const { handleGetAllProduct, response } = useProduct('image',filter);
 
     useEffect(() => {
@@ -27,7 +25,6 @@ const shop = () => {
     const scrollRef = useRef(null);
    
     const router=useRouter()              
-    console.log(response)
     return (
         <div className={styles.shop} ref={scrollRef}>
             <div className={styles.shopBanner}><p>Karwaan Prints</p> </div>
@@ -69,7 +66,6 @@ const shop = () => {
             </div>
             <div className={styles.shopProducts}>
                 {response&&response.map((data:any, index:number) => {
-                    console.log("mera data",data);
                     if(data.media.type==="video")return ;
                     return (
                         <>

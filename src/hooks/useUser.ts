@@ -6,7 +6,7 @@ import { useAppDispatch } from "../redux/hooks";
 import { deleteUser_failure, deleteUser_request, deleteUser_success, forgotPassword_failure, forgotPassword_request, forgotPassword_success, getUser_failure, getUser_request, getUser_success, otp_failure, otp_request, otp_success, resetPassword_failure, resetPassword_request, resetPassword_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success } from "../redux/reducers/userRequestReducer";
 import { update_user_data } from "../redux/reducers/userReducer";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 export const useUser = (token?: string | null, _id?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -97,7 +97,6 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
     const handleVerifyMailUser = async () => {
         const data: any = JSON.parse(localStorage.getItem("user") as string);
         if (data.isEmailValid) {
-            console.log("email is already valid");
             return;
         }
         dispatch(verifyEmail_request());
@@ -106,25 +105,20 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             const endpoint = `/api/v1/user/verify-email`;
             const { postCall } = useAxios(endpoint, { token: token, _id: _id });
             const result = await postCall();
-            console.log('response', result);
 
 
             if (result.status === "success") {
                 dispatch(verifyEmail_success());
 
-                console.log("success toh hogya", result)
                 localStorage.setItem('user', JSON.stringify({ ...data, isEmailValid: true }));
                 dispatch(update_user_data({ ...data, isEmailValid: true }));
                 toast.success(result.message && result.message);
-                console.log("sab badiya si")
-                // setResponse(result);
                 setTimeout(() => { router.push("/shop") }, 2000);
                 return;
             }
         } catch (error: any) {
             dispatch(verifyEmail_failure(error.message));
             if (axios.isAxiosError(error)) {
-                console.log("error aaya aya2")
                 toast.error(error.response?.data.message);
                 dispatch(verifyEmail_failure(error.response?.data.message));
                 return;
@@ -225,7 +219,6 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
                 dispatch(resetPassword_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
                 // localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
-                console.log("dat aya", response)
                 dispatch(update_user_data(response.data));
                 toast.success(response.message && response.message);
                 setTimeout(() => router.push('/'), 2000)
@@ -259,7 +252,6 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
                 dispatch(forgotPassword_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
                 // localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
-                console.log("dat aya", response)
                 dispatch(update_user_data(response.data));
                 toast.success(response.message && response.message);
                 // setUpdatedResponse(response);
