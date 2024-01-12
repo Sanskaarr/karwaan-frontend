@@ -68,9 +68,8 @@ const shop = () => {
 
                 }
             </div>
-            <div className={styles.instaPost}>
             <InstagramWidget />
-        </div>
+      
       
         </div>
     )

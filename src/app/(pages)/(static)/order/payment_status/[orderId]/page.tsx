@@ -46,7 +46,7 @@ useEffect(()=>{
       </>
      :
         <div style={{display:"flex",alignItems:"center", justifyContent:"center"}}>
-        <ClipLoader  color="white" cssOverride={{}}  size={15} speedMultiplier={0.5}/>
+        <ClipLoader  color="white" size={15} speedMultiplier={0.5}/>
        </div>}
        </div>
 

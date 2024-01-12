@@ -4,6 +4,7 @@ import styles from './style.module.css'
 import About from '@/component/about/About';
 import { useEffect, useState } from 'react';
 export default function Home() {
+  
   const router = useRouter();
   type hoverObjType = {
     isVideoHover: Boolean,
@@ -23,11 +24,14 @@ export default function Home() {
   ]
   const [currentIndex, setCurrentIndex] = useState(0);
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       if (currentIndex < 2) setCurrentIndex(currentIndex + 1);
       else setCurrentIndex(0);
     }, 2000);
-  }, [currentIndex])
+
+    // Cleanup function to clear the timeout when the component unmounts or when currentIndex changes
+    return () => clearTimeout(timeoutId);
+  }, [currentIndex]);
   return (
     <div className={styles.home}>
       <video className={styles.bgvideo} autoPlay muted loop>

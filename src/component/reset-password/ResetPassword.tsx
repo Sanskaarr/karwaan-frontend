@@ -5,7 +5,6 @@ import styles from './style.module.css'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useUser } from '@/hooks/useUser';
-import { useSearchParams } from 'next/navigation';
 import { useAppSelector } from '@/redux/hooks';
 import { ClipLoader } from 'react-spinners';
 type ResetPasswordProps = {
@@ -14,9 +13,7 @@ type ResetPasswordProps = {
   };
   
   const ResetPassword: React.FC<ResetPasswordProps> = ({ token, _id }) => {
-const searchParams = useSearchParams()
-//   const token = searchParams.get('token');
-// const _id = searchParams.get('id');
+
 type formType = {
   confirmNewPassword: string,
   newPassword: string,
@@ -30,7 +27,7 @@ const [isPassVisible, setIsPassVisible] = useState({ existPass: false, newPass: 
   return (
     // <div className={styles.resetPassword} >
           <form className={styles.contactForm} >
-            <h2>Reset Password</h2>
+            <h2>Change Password</h2>
             <div className={styles.password}>
                         <input className={styles.inputField} type={isPassVisible.existPass ? "text" : "password"} name='password' id='ExistPassword'
                             value={formData.password}
@@ -66,7 +63,6 @@ const [isPassVisible, setIsPassVisible] = useState({ existPass: false, newPass: 
                         </div>}
                     </button>
   </form>
-    //  {/* </div> */}
   )
 }
 

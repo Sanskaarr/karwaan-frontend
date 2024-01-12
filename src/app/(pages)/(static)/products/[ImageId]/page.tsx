@@ -7,8 +7,6 @@ import { useParams, useRouter } from 'next/navigation';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
-import withAuth from '@/component/RoutesProtect/withAuth';
-import { toast } from 'react-toastify';
 const shop = () => {
     const [isItemInCart,setIsItemInCart]=useState<boolean>(false);
 
@@ -16,7 +14,8 @@ const shop = () => {
     const { handleGetProduct, handleGetAllProduct, response ,singleResponse} = useProduct(null,null,null,ImageId);
     if(typeof(window)!=='undefined'){
       
-        var {token,_id}=JSON.parse(localStorage.getItem("user") as string);
+        var token=JSON.parse(localStorage.getItem("user") as string)?.token;
+        var _id=JSON.parse(localStorage.getItem("user") as string)?._id;
         var { handleAddItemToCart} = useCart({token:token,productId:ImageId,userId:_id});
     }
  useEffect(()=>{
@@ -73,8 +72,8 @@ const shop = () => {
         </div>
         <p className={styles.shopProductsHeading}>New Modern Design Collection</p>
         <div className={styles.shopProducts}>
-                {response&&response
-                .filter((product:any)=>product._id!==singleResponse._id &&product.media.type===singleResponse.media.type)
+                {(response&&singleResponse)&&response
+                .filter((product:any)=>product._id!==singleResponse?._id &&product?.media?.type===singleResponse?.media?.type)
                 .slice(0,3)
                 .map((data:any, index:number) => {
                     return (
@@ -92,4 +91,4 @@ const shop = () => {
     )
 }
 
-export default withAuth(shop);
+export default shop;

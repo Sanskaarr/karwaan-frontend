@@ -1,6 +1,6 @@
 // pages/index.tsx
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './style.module.css';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/hooks/useCart';
@@ -10,11 +10,12 @@ import { ClipLoader } from 'react-spinners';
 import withAuth from '@/component/RoutesProtect/withAuth';
 
 
-const HomePage: React.FC = () => {
+const Cart: React.FC = () => {
   const router = useRouter();
   
-  if (typeof (window) !== 'undefined') {
-    var { token, _id  } = JSON.parse(localStorage.getItem("user") as string);
+  if (typeof(window) !== 'undefined') {
+    var token = JSON.parse(localStorage.getItem("user") as string)?.token;
+    var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
     var {handleGetAllItem, cartItems, HandleEmptyCart, HandleRemoveItemFromCart} = useCart({userId: _id, token: token});
   }
   if(cartItems?.length){
@@ -60,12 +61,13 @@ const HomePage: React.FC = () => {
         </div>) :
        ( <div className={styles.cartIsEmpty}>There are no items in your cart. <span  onClick={() => router.push('/shop')}> Continue Shopping →</span> </div> )
         :
-        <div style={{display:"flex",alignItems:"center", justifyContent:"center", position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)"}}>
+        <div style={{display:"flex", flexDirection:'column',alignItems:"center", justifyContent:"center", position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)"}}>
         <ClipLoader color="blue" cssOverride={{}}  size={50} speedMultiplier={0.5}/>
+        <div>loading...</div>
        </div>
       }
     </div>
   );
 };
 
-export default withAuth(HomePage);
+export default withAuth(Cart);

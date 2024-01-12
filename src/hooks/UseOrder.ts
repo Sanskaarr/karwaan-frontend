@@ -6,8 +6,6 @@ import {
     createOrder_request, createOrder_success, createOrder_failure,
     updateOrderPaymentStatus_request, updateOrderPaymentStatus_success, updateOrderPaymentStatus_failure,
 } from "../redux/reducers/OrderRequestReducer";
-import { update_product_data } from "@/redux/reducers/ProductReducer";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export const useOrder = (token?: string | null, userId?: string | null, products?: string | null, orderId?: string | null) => {
@@ -39,8 +37,17 @@ export const useOrder = (token?: string | null, userId?: string | null, products
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(createOrder_failure(error.response?.data.message));
-                if(error.response?.status===403){
-                    router.push("/signup");
+                if(error.response?.status===400){
+                    router.push('/products/my-account')
+                }
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
                 }
             }
         }
@@ -65,7 +72,14 @@ export const useOrder = (token?: string | null, userId?: string | null, products
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(updateOrderPaymentStatus_failure(error.response?.data.message));
-                if(error.response?.status===403){
+             
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
                     router.push("/signup");
                 }
             }

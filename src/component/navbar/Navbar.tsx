@@ -28,8 +28,8 @@ export default function navbar() {
         // this will resume scroll on menu open
         if (!isUserMenuOpen && typeof window !== 'undefined') window.onscroll = null;
 
-     
         return (
+            !pathname.includes("/gallery")&&
             <>
                 <div className={styles.navbar} style={(pathname === "/" || pathname === "/contact" || pathname === "/user") ? { backgroundColor: "transparent" } : { backgroundColor: "white" }}>
 
@@ -89,14 +89,12 @@ export default function navbar() {
                             }}>
 
                             <ul className={`${styles.menuOptions} ${styles.capitalize}`}>
-                                {MenuItems.map((menuItem) => {
-
-                                    return (<>
-                                        <li style={pathname === menuItem.route ? { color: "white", pointerEvents: "none" } : { color: "gray" }}
-                                            className={styles.menuItem} onClick={() => { router.push(menuItem.route) }}>{menuItem.text}</li>
-                                        <li className={`${styles.forwardSlash}`}  >/</li>
-                                    </>
-                                    )
+                                {MenuItems.map((menuItem,index) => {
+                                     if(index%2===0){
+                                    return  <li  key={index} style={pathname === menuItem.route ? { color: "white", pointerEvents: "none" } : { color: "gray" }}  className={styles.menuItem} onClick={() => {(menuItem.route)&&router.push(menuItem.route) }}>{menuItem.text}</li>
+                                    }else{
+                                        return <li key={index} className={`${styles.forwardSlash}`}  >/</li>
+                                    }
                                 })}
 
                             </ul>

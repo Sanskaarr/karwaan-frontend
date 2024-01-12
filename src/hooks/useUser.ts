@@ -32,11 +32,15 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(getUser_failure(error.response?.data.message));
-                console.log("kuch toh hua", error.code);
 
-                if (error.code === "403") {
-                    console.log("miracal miracal chal gaya");
-                    router.push("/signup");
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
                 }
             }
         }
@@ -66,12 +70,14 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
                 token: null,
             }
             dispatch(update_user_data(userData));
-            localStorage.removeItem("user");
+            if (localStorage.getItem('user')) {
+                localStorage.removeItem("user");
+            }
             if (localStorage.getItem('cartItems')) {
                 localStorage.removeItem("cartItems");
             }
             return function success() {
-                toast.success("loging out");
+                toast.success("Loging out");
                 router.push('/shop')
             }()
         }
@@ -103,11 +109,21 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(deleteUser_failure(error.response?.data.message));
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
+                }
             }
         }
     }
     // handle Verify EMail User
     const handleVerifyMailUser = async () => {
+        if(!token && !_id)return;
         const data: any = JSON.parse(localStorage.getItem("user") as string);
         if (data.isEmailValid) {
             return;
@@ -126,7 +142,7 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
                 localStorage.setItem('user', JSON.stringify({ ...data, isEmailValid: true }));
                 dispatch(update_user_data({ ...data, isEmailValid: true }));
                 toast.success(result.message && result.message);
-                setTimeout(() => { router.push("/shop") }, 2000);
+                router.push("/shop");
                 return;
             }
         } catch (error: any) {
@@ -134,7 +150,6 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(verifyEmail_failure(error.response?.data.message));
-                return;
             }
         }
     }
@@ -147,11 +162,10 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
     const handleUpdateFieldsUser = async ({ e, emailId, phoneNo }: fields) => {
         e.preventDefault();
         if (!firstName && !lastName && !emailId && !phoneNo) return;
-        const user = JSON.parse(localStorage.getItem("user") as string);
         dispatch(updateUser_request());
         try {
             const { putCall } = useAxios(`/api/v1/user/${_id}`, {
-                ...user, firstName: firstName, lastName: lastName, email: emailId, phoneNumber: phoneNo
+                firstName: firstName, lastName: lastName, email: emailId, phoneNumber: phoneNo
             }, token);
 
             const response = await putCall();
@@ -178,6 +192,15 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(updateUser_failure(error.response?.data.message));
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
+                }
             }
         }
 
@@ -186,7 +209,6 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
     const handleSendOtp = async (e: any, otp?: number | null,) => {
         e.preventDefault();
         if (!otp) return;
-        const user = JSON.parse(localStorage.getItem("user") as string);
         dispatch(otp_request());
         try {
             const { putCall } = useAxios(`/api/v1/user/validate-otp/${_id}`, {
@@ -211,14 +233,15 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(updateUser_failure(error.response?.data.message));
-                if(error.response?.status===403){
-                    if(localStorage.getItem("user")){
-                     localStorage.removeItem("user");
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
                     }
-                    if(localStorage.getItem('cartItems')){ 
-                     localStorage.removeItem("cartItems");
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
                 }
-                 }
             }
         }
 
@@ -227,7 +250,6 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
     const handleResetPasswordUser = async (e: any, newPassword?: string | null, confirmPassword?: string | null) => {
         e.preventDefault();
         // if(!firstName && !lastName && !emailId&& !phoneNo) return;
-        const user = JSON.parse(localStorage.getItem("user") as string);
         dispatch(resetPassword_request());
         try {
             const { putCall } = useAxios(`/api/v1/user/reset-password/${token}`, {
@@ -239,10 +261,10 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (response.status === "success") {
                 dispatch(resetPassword_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
-                // localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
+                localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
                 dispatch(update_user_data(response.data));
                 toast.success(response.message && response.message);
-                setTimeout(() => router.push('/'), 2000)
+                router.push('/')
                 // setUpdatedResponse(response);
                 return;
             }
@@ -252,6 +274,15 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(resetPassword_failure(error.response?.data.message));
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
+                }
             }
         }
 
@@ -272,7 +303,7 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (response.status === "success") {
                 dispatch(forgotPassword_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
-                // localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
+                localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
                 dispatch(update_user_data(response.data));
                 toast.success(response.message && response.message);
                 // setUpdatedResponse(response);
@@ -284,6 +315,11 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
                 dispatch(forgotPassword_failure(error.response?.data.message));
+
+                if (error.response?.data?.message === "This email is not registered, please signup first") {
+                    router.push('/signup');
+                }
+
             }
         }
 

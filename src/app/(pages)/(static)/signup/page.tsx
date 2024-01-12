@@ -1,5 +1,5 @@
 "use client"
-import {  useState } from 'react'
+import {  useLayoutEffect, useState } from 'react'
 import styles from './style.module.css'
 import '@splidejs/react-splide/css';
 // or other themes
@@ -9,15 +9,20 @@ import '@splidejs/react-splide/css/sea-green';
 import '@splidejs/react-splide/css/core';
 import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { useAppSelector } from '@/redux/hooks';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { ClipLoader } from 'react-spinners';
-import withOutAuth from '@/component/RoutesProtect/withOutAuth';
 
  function Signup() {
+  useLayoutEffect(()=>{
+    const token =JSON.parse(localStorage.getItem("user")as string)?.token;
+      if(token){
+          redirect("/");
+      }
+  },[]);
   const [formData,setFormData]=useState({firstName:"", lastName:"", email:"", password:""} );
   const router=useRouter();
   const {handleSignup} = useAuth(formData.email, formData.password, formData.firstName,formData.lastName);
@@ -86,7 +91,7 @@ import withOutAuth from '@/component/RoutesProtect/withOutAuth';
        <div className={styles.visibility} onClick={()=>setIsPassVisible(!isPassVisible)}>{isPassVisible?<VisibilityOutlinedIcon/>:<VisibilityOffOutlinedIcon/>}</div>
     </div>
   
-    <button className={styles.Signup} onClick={handleSignup} >{loading?
+    <button className={styles.Signup} onClick={(e)=>{handleSignup(e)}} >{loading?
     <div style={{display:"flex",alignItems:"center", justifyContent:"center"}}>
  <ClipLoader  color="white" cssOverride={{}}  size={15} speedMultiplier={0.5}/>
 </div>:

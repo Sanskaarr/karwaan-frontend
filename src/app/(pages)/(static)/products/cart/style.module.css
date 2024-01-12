@@ -16,6 +16,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.cartIsEmpty>span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  /* border-bottom: 1px solid black; */
+}
 .cart h2,
 .checkoutHeading {
   font-size: 18px;

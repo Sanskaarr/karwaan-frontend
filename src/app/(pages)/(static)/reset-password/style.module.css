@@ -1,7 +1,7 @@
 .resetPasswordContainer{
   
   display: flex;
-  min-height: 80vh;
+  /* min-height: 80vh; */
   justify-content: center;
 }
 .resetPassword {
@@ -104,7 +104,7 @@
 @media (max-width: 450px) {
   .resetPasswordContainer{
     display: flex;
-    min-height: 80vh;
+    /* min-height: 80vh; */
     justify-content: center;
   }
 

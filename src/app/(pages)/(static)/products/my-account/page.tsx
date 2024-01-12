@@ -18,9 +18,7 @@ function page() {
     if (typeof window !== 'undefined') {
         var token = JSON.parse(localStorage.getItem('user') as string)?.token;
         var  _id = JSON.parse(localStorage.getItem('user') as string)?._id;
-       if(token&&_id){
-        router.push("/");
-       }
+     
         var { firstName, lastName, email, isEmailValid, isPhoneNumberValid, phoneNumber } = JSON.parse(localStorage.getItem("user") as string);
     }
     const { handleGetUser, handleDeleteUser } = useUser(token, _id);
@@ -55,7 +53,7 @@ function page() {
     // phone number regex
     const phoneNumberRegex = /^[6-9]\d{9}$/;
     // verify email
-    const { handleSendVerifyEmail } = useAuth(formData.email);
+    const { handleSendVerifyEmail } = useAuth(formData.email,null,null,null,token);
 
     // delete open and close logic
     const close = () => setModalOpen(false);

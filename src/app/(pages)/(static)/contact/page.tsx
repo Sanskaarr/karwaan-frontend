@@ -4,7 +4,6 @@ import ContactForm from '@/component/contactForm/ContactForm'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import withAuth from '@/component/RoutesProtect/withAuth';
 function Contact() {
 
   return (
@@ -43,4 +42,4 @@ function Contact() {
     </div>
   )
 }
-export default  withAuth(Contact);
+export default  Contact;

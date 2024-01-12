@@ -1,5 +1,5 @@
 "use client"
-import {  useState } from 'react'
+import {   useLayoutEffect, useState } from 'react'
 import styles from './style.module.css'
 import '@splidejs/react-splide/css';
 // or other themes
@@ -10,14 +10,19 @@ import '@splidejs/react-splide/css/sea-green';
 import '@splidejs/react-splide/css/core';
 import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useAppSelector } from '@/redux/hooks';
 import { useAuth } from '@/hooks/useAuth';
 import { ClipLoader } from 'react-spinners';
-import withOutAuth from '@/component/RoutesProtect/withOutAuth';
  function Signin() {
+   useLayoutEffect(()=>{
+    const token =JSON.parse(localStorage.getItem("user")as string)?.token;
+      if(token){
+          redirect("/");
+      }
+  },[]);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isPassVisible, setIsPassVisible] = useState(false);
   const { handleSignin } = useAuth(formData.email, formData.password);

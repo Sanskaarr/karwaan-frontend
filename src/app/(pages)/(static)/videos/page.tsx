@@ -65,14 +65,17 @@ const [currentIndex,setCurrentIndex]=useState<number>(0);
             // onMouseOver={() => setScrollPosition(videosContainerRef.current.scrollLeft)}
             // onMouseLeave={() => setScrollPosition(0)}
           >
-            {response?.length ?
+            {response ?(response.length)?
               response.map((data: any, index: number) => (
                 <a key={index} href={"data:video/mp4;base64," + data.media.data}>
                   <video autoPlay muted loop className={styles.videosGallarySection}>
                     <source src={"data:video/mp4;base64," + data.media.data} type="video/mp4" />
                   </video>
                 </a>
-              )):
+              )):<div className={styles.ClipLoader}>
+              <ClipLoader color="blue" size={60} speedMultiplier={0.5}  />
+               <div>No video is available.</div>
+            </div>:
               <div className={styles.ClipLoader}>
               <ClipLoader color="blue" size={60} speedMultiplier={0.5}  />
                <div>loading</div>
@@ -89,7 +92,7 @@ const [currentIndex,setCurrentIndex]=useState<number>(0);
             <WestIcon className={styles.videosIcons} />
           <div className={styles.videosScroll}>Scroll</div>
           </div>
-          <div className={styles.videosScrollBarCenter}>{response &&`${currentIndex+1}/${response.length} ${response[currentIndex].name}`}</div>
+          <div className={styles.videosScrollBarCenter}>{response ?response.length?(`${currentIndex+1}/${response.length} ${response[currentIndex]?.name}`):"No video is available":""}</div>
           <div className={styles.videosScrollBarRightSide} onClick={(e) => handleScroll('right')}>
           <div className={styles.videosScroll}>Scroll</div>
             <EastIcon className={styles.videosIcons} />

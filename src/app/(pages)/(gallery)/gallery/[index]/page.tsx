@@ -31,7 +31,6 @@ useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}}
 
     }
   }
-console.log("response",response,currentIndex)
  
 
   return (

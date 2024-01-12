@@ -144,7 +144,7 @@ export default function Picture() {
                   <div className={styles.gallaryImageText}>{data.name}</div>
                 </div>
               )
-            }) :<p style={{position:"absolute", transform:"translate(-50%,-50%)",top:"50%",left:"50%",color:"black"}}>no product is found.</p>
+            }) :<p style={{position:"absolute", transform:"translate(-50%,-50%)",top:"50%",left:"50%",color:"black"}}>No picture is found.</p>
             
             :
             <div className={styles.ClipLoader} style={{position:"absolute", transform:"translate(-50%,-50%)",top:"50%",left:"50%"}} >

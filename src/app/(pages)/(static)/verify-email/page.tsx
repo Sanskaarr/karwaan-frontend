@@ -15,8 +15,9 @@ const _id = searchParams.get('id');
    
     const {handleVerifyMailUser} = useUser(token,_id);
    useEffect(()=>{
-    if(token&&_id)
-    handleVerifyMailUser();
+    if(token&&_id){
+      handleVerifyMailUser();
+    }
    },[_id,token]) 
 
   return (

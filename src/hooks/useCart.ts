@@ -126,6 +126,7 @@ export const useCart = ({ token, productId, userId, cartItemId }: Params) => {
     };
     // handle remove all Item
     const HandleEmptyCart = async (e: any) => {
+        e.preventDefault();
         dispatch(emptyCart_request());
         try {
             let endpoint = `/api/v1/cart-item/empty-cart/${userId}`;
@@ -134,6 +135,7 @@ export const useCart = ({ token, productId, userId, cartItemId }: Params) => {
 
             if (result.status === "success") {
                 dispatch(emptyCart_success());
+                console.log("kuch toh chala")
                 localStorage.removeItem("cartItems");
                 setCartItems(cartItems.length===0);
                 
