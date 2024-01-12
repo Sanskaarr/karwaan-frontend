@@ -8,7 +8,7 @@ import {
     getAllCartItems_request, getAllCartItems_success, getAllCartItems_failure,
     emptyCart_request, emptyCart_success, emptyCart_failure,
 } from "../redux/reducers/CartRequestReducer";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 type Params = {
     token?: string | null;

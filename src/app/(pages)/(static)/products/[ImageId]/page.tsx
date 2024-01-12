@@ -7,6 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
+import { toast } from 'react-toastify';
 const shop = () => {
     const [isItemInCart,setIsItemInCart]=useState<boolean>(false);
 
@@ -64,7 +65,16 @@ const shop = () => {
          </select> */}
          <div className={styles.buttons}>
         {isItemInCart? <button className={styles.button} >Item is Added</button>:
-         <button className={styles.button} onClick={(e:any)=>{(token)?handleAddItemToCart(e):router.push("/signup"); setIsItemInCart(true)}}>Add To Cart</button>}
+         <button className={styles.button} 
+         onClick={(e:any)=>{
+            if(token){
+            handleAddItemToCart(e)
+        }else{ 
+            toast.error("Please login first... ") ;
+            router.push("/signup");
+        }
+             setIsItemInCart(true)
+             }}>Add To Cart</button>}
          <button className={styles.button}>Buy</button>
          </div>
 

@@ -1,6 +1,5 @@
 import style from "./page.module.css";
 export default function loader() {
-  console.log('%cThis webiste is developed by WONDOR VENDORS ', 'color: green; font-size: 18px; font-weight: bold;');
     return (
 
         <div id={style.loading}>

@@ -5,8 +5,6 @@ import styles from './ContactForm.module.css'
 import { useForm, ValidationError } from '@formspree/react';
 import { toast } from 'react-toastify';
 export default  function ContactForm() {
-  const [status,setStatus]=useState<null|String>(null);
-  const [messageToShow,setMessageToShow]=useState<null|String>(null);
   type fromType={
     name:string,
     phone:string,
@@ -14,16 +12,13 @@ export default  function ContactForm() {
     description:string,
   }
   const [formData,setFormData]=useState<fromType>({name:"",phone:"",email:"",description:""})
-  useEffect(()=>{
-setTimeout(()=>{
-  setMessageToShow(null);
-},4000);
-  },[messageToShow]);
+
   const [state, handleSubmit] = useForm("xwkgkgzk");
   useEffect(()=>{
-    if(state.succeeded)
+    if(state.succeeded){
     toast.success("Your mail has been send");
-  setFormData({name:"",phone:"",email:"",description:""});
+  setFormData({name:"",phone:"",email:"",description:""})
+}
   },[state.succeeded])
   
     return (
@@ -58,7 +53,6 @@ setTimeout(()=>{
      }} required/>
      <label className={`${styles.descriptionLable}${styles.lables}`}>Description  </label>
     </div>
-    <div className={styles.messages} style={status=="error"?{color:"red"}:{color:"blue"}}>{messageToShow&&messageToShow}</div>
     <button className={styles.sendMail} disabled={state.submitting}>Send Mail</button>
     {/* <input  type='submit' name="submit" className={styles.sendMail} value={"Send Mail"}/> */}
 

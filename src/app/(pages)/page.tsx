@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 import styles from './style.module.css'
 import About from '@/component/about/About';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 export default function Home() {
   
   const router = useRouter();
@@ -28,10 +28,12 @@ export default function Home() {
       if (currentIndex < 2) setCurrentIndex(currentIndex + 1);
       else setCurrentIndex(0);
     }, 2000);
-
-    // Cleanup function to clear the timeout when the component unmounts or when currentIndex changes
     return () => clearTimeout(timeoutId);
   }, [currentIndex]);
+  useLayoutEffect(()=>{
+    console.clear();
+    console.log('%cThis website is developed by WONDOR VENDORS ', 'color: green; font-size: 18px; font-weight: bold;');
+  },[])
   return (
     <div className={styles.home}>
       <video className={styles.bgvideo} autoPlay muted loop>

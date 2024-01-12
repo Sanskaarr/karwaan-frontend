@@ -41,7 +41,17 @@ const shop = () => {
                             <div className={styles.imagesName}>{data.name}</div>
 
                         </div>)
-                }):<div style={{display:"flex",alignItems:"center",flexDirection:"column", justifyContent:"center", position:"absolute", transform:"translate(-50%,-50%)",top:"50%",left:"50%"}}>
+                }):<div
+                 style={{display:"flex",
+                 alignItems:"center",
+                 flexDirection:"column",
+                  justifyContent:"center",
+                  width:"100vw",
+                  marginTop:"30px"
+                //    position:"absolute",
+                    // transform:"translate(-50%,-50%)",
+                    // top:"50%",left:"50%"
+                    }}>
                 <ClipLoader  color="blue"  size={30} speedMultiplier={0.5}/>
                 <p style={{color:"black"}}>loading</p>
                </div>
