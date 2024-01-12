@@ -59,7 +59,7 @@ const shop = () => {
                 }
             </div>
             <div className={styles.BigShopProducts}>
-                {response?response.slice(1, 3).map((data:any, index:number) => {
+                {response?response.slice(4, 6).map((data:any, index:number) => {
                     const animation = index % 2 === 0 ? "fade-up" : "fade-down";
                     return (
 
@@ -67,7 +67,7 @@ const shop = () => {
                             <img src={"data:image/jpeg;base64,"+data.media.data} alt={data.name} className={styles.image} />
                             <div className={styles.innerContainer}>
                             <div data-aos={animation} className={styles.BigImagesName}>{data.name}</div>
-                            <button data-aos={animation} className={styles.BigImagesNameShopNow} onClick={() => router.push("/products/1")}>Shop Now</button>
+                            <button data-aos={animation} className={styles.BigImagesNameShopNow} onClick={() => router.push(`/products/${data._id}`)}>Shop Now</button>
 
                             </div>
                            
