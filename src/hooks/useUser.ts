@@ -277,7 +277,7 @@ export const useUser = (payload: Params) => {
                     localStorage.removeItem("cartItems");
                 }
                 dispatch(updateUser_failure(error.message));
-                const {postCall} = useAxios('/api/v1/user/signout', null, token);
+                const {postCall} = useAxios('/api/v1/user/signout', {token}, token);
                 await postCall();
                 router.push('/signup');
             }
