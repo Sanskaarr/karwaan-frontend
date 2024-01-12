@@ -7,7 +7,22 @@ import { deleteUser_failure, deleteUser_request, deleteUser_success, forgotPassw
 import { update_user_data } from "../redux/reducers/userReducer";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-export const useUser = (token?: string | null, _id?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null) => {
+
+type Params = {
+    token?: string;
+    _id?: string,
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phoneNumber?: string;
+    oldPassword?: string;
+    newPassword?: string;
+    confirmNewPassword?: string;   
+}
+
+export const useUser = (payload: Params) => {
+    const {token, _id, firstName, lastName, email, phoneNumber, oldPassword, newPassword, confirmNewPassword} = payload;
+
     const router = useRouter();
     const dispatch = useAppDispatch();
     const [updatedResponse, setUpdatedResponse] = useState<any>(null);
@@ -153,58 +168,155 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
             }
         }
     }
-    // handle Update Fields User
-    type fields = {
-        e: any,
-        emailId?: string | null,
-        phoneNo?: string | null
-    };
-    const handleUpdateFieldsUser = async ({ e, emailId, phoneNo }: fields) => {
-        e.preventDefault();
-        if (!firstName && !lastName && !emailId && !phoneNo) return;
+    
+    const handleUpdateFeilds = async (e: any) => {
+        e.preventDefault()
+        const payload = {
+            firstName: firstName,
+            lastName: lastName,
+        }
+
         dispatch(updateUser_request());
         try {
-            const { putCall } = useAxios(`/api/v1/user/${_id}`, {
-                firstName: firstName, lastName: lastName, email: emailId, phoneNumber: phoneNo
-            }, token);
-
+            const {putCall} = useAxios(`/api/v1/user/${_id}`, payload, token);
             const response = await putCall();
-
-            if (response.status === "success") {
+            
+            if(response.statusCode === 200){
                 dispatch(updateUser_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
-
                 toast.success(response.message && response.message);
-                if (response.message === "An otp has been sent to your new phone number, please use that otp to verify your phone number.") {
-                    localStorage.setItem('user', JSON.stringify({ ...data, ...response.data.user }));
-                    dispatch(update_user_data(response.data.user));
-                    router.push('/otp')
-                } else {
-                    localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
-                    dispatch(update_user_data(response.data));
-                }
-                setUpdatedResponse(response);
-                return;
             }
 
         } catch (error: any) {
-            dispatch(updateUser_failure(error.message));
-            if (axios.isAxiosError(error)) {
-                toast.error(error.response?.data.message);
+            if(axios.isAxiosError(error)){
+                toast.error(error.response?.data.message)
                 dispatch(updateUser_failure(error.response?.data.message));
-                if (error.response?.status === 403) {
-                    if (localStorage.getItem("user")) {
-                        localStorage.removeItem("user");
-                    }
-                    if (localStorage.getItem('cartItems')) {
-                        localStorage.removeItem("cartItems");
-                    }
-                    router.push('/signup');
+            }
+
+            if (error.response?.status === 403) {
+                if (localStorage.getItem("user")) {
+                    localStorage.removeItem("user");
                 }
+                if (localStorage.getItem('cartItems')) {
+                    localStorage.removeItem("cartItems");
+                }
+                dispatch(updateUser_failure(error.message));
+                const {postCall} = useAxios('/api/v1/user/signout', null, token)
+                router.push('/signup');
             }
         }
 
     }
+    const handleUpdateEmail = async (e: any) => {
+        e.preventDefault()
+        const payload = {email: email}
+
+        dispatch(updateUser_request());
+        try {
+            const {putCall} = useAxios(`/api/v1/user/${_id}`, payload, token);
+            const response = await putCall();
+            
+            if(response.statusCode === 200){
+                dispatch(updateUser_success());
+                const data: any = JSON.parse(localStorage.getItem("user") as string);
+                toast.success(response.message && response.message);
+            }
+
+        } catch (error: any) {
+            if(axios.isAxiosError(error)){
+                toast.error(error.response?.data.message)
+                dispatch(updateUser_failure(error.response?.data.message));
+            }
+
+            if (error.response?.status === 403) {
+                if (localStorage.getItem("user")) {
+                    localStorage.removeItem("user");
+                }
+                if (localStorage.getItem('cartItems')) {
+                    localStorage.removeItem("cartItems");
+                }
+                dispatch(updateUser_failure(error.message));
+                const {postCall} = useAxios('/api/v1/user/signout', null, token)
+                router.push('/signup');
+            }
+        }
+    };
+    const handleUpdatePassword = async (e: any) => {
+        e.preventDefault()
+
+        const payload = {
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmNewPassword: confirmNewPassword
+        }
+
+        dispatch(updateUser_request());
+        try {
+            const {putCall} = useAxios(`/api/v1/user/${_id}`, payload, token);
+            const response = await putCall();
+            
+            if(response.statusCode === 200){
+                dispatch(updateUser_success());
+                const data: any = JSON.parse(localStorage.getItem("user") as string);
+                toast.success(response.message && response.message);
+            }
+
+        } catch (error: any) {
+            if(axios.isAxiosError(error)){
+                toast.error(error.response?.data.message)
+                dispatch(updateUser_failure(error.response?.data.message));
+            }
+
+            if (error.response?.status === 403) {
+                if (localStorage.getItem("user")) {
+                    localStorage.removeItem("user");
+                }
+                if (localStorage.getItem('cartItems')) {
+                    localStorage.removeItem("cartItems");
+                }
+                dispatch(updateUser_failure(error.message));
+                const {postCall} = useAxios('/api/v1/user/signout', null, token);
+                await postCall();
+                router.push('/signup');
+            }
+        }
+    };
+    const handleUpdatePhoneNumber = async (e: any) => {
+        e.preventDefault()
+        const payload = {phoneNumber: phoneNumber}
+
+        dispatch(updateUser_request());
+        try {
+            const {putCall} = useAxios(`/api/v1/user/${_id}`, payload, token);
+            const response = await putCall();
+            
+            if(response.statusCode === 200){
+                dispatch(updateUser_success());
+                const data: any = JSON.parse(localStorage.getItem("user") as string);
+                toast.success(response.message && response.message);
+                router.push('/otp');
+            }
+
+        } catch (error: any) {
+            if(axios.isAxiosError(error)){
+                toast.error(error.response?.data.message)
+                dispatch(updateUser_failure(error.response?.data.message));
+            }
+
+            if (error.response?.status === 403) {
+                if (localStorage.getItem("user")) {
+                    localStorage.removeItem("user");
+                }
+                if (localStorage.getItem('cartItems')) {
+                    localStorage.removeItem("cartItems");
+                }
+                dispatch(updateUser_failure(error.message));
+                const {postCall} = useAxios('/api/v1/user/signout', null, token)
+                router.push('/signup');
+            }
+        }
+    };
+
     // handle send Otp
     const handleSendOtp = async (e: any, otp?: number | null,) => {
         e.preventDefault();
@@ -353,5 +465,5 @@ export const useUser = (token?: string | null, _id?: string | null, firstName?: 
         }
     }
 
-    return { handleGetUser, handleDeleteUser, handleSendOtp, handleLogOutUser, handleResetPasswordUser, handleForgetPasswordUser, handleUpdateFieldsUser, updatedResponse, handleUpdatePhoneNumberUser, handleVerifyMailUser }
+    return { handleGetUser, handleDeleteUser, handleSendOtp, handleLogOutUser, handleResetPasswordUser, handleForgetPasswordUser, handleUpdateFeilds, handleUpdateEmail, handleUpdatePassword, handleUpdatePhoneNumber, handleUpdatePhoneNumberUser, handleVerifyMailUser }
 } 

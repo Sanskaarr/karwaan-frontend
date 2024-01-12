@@ -21,35 +21,46 @@ function page() {
      
         var { firstName, lastName, email, isEmailValid, isPhoneNumberValid, phoneNumber } = JSON.parse(localStorage.getItem("user") as string);
     }
-    const { handleGetUser, handleDeleteUser } = useUser(token, _id);
-
+    
     useEffect(() => {
         handleGetUser();
     }, []);
-
+    
     type formType = {
+        token: string, 
+        _id: string, 
         firstName: string,
         lastName: string,
         email: string,
-        password: string,
+        oldPassword: string,
         confirmNewPassword: string,
         newPassword: string,
-        phoneNumber: string | null
+        phoneNumber: string
     }
-    const [formData, setFormData] = useState<formType>({ firstName: firstName, lastName: lastName, email: email, password: "", confirmNewPassword: "", newPassword: "", phoneNumber: phoneNumber });
-    const [modalOpen, setModalOpen] = useState<any>(false);
-    type loading = {
-        updateField: boolean,
-        updateEmail: boolean,
-        updatePass: boolean
-    }
-    const [isLoading] = useState<loading>({ updateField: false, updateEmail: false, updatePass: false });
-    //  loading states
-    const isUpdateUserLoading: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
+    const [formData, setFormData] = useState<formType>({ 
+        token: token, 
+        _id: _id, 
+        firstName: firstName, 
+        lastName: lastName, 
+        email: email, 
+        oldPassword: "", 
+        confirmNewPassword: "", 
+        newPassword: "", 
+        phoneNumber: phoneNumber });
+        const [modalOpen, setModalOpen] = useState<any>(false);
+        type loading = {
+            updateField: boolean,
+            updateEmail: boolean,
+            updatePass: boolean
+        }
+        const [isLoading] = useState<loading>({ updateField: false, updateEmail: false, updatePass: false });
+        const { handleGetUser, handleDeleteUser } = useUser(formData);
+        //  loading states
+        const isUpdateUserLoading: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
     const isVerifyLoading: boolean = useAppSelector((state: any) => state.userRequest.sendVerifyEmail.loading);
 
     // update field
-    var { handleUpdateFieldsUser } = useUser(token, _id, formData.firstName, formData.lastName);
+    var { handleUpdateFeilds, handleUpdateEmail, handleUpdatePhoneNumber, handleUpdatePassword } = useUser(formData);
     // phone number regex
     const phoneNumberRegex = /^[6-9]\d{9}$/;
     // verify email
@@ -89,7 +100,7 @@ function page() {
                             }} required />
                         <label className={`${styles.nameLable}${styles.lables}`}>Last Name</label>
                     </div>
-                    <button className={styles.submitButton} onClick={(e) => handleUpdateFieldsUser}
+                    <button className={styles.submitButton} onClick={handleUpdateFeilds}
 
                         style={
                             !((firstName === formData.firstName) && (lastName === formData.lastName)) ?
@@ -107,7 +118,7 @@ function page() {
                     <h2>change Phone number</h2>
                     <div className={styles.email}>
                         <input className={styles.inputField} type="number" name='phone' id='phone'
-                            value={formData.phoneNumber as string}
+                            value={formData.phoneNumber}
                             onChange={(e) => {
                                 setFormData({ ...formData, phoneNumber: e.target.value })
                             }} required />
@@ -117,12 +128,10 @@ function page() {
                         onClick={(e) => {
                             e.preventDefault();
                              if (phoneNumberRegex.test(formData.phoneNumber !)) {
-
-                         handleUpdateFieldsUser({ e: e, phoneNo: formData.phoneNumber })
-                    }else{
-                        toast.error("Invalid phone number");
-                    }
-                        
+                                handleUpdatePhoneNumber(e);
+                            }else{
+                                toast.error("Invalid phone number");
+                            }
                         }} style={(!(isPhoneNumberValid === true) || (formData.phoneNumber !== phoneNumber)) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
                     {isUpdateUserLoading && (formData.phoneNumber !== phoneNumber || formData.phoneNumber === "") ?
                         <div style={{ display: "flex", alignItems: "center" }}>
@@ -147,7 +156,7 @@ function page() {
                     onClick={(e) => {
                         (email === formData.email) ?
                             handleSendVerifyEmail(e) :
-                            handleUpdateFieldsUser({ e: e, emailId: formData.email });
+                            handleUpdateEmail(e);
                     }
                     }
                     style={!((email === formData.email) && ((isEmailValid == true))) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>

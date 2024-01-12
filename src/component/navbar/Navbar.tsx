@@ -18,7 +18,7 @@ export default function navbar() {
     if (typeof window !== 'undefined') {
         userInLocalStorage = JSON.parse(localStorage.getItem("user") as string);
            // log out 
-         var {handleLogOutUser}=useUser()
+         var {handleLogOutUser}=useUser({})
    
     }
         const isUserLogin = useAppSelector((state) => state?.user?.user?.token) || userInLocalStorage?.token;
@@ -42,7 +42,7 @@ export default function navbar() {
                                 <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} alt="not found" />
                             </a>
                         </div>}
-                    {/* if menu is close than this  */}
+                    {/* if menu is close than this  */}   
                     {!isMenuOpen && <div className={styles.rightNav}>
                         <div className={`${styles.logoDiv}${styles.hover}`}
                             onClick=
