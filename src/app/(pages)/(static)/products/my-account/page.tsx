@@ -17,18 +17,18 @@ function page() {
     const router = useRouter();
     if (typeof window !== 'undefined') {
         var token = JSON.parse(localStorage.getItem('user') as string)?.token;
-        var  _id = JSON.parse(localStorage.getItem('user') as string)?._id;
-     
+        var _id = JSON.parse(localStorage.getItem('user') as string)?._id;
+
         var { firstName, lastName, email, isEmailValid, isPhoneNumberValid, phoneNumber } = JSON.parse(localStorage.getItem("user") as string);
     }
-    
+
     useEffect(() => {
         handleGetUser();
     }, []);
-    
+
     type formType = {
-        token: string, 
-        _id: string, 
+        token: string,
+        _id: string,
         firstName: string,
         lastName: string,
         email: string,
@@ -37,26 +37,27 @@ function page() {
         newPassword: string,
         phoneNumber: string
     }
-    const [formData, setFormData] = useState<formType>({ 
-        token: token, 
-        _id: _id, 
-        firstName: firstName, 
-        lastName: lastName, 
-        email: email, 
-        oldPassword: "", 
-        confirmNewPassword: "", 
-        newPassword: "", 
-        phoneNumber: phoneNumber });
-        const [modalOpen, setModalOpen] = useState<any>(false);
-        type loading = {
-            updateField: boolean,
-            updateEmail: boolean,
-            updatePass: boolean
-        }
-        const [isLoading] = useState<loading>({ updateField: false, updateEmail: false, updatePass: false });
-        const { handleGetUser, handleDeleteUser } = useUser(formData);
-        //  loading states
-        const isUpdateUserLoading: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
+    const [formData, setFormData] = useState<formType>({
+        token: token,
+        _id: _id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        oldPassword: "",
+        confirmNewPassword: "",
+        newPassword: "",
+        phoneNumber: phoneNumber
+    });
+    const [modalOpen, setModalOpen] = useState<any>(false);
+    type loading = {
+        updateField: boolean,
+        updateEmail: boolean,
+        updatePass: boolean
+    }
+    const [isLoading] = useState<loading>({ updateField: false, updateEmail: false, updatePass: false });
+    const { handleGetUser, handleDeleteUser } = useUser(formData);
+    //  loading states
+    const isUpdateUserLoading: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
     const isVerifyLoading: boolean = useAppSelector((state: any) => state.userRequest.sendVerifyEmail.loading);
 
     // update field
@@ -64,7 +65,7 @@ function page() {
     // phone number regex
     const phoneNumberRegex = /^[6-9]\d{9}$/;
     // verify email
-    const { handleSendVerifyEmail } = useAuth(formData.email,null,null,null,token);
+    const { handleSendVerifyEmail } = useAuth(formData.email, null, null, null, token);
 
     // delete open and close logic
     const close = () => setModalOpen(false);
@@ -108,7 +109,7 @@ function page() {
                                 { background: "gray", pointerEvents: "none" }}>
                         {!isUpdateUserLoading || ((firstName === formData.firstName) && (lastName === formData.lastName)) ? "update fields" :
                             <div >
-                                <ClipLoader color="white"  size={15} speedMultiplier={0.5} />
+                                <ClipLoader color="white" size={15} speedMultiplier={0.5} />
                             </div>}
                     </button>
                 </form>
@@ -127,88 +128,88 @@ function page() {
                     <button className={styles.submitButton}
                         onClick={(e) => {
                             e.preventDefault();
-                             if (phoneNumberRegex.test(formData.phoneNumber !)) {
+                            if (phoneNumberRegex.test(formData.phoneNumber!)) {
                                 handleUpdatePhoneNumber(e);
-                            }else{
+                            } else {
                                 toast.error("Invalid phone number");
                             }
                         }} style={(!(isPhoneNumberValid === true) || (formData.phoneNumber !== phoneNumber)) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
-                    {isUpdateUserLoading && (formData.phoneNumber !== phoneNumber || formData.phoneNumber === "") ?
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-                        </div> :
-                        (formData.phoneNumber === phoneNumber) && (formData.phoneNumber !== null) ? "verify Phone Number" : "Update Phone Number"
-                    }
-                </button>
-            </div>
-            {/* change email */}
-            <div className={styles.changeEmail}>
-                <h2>change email</h2>
-                <div className={styles.email}>
-                    <input className={styles.inputField} type="text" name='email' id='email'
-                        value={formData.email}
-                        onChange={(e) => {
-                            setFormData({ ...formData, email: e.target.value })
-                        }} required />
-                    <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
+                        {isUpdateUserLoading && (formData.phoneNumber !== phoneNumber || formData.phoneNumber === "") ?
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
+                            </div> :
+                            (formData.phoneNumber === phoneNumber) && (formData.phoneNumber !== null) ? "verify Phone Number" : "Update Phone Number"
+                        }
+                    </button>
                 </div>
-                <button className={styles.submitButton}
-                    onClick={(e) => {
-                        (email === formData.email) ?
-                            handleSendVerifyEmail(e) :
-                            handleUpdateEmail(e);
-                    }
-                    }
-                    style={!((email === formData.email) && ((isEmailValid == true))) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
-                    {isVerifyLoading || ((email !== formData.email) && isUpdateUserLoading) ?
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-                        </div> :
-                        (email === formData.email) ?
-                            "verify Email" :
-                            "Update Email"
-                    }
-                </button>
+                {/* change email */}
+                <div className={styles.changeEmail}>
+                    <h2>change email</h2>
+                    <div className={styles.email}>
+                        <input className={styles.inputField} type="text" name='email' id='email'
+                            value={formData.email}
+                            onChange={(e) => {
+                                setFormData({ ...formData, email: e.target.value })
+                            }} required />
+                        <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
+                    </div>
+                    <button className={styles.submitButton}
+                        onClick={(e) => {
+                            (email === formData.email) ?
+                                handleSendVerifyEmail(e) :
+                                handleUpdateEmail(e);
+                        }
+                        }
+                        style={!((email === formData.email) && ((isEmailValid == true))) ? { background: "black" } : { background: "gray", pointerEvents: "none" }}>
+                        {isVerifyLoading || ((email !== formData.email) && isUpdateUserLoading) ?
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
+                            </div> :
+                            (email === formData.email) ?
+                                "verify Email" :
+                                "Update Email"
+                        }
+                    </button>
+                </div>
+
+                {/* change password */}
+                <div className={styles.resetPassword}>
+                    <ResetPassword token={token!} _id={_id!} />
+                    <p className={styles.message} onClick={(e) => router.push('/forgot-password')}>Forgot Password ?</p>
+                </div>
+
+                {/* delete account*/}
+
+                <div className={styles.deleteAccount}>
+                    <h2>delete account</h2>
+                    <Button className={styles.submitButton} style={{ width: "50px", height: "140px" }} onPress={onOpen}>Delete My Account</Button>
+                    <Modal
+                        style={{ filter: "brightness(0.6)" }}
+                        isOpen={isOpen}
+                        onOpenChange={onOpenChange}
+
+                    >
+                        <ModalContent className={styles.deletePopUp}>
+                            {(onClose) => (
+                                <div >
+                                    <ModalHeader className={styles.modalTittle}>This action cannot be undone.</ModalHeader>
+                                    <ModalBody>
+                                        <p>You will lose access to all your account, teams, credits, dataset, models, and plans. If you have an active subscription you will lose access to it. There are no refunds.SavePlease make sure you are certain about this action.</p>
+                                    </ModalBody>
+                                    <ModalFooter className={styles.deletePopUpButtons}>
+                                        <Button className={styles.deletePopUpButton} variant="light" onPress={onClose}>
+                                            Close
+                                        </Button>
+                                        <Button className={styles.deletePopUpButton} onPress={onClose} onClick={handleDeleteUser}>
+                                            Delete
+                                        </Button>
+                                    </ModalFooter>
+                                </div>
+                            )}
+                        </ModalContent>
+                    </Modal>
+                </div>
             </div>
-
-            {/* change password */}
-            <div className={styles.resetPassword}>
-                <ResetPassword token={token!} _id={_id!} />
-                <p className={styles.message} onClick={(e) => router.push('/forgot-password')}>Forgot Password ?</p>
-            </div>
-
-            {/* delete account*/}
-
-            <div className={styles.deleteAccount}>
-                <h2>delete account</h2>
-                <Button className={styles.submitButton} style={{ width: "50px", height: "140px" }} onPress={onOpen}>Delete My Account</Button>
-                <Modal
-                    style={{filter:"brightness(0.6)"}}
-                    isOpen={isOpen}
-                    onOpenChange={onOpenChange}
-
-                >
-                    <ModalContent className={styles.deletePopUp}>
-                        {(onClose) => (
-                            <div >
-                                <ModalHeader className={styles.modalTittle}>This action cannot be undone.</ModalHeader>
-                                <ModalBody>
-                                    <p>You will lose access to all your account, teams, credits, dataset, models, and plans. If you have an active subscription you will lose access to it. There are no refunds.SavePlease make sure you are certain about this action.</p>
-                                </ModalBody>
-                                <ModalFooter className={styles.deletePopUpButtons}>
-                                    <Button className={styles.deletePopUpButton} variant="light" onPress={onClose}>
-                                        Close
-                                    </Button>
-                                    <Button className={styles.deletePopUpButton} onPress={onClose} onClick={handleDeleteUser}>
-                                        Delete
-                                    </Button>
-                                </ModalFooter>
-                            </div>
-                        )}
-                    </ModalContent>
-                </Modal>
-            </div>
-        </div>
 
         </div >
     )

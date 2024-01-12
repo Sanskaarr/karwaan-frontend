@@ -8,15 +8,14 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import withAuth from '@/component/RoutesProtect/withAuth';
 const getOtp = () => {
-  const router=useRouter();
+  const router = useRouter();
   if (typeof window !== 'undefined') {
-    var {  _id } = JSON.parse(localStorage.getItem('user') as string)?._id;
+    var { _id } = JSON.parse(localStorage.getItem('user') as string)?._id;
     var { token } = JSON.parse(localStorage.getItem('user') as string)?.token;
-
-}
-  const {handleSendOtp}=useUser(token, _id );
+  }
+  const { handleSendOtp } = useUser({ token: token, _id: _id });
   const [otp, setOtp] = useState<string>("");
-  const  isVerifyLoading:boolean = useAppSelector((state:any) => state.userRequest.otp.loading);
+  const isVerifyLoading: boolean = useAppSelector((state: any) => state.userRequest.otp.loading);
   return (
     <div className={styles.VerifyMail} >
       <form className={styles.contactForm} >
@@ -30,9 +29,9 @@ const getOtp = () => {
             required />
           <label className={`${styles.emailLable}${styles.lables}`}>OTP</label>
         </div>
-        <button className={styles.Signin} onClick={(e)=>{e.preventDefault();(otp.length>=4)?(handleSendOtp(e,Number(otp))):toast.warn("Enter a valid Otp")}} >
+        <button className={styles.Signin} onClick={(e) => { e.preventDefault(); (otp.length >= 4) ? (handleSendOtp(e, Number(otp))) : toast.warn("Enter a valid Otp") }} >
           {!isVerifyLoading ? "Verify OTP" :
-            <div  style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
               <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
             </div>}
         </button>
@@ -44,4 +43,4 @@ const getOtp = () => {
   )
 }
 
-export default  withAuth(getOtp)
+export default withAuth(getOtp)

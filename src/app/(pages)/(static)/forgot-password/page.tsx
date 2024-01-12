@@ -7,7 +7,7 @@ import { useUser } from '@/hooks/useUser';
 const forgotPassword = () => {
   const [email,setEmail]=useState<string>("");
   const  isForgetLoading:boolean = useAppSelector((state:any) => state.userRequest.forgotPassword.loading);
-const {handleForgetPasswordUser}=useUser();
+const {handleForgetPasswordUser}=useUser({});
   return (
     <div className={styles.VerifyMail} >
           <form className={styles.contactForm} >
