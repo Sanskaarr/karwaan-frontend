@@ -1,5 +1,6 @@
 .clientPage{
     background: white;
+    color: black;
 }
 .clients{
     display: flex;

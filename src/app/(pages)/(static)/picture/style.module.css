@@ -2,6 +2,10 @@
 .Picture {
   background: white;
 }
+.PictureGallary{
+  scroll-behavior: smooth;
+  transition: scroll 1s ease-in-out; /* Adjust the transition duration and easing as needed */
+}
 .PictureSection {
   display: flex;
   align-items: center;

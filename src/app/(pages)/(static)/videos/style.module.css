@@ -90,6 +90,22 @@
 .videosGallarySection {
   width: 600px;
   margin-left: 10px;
+   
+}
+
+.videoContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.videoGallerySection {
+  width: 100%; /* Adjust the width as needed */
+  height: auto; /* Adjust the height as needed */
+  transition: opacity 0.3s ease; /* Adjust the transition properties as needed */
+}
+
+.videoGallerySection:hover {
+  opacity: 0.7; /* Adjust the opacity on hover as needed */
 }
 .videosGallary>a:first-child {
   margin-right: 300px;

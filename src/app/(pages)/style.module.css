@@ -1,7 +1,7 @@
 .home {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
 }
 
@@ -11,7 +11,7 @@
   top: 0;
   /* z-index: -99; */
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   object-fit: cover;
   filter: brightness(70%);
 }
@@ -24,7 +24,7 @@
 .homePartition {
   display: flex;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   justify-content: space-evenly;
   color: white;
   font-size: 40px;
@@ -179,7 +179,7 @@
     left: 0;
     top: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     object-fit: cover;
     filter: brightness(70%);
   }

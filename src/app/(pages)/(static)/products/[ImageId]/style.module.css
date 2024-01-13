@@ -116,10 +116,11 @@ cursor: pointer;
 .oneProduct>.image{
     max-height: 176px;
     width: 100%;
-
+     overflow: hidden;
 }
 .image{
-    width: 100%;
+    width: 100% !important;
+    object-fit: cover !important;
 }
 .image:hover {
     opacity: 0.5;

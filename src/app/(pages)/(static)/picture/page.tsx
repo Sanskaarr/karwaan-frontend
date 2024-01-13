@@ -4,21 +4,21 @@ import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useEffect, useRef, useState } from 'react';
+import {  useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useProduct } from '@/hooks/useProduct';
 import { ClipLoader } from 'react-spinners';
-
+import galleryData from '@/constants/galleryData';
 export default function Picture() {
   const pictureContainerRef = useRef<any>(null);
   const [filter, setFilter] = useState<string>("all");
   const filterOptions = ["all", 'landscape', 'cityscape', 'dark', 'people', 'uncategorized'];
-  const { handleGetAllProduct, response } = useProduct('image', filter);
-
-  useEffect(() => {
-    // Call the handleGetAllProduct function when the component mounts or when dependencies change
-    handleGetAllProduct();
-  }, [filter]);
+ 
+  // in case if you want to access data from backend (also check the data format)
+  // const { handleGetAllProduct, response } = useProduct('image', filter);
+  // useEffect(() => {
+  //   // Call the handleGetAllProduct function when the component mounts or when dependencies change
+  //   handleGetAllProduct();
+  // }, [filter]);
 
 
   const [isMenuHide, setIsMenuHide] = useState<boolean>(false);
@@ -135,12 +135,12 @@ export default function Picture() {
         <div className={styles.PictureGallary}
           ref={pictureContainerRef}>
           {
-            response ?response.length?
-           response.map((data: any, index: number) => {
-              if (data.media.type !== "image") return;
+            galleryData ?galleryData.length?
+            galleryData.filter((item)=>item.tags.includes(filter)).map((data: any) => {
+              
               return (
-                <div key={index} className={styles.imageSection}>
-                  <img className={styles.gallaryImage} src={"data:image/jpeg;base64," + data.media.data} alt={"image" + index} onClick={()=>router.push(`/gallery/${data._id}`)} />
+                <div key={data.id} className={styles.imageSection}>
+                  <img className={styles.gallaryImage} src={data.imgSrc} alt={"image" + data.id} onClick={()=>router.push(`/gallery/${data.id}`)} />
                   <div className={styles.gallaryImageText}>{data.name}</div>
                 </div>
               )

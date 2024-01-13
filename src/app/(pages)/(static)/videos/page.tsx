@@ -3,27 +3,29 @@ import styles from './style.module.css'
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { useProduct } from '@/hooks/useProduct';
+import {  useRef, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
+import videoData from '@/constants/VideoData';
 // Import other necessary modules
 // Import other necessary modules
 
 export default function Videos() {
-  const { handleGetAllProduct, response } = useProduct('video');
   const videosContainerRef = useRef<any>(null);
+  
   // const [_, setScrollPosition] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await handleGetAllProduct();
-      } catch (error) {
-      }
-    };
+  // if you want to access data from API
+  // const { handleGetAllProduct, response } = useProduct('video');
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       await handleGetAllProduct();
+  //     } catch (error) {
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 const [currentIndex,setCurrentIndex]=useState<number>(0);
 
   const handleScroll = (direction: any) => {
@@ -32,7 +34,7 @@ const [currentIndex,setCurrentIndex]=useState<number>(0);
     if (container) {
       if (direction === 'left') {
         container.scrollLeft -= scrollAmount;
-        if(currentIndex!==response.length-1){
+        if(currentIndex!==videoData.length-1){
           setCurrentIndex(currentIndex+1);
         }
       } else if (direction === 'right') {
@@ -65,11 +67,11 @@ const [currentIndex,setCurrentIndex]=useState<number>(0);
             // onMouseOver={() => setScrollPosition(videosContainerRef.current.scrollLeft)}
             // onMouseLeave={() => setScrollPosition(0)}
           >
-            {response ?(response.length)?
-              response.map((data: any, index: number) => (
-                <a key={index} href={"data:video/mp4;base64," + data.media.data}>
+            {videoData ?(videoData.length)?
+              videoData.map((data: any) => (
+                <a key={data.id} href={ data.videoHref}>
                   <video autoPlay muted loop className={styles.videosGallarySection}>
-                    <source src={"data:video/mp4;base64," + data.media.data} type="video/mp4" />
+                    <source src={data.videoHref} type="video/mp4" />
                   </video>
                 </a>
               )):<div className={styles.ClipLoader}>
@@ -92,7 +94,7 @@ const [currentIndex,setCurrentIndex]=useState<number>(0);
             <WestIcon className={styles.videosIcons} />
           <div className={styles.videosScroll}>Scroll</div>
           </div>
-          <div className={styles.videosScrollBarCenter}>{response ?response.length?(`${currentIndex+1}/${response.length} ${response[currentIndex]?.name}`):"No video is available":""}</div>
+          <div className={styles.videosScrollBarCenter}>{videoData ?videoData.length?(`${currentIndex+1}/${videoData.length} ${videoData[currentIndex]?.name}`):"No video is available":""}</div>
           <div className={styles.videosScrollBarRightSide} onClick={(e) => handleScroll('right')}>
           <div className={styles.videosScroll}>Scroll</div>
             <EastIcon className={styles.videosIcons} />

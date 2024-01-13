@@ -50,19 +50,25 @@ export default function Home() {
           isHover.isVideoHover ? {
             width: "50%",
             background: "rgba(0,0,0,0.7)",
-            transition: "all ease-in 0.5s"
+            transition: "all 0.5s ease-in"
           } : (isHover.isAboutHover || isHover.isPictureHover) ? {
             background: "rgba(0,0,0,0.7)",
             width: "33.3%",
-            transition: "all ease-in 0.5s"
+            transition: "all 0.5s ease-in"
           }
             : {
               width: "33.3%",
-              transition: "all ease-in 0.5s"
+              transition: "all  0.5s ease-in"
             }
         }>
           <div className={`${styles.homeVideo} ${styles.hover}`} onClick={() => router.push("/videos")}
-            onMouseEnter={() => setIsHover({ ...hoverObj, isVideoHover: true })} onMouseLeave={() => setIsHover({ ...hoverObj, isVideoHover: false })} 
+            onMouseEnter={(e) =>{
+              e.preventDefault();
+               setIsHover({ ...hoverObj, isVideoHover: true })
+              }
+              } onMouseLeave={(e) =>{
+                e.preventDefault();
+                setIsHover({ ...hoverObj, isVideoHover: false })} }
             >VIDEOS</div>
           <video autoPlay muted loop className={styles.slideVideos}>
             <source src="https://karwaan.b-cdn.net/Front/motion%20(1).webm" type="video/mp4" />
@@ -74,30 +80,35 @@ export default function Home() {
           isHover.isAboutHover ? {
             width: "50%",
             background: "rgba(0,0,0,0.7)",
-            transition: "all ease-in 0.5s"
+            transition: "all 0.5s ease-in"
           } : (isHover.isVideoHover || isHover.isPictureHover) ? {
             background: "rgba(0,0,0,0.7)",
-            width: "33.3%",
-            transition: "all ease-in 0.5s"
+            width: "50%",
+            transition: "all 0.5s ease-in"
           }
             : {
-              width: "33.3%",
-              transition: "all ease-in 0.5s"
+              width: "50%",
+              transition: "all 0.5s ease-in"
             }}
         >
           <div className={styles.homeAbout} 
           style={isHover.isAboutHover==true?{opacity:"0"}:{opacity:"1"}}
            onClick={() => router.push("/about")}
-            onMouseEnter={() => {
+            onMouseEnter={(e) =>{
+              e.preventDefault();
               setIsHover({ ...hoverObj, isAboutHover: true });
             }} 
-            onMouseLeave={() => {
+            onMouseLeave={(e) =>{
+              e.preventDefault();
               setIsHover({ ...hoverObj, isAboutHover: false });
             }}
             >ABOUT US</div>
           <div className={styles.aboutUs}
-            onMouseEnter={() => setIsHover({ ...hoverObj, isAboutHover: true })}
-            onMouseLeave={() => setIsHover({ ...hoverObj, isAboutHover: false })}
+            onMouseEnter={(e) =>{
+              e.preventDefault();
+              setIsHover({ ...hoverObj, isAboutHover: true })}}
+            onMouseLeave={(e) =>{
+              e.preventDefault(); setIsHover({ ...hoverObj, isAboutHover: false })}}
             ><About /></div>
           <span className={styles.bottomLine}
           style={isHover.isAboutHover===true?{visibility:"hidden"}:{visibility:"visible"}}
@@ -107,25 +118,32 @@ export default function Home() {
           isHover.isPictureHover ?
             {
               width: "50%",
-              transition: "all ease-in 0.5s",
+              transition: "all 0.5s ease-in",
               background: "rgba(0,0,0,0.7)",
 
             } : (isHover.isAboutHover || isHover.isVideoHover) ? {
               background: "rgba(0,0,0,0.7)",
               width: "33.3%",
-              transition: "all ease-in 0.5s"
+              transition: "all 0.5s ease-in"
             }
               : {
                 width: "33.3%",
-                transition: "all ease-in 0.5s"
+                transition: "all 0.5s ease-in"
               }}>
 
           <div className={`${styles.homePicture} ${styles.hover}`} onClick={() => router.push("/picture")}
-            onMouseEnter={() => setIsHover({ ...hoverObj, isPictureHover: true })} onMouseLeave={() => setIsHover({ ...hoverObj, isPictureHover: false })}
+            onMouseEnter={(e) =>{
+              e.preventDefault();
+               setIsHover({ ...hoverObj, isPictureHover: true })
+          }
+          } onMouseLeave={(e) =>{
+            e.preventDefault();setIsHover({ ...hoverObj, isPictureHover: false })}}
           >PICTURES</div>
-          <img style={currentIndex === 0 ? { display: "flex" } : { display: "none" }} className={styles.slidePictures} src={pictureSrc[0].src} alt="not found" />
-          <img style={currentIndex === 1 ? { display: "flex" } : { display: "none" }} className={styles.slidePictures} src={pictureSrc[1].src} alt="not found" />
-          <img style={currentIndex === 2 ? { display: "flex" } : { display: "none" }} className={styles.slidePictures} src={pictureSrc[2].src} alt="not found" />
+          <div  className={styles.slidePictures}>
+          <img style={currentIndex === 0 ? { display: "flex" } : { display: "none" }} src={pictureSrc[0].src} alt="not found" />
+          <img style={currentIndex === 1 ? { display: "flex" } : { display: "none" }} src={pictureSrc[1].src} alt="not found" />
+          <img style={currentIndex === 2 ? { display: "flex" } : { display: "none" }} src={pictureSrc[2].src} alt="not found" />
+          </div>
           <span className={styles.rightLine}></span>
         </div>
       </div>

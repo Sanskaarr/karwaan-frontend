@@ -17,7 +17,7 @@ import 'aos/dist/aos.css';
 
   return (
     <div className={styles.clientPage}>
-            <h3 style={{textAlign:"center",color: "black", marginTop:"67px",fontSize:"28px"}}>Our Clients</h3>
+            <h3 style={{textAlign:"center",color: "black", marginBottom:"35px",fontSize:"28px"}}>Our Clients</h3>
         <div className={styles.clients}>
           {
             clientData.map((data)=>{

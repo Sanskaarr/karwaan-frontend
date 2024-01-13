@@ -30,10 +30,15 @@
     /* transform: translate(0,0) !important; */
 
 }
+.nextArrows ,
+.prevArrows {
+    height: fit-content;
+   
+}
 .nextArrows >svg,
 .prevArrows >svg{
     color: black !important;
-    height: 300px;
+    height: fit-content;
     width: 60px;
     object-fit: contain;
 }
