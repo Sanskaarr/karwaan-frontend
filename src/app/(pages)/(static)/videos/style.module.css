@@ -131,6 +131,7 @@ z-index: 1;
 }
 .videosGallary>a{
   position: relative;
+  margin-bottom: 10px;
 }
 .videosGallary>a:first-child {
   margin-right: 250px;
@@ -270,13 +271,19 @@ z-index: 1;
   }
 }
 @media (max-width: 680px) {
-  .videosGallary a{
-    width: 100% !important;
-    padding: 0 10%;
+  .videosGallary>a:not(:first-child){
+    position: relative;
+    margin-bottom: 0px !important;
   }
-  .videosGallarySectionImg,
+  .videosGallarySection{
+    padding: 0;
+  }
+  .videosGallarySectionImg{
+    display: none;
+  }
  .videosGallarySection{
     width: 100% !important;
     margin-left: 0px;
  }
+ 
 }
