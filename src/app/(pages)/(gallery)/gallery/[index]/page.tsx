@@ -2,7 +2,6 @@
 import styles from './style.module.css'
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useProduct } from '@/hooks/useProduct';
 import { ClipLoader } from 'react-spinners';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -19,7 +18,7 @@ export default function Gallery() {
   // }, []);
   
   const { index } = useParams<{ index: string }>()
-  const currentIndex:number=galleryData?.findIndex((data :any)=>data.id===index) ;
+  const currentIndex:number=galleryData?.findIndex((data :any)=>data.id==index+1) ;
   const [counter, setCounter] = useState<number>(0);
   const router = useRouter();
 useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}},[currentIndex]);
