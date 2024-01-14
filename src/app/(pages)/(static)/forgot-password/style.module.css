@@ -1,14 +1,12 @@
 .VerifyMail{
-    padding-top: 67px;
     background: white;
-    min-height: 90vh;
     display: flex;
     color: black;
     justify-content: center;
 }
   .contactForm {
     width: 50%;
-    height: 80vh;
+    height: 80svh;
     padding: 0% 5%;
     display: flex;
     /* align-items: center; */

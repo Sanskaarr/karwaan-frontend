@@ -6,7 +6,7 @@
 .shopBannerContainer{
     width: 100%;
     overflow-y: hidden;
-    height: 80vh;
+    height: 80svh;
 }
 .shopBanner{
     width: 100%;
@@ -154,7 +154,7 @@
 }
 .BigOneProduct{
     position: relative;
-    height: 80vh;
+    height: 80svh;
 }
 .innerContainer{
     position: absolute;

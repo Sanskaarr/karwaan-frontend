@@ -1,5 +1,5 @@
 .mainGallary{
-    height: 100vh;
+    height: 100svh;
     width: 100vw;
     background: white;
     display: flex;
@@ -10,7 +10,7 @@
 .mainGallaryBackground{
     width: 100vw;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     /* background: red; */
     position: absolute;
     z-index: 0;

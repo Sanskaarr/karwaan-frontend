@@ -112,7 +112,7 @@ export default function navbar() {
                     width: "0px",
                     // transform: "translate(100%,0)",
                     transition: "all ease-in 0.3s",
-                    height: "100vh"
+                    height: "100svh"
                     // display:"none"
 
                 }} className={styles.userSetting}>

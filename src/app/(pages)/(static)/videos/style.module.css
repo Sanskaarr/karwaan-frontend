@@ -6,7 +6,7 @@
 .videos {
   background: white;
   position: relative;
-  height: 80vh;
+  height: 80svh;
   display: flex;
 
   flex-direction: column;
@@ -209,7 +209,7 @@
     position: relative;
     z-index: 0;
     width: 100%;
-    height: 75vh;
+    height: 75svh;
     margin: auto;
     padding: auto;
     transform: translateX(0);

@@ -1,6 +1,6 @@
 .contact{
     background: rgb(255, 255, 255);
-    min-height: 100vh;
+    min-height: 100svh;
     width: 100vw;
     position: absolute;
     top: 0;
@@ -58,6 +58,6 @@
     .contactFirstPartition,
     .contactSecondPartition{
         width: 100%;
-        min-height:80vh ;
+        min-height:80svh ;
     }
  }

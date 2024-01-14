@@ -7,7 +7,7 @@
 .layer1BgVideo{
  object-fit: cover;
  width: 100vw;
- height: 100vh;
+ height: 100svh;
 }
 .loaderContent{
   position: absolute;

@@ -4,7 +4,7 @@ import Backdrop from "./Backdrop";
 
 const dropIn = {
     hidden: {
-      y: "-100vh",
+      y: "-100svh",
       opacity: 0,
     },
     visible: {
@@ -18,7 +18,7 @@ const dropIn = {
       },
     },
     exit: {
-      y: "100vh",
+      y: "100svh",
       opacity: 0,
     },
   };

@@ -80,7 +80,7 @@ function page() {
         <div className={styles.myAccountContainer} >
             {/* <div className={styles.myAccountContainer} style={isOpen?{background:"rgba(0,0,0,0.8)"}:{background:"rgba(0,0,0,0)"}}> */}
             <h1 className={styles.heading}>my Account</h1>
-            <div className={styles.myAccount} style={modalOpen ? { filter: "blur(3px)", height: "100vh" } : { background: "white" }} onClick={() => (modalOpen ? close() : "")}>
+            <div className={styles.myAccount} style={modalOpen ? { filter: "blur(3px)", height: "100svh" } : { background: "white" }} onClick={() => (modalOpen ? close() : "")}>
 
                 {/* change fields */}
                 <form className={styles.myAccountForm} >
