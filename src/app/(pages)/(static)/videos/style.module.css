@@ -38,7 +38,10 @@
   height: 350px;
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  padding-right: 20px;
+  background: white;
+  position: relative;
+  z-index: 8;
 }
 .videosSectionHome > span {
   transform: rotate(90deg);
@@ -87,10 +90,29 @@
   letter-spacing: 20px;
   
 }
+.videosGallarySectionImg,
 .videosGallarySection {
   width: 600px;
-  margin-left: 10px;
-   
+  padding-left: 10px;
+  background: white; 
+  position: relative;
+  z-index: 2;
+}
+.videosGallarySectionImg{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 6;
+  transition: all 0.5s ease-in;
+  opacity: 1;
+}
+.videosGallary>a:hover>.videosGallarySectionImg{
+  opacity: 0;
+  transition: all 0.5s ease-in;
+z-index: 1;
+
+
 }
 
 .videoContainer {
@@ -107,11 +129,32 @@
 .videoGallerySection:hover {
   opacity: 0.7; /* Adjust the opacity on hover as needed */
 }
+.videosGallary>a{
+  position: relative;
+}
 .videosGallary>a:first-child {
-  margin-right: 300px;
+  margin-right: 250px;
   display: flex;
 }
+/* .videosGallary>a:nth-child(1) {
+ transform: translateX(-70px);
+ position: relative;
+ animation: rtoh 0.3s linear 0s 1 forwards;
 
+} */
+/* @keyframes rtoh {
+  0%{
+    transform: translateX(-100px);
+    position: relative;
+    transition: all 0.5s ease-in;
+  }
+  100%{
+ transform: translateX(0px);
+ position: relative;
+ transition: all 0.5s ease-in;
+
+  } */
+/* } */
 .imageSection {
   width: 295px;
   height: 169px;
@@ -231,6 +274,7 @@
     width: 100% !important;
     padding: 0 10%;
   }
+  .videosGallarySectionImg,
  .videosGallarySection{
     width: 100% !important;
     margin-left: 0px;

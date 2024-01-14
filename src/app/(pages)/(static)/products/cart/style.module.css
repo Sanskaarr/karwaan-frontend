@@ -190,8 +190,8 @@
   .checkoutBtn:hover,
   .cartItemRemove:hover {
     cursor: pointer;
-    background: #8791ff;
-    color: #000;
+    background: #363636;
+    color: #ffffff;
   }
   .checkoutHeading {
     width: 100%;

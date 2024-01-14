@@ -70,7 +70,7 @@ export default function Home() {
                 e.preventDefault();
                 setIsHover({ ...hoverObj, isVideoHover: false })} }
             >VIDEOS</div>
-          <video autoPlay muted loop className={styles.slideVideos}>
+          <video autoPlay muted loop className={styles.slideVideos} >
             <source src="https://karwaan.b-cdn.net/Front/motion%20(1).webm" type="video/mp4" />
           </video>
           <div className={styles.leftLine}></div>

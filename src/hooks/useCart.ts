@@ -135,7 +135,6 @@ export const useCart = ({ token, productId, userId, cartItemId }: Params) => {
 
             if (result.status === "success") {
                 dispatch(emptyCart_success());
-                console.log("kuch toh chala")
                 localStorage.removeItem("cartItems");
                 setCartItems(cartItems.length===0);
                 

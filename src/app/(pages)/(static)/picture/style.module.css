@@ -17,7 +17,6 @@
   height: 480px;
   display: flex;
   align-items: center;
-  margin-right: 20px;
 }
 .PictureSectionHome > span {
   transform: rotate(-90deg);
@@ -33,6 +32,7 @@
 .desktopViewFilter {
   color: black;
   display: block;
+  margin: 0 10px;
 }
 .mobileViewFilter {
   display: none;
@@ -42,8 +42,9 @@
   z-index: 9;
   background: white;
 }
+
 .PictureSectionFilter > ul {
-  margin-right: 20px;
+  margin:0 10px;
   visibility: visible !important;
   /* transform: translate(0, 0) !important; */
   transition: ease-in 0.5s !important;
@@ -68,10 +69,11 @@
   flex-flow: column wrap;
   align-content: flex-start;
   overflow: scroll;
-  margin-left: -230px;
+  margin-left: -265px;
   transition: all 0.5s ease-in-out;
   position: relative;
 }
+
 
 .PictureGallary::-webkit-scrollbar {
   display: none;
@@ -90,6 +92,7 @@
   transform: translate(-50%, -50%);
   transition: ease-in 0.5s;
   visibility: visible;
+  font-size: 16px;
 }
 .imageSection:hover > .gallaryImage {
   transition: ease-in 0.5s;

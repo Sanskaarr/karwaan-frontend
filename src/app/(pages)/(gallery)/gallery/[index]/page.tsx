@@ -17,18 +17,17 @@ export default function Gallery() {
   //   handleGetAllProduct();
   // }, []);
   
-  const { index } = useParams<{ index: string }>()
-  const currentIndex:number=galleryData?.findIndex((data :any)=>data.id==index+1) ;
-  const [counter, setCounter] = useState<number>(0);
+  const { index } = useParams<{ index:any }>()
+  const [counter, setCounter] = useState<number>(index);
   const router = useRouter();
-useEffect(()=>{ if(currentIndex>0){setCounter(currentIndex)}else{setCounter(0)}},[currentIndex]);
+
   const handleCounter = (value: number): any => {
     if (value > 0) {
-      if (counter === (galleryData.length - 1)) setCounter(0);
-      else setCounter(counter + value)
+      if (Number(counter) === (galleryData.length - 1)) setCounter(0);
+      else setCounter(Number(counter) + value)
     } else {
-      if (counter === 0) setCounter(galleryData.length - 1);
-      else setCounter(counter + value);
+      if (Number(counter) === 0) setCounter(galleryData.length - 1);
+      else setCounter(Number(counter) + value);
 
     }
   }

@@ -8,6 +8,7 @@ import {  useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ClipLoader } from 'react-spinners';
 import galleryData from '@/constants/galleryData';
+import { motion } from 'framer-motion';
 export default function Picture() {
   const pictureContainerRef = useRef<any>(null);
   const [filter, setFilter] = useState<string>("all");
@@ -137,10 +138,12 @@ export default function Picture() {
           {
             galleryData ?galleryData.length?
             galleryData.filter((item)=>item.tags.includes(filter)).map((data: any) => {
-              
               return (
                 <div key={data.id} className={styles.imageSection}>
-                  <img className={styles.gallaryImage} src={data.imgSrc} alt={"image" + data.id} onClick={()=>router.push(`/gallery/${data.id}`)} />
+                  <motion.img   initial={{scale: 0.3, x: 100, y: 0, opacity: 0 }} // Set initial position and opacity
+      animate={{scale: 1, x: 0, y: 0, opacity: 1 }} // Set the final position and opacity
+      transition={{ ease: 'easeIn', delay: 0, duration: 0.5 }}
+       className={styles.gallaryImage} src={data.imgSrc} alt={"image" + data.id} onClick={()=>router.push(`/gallery/${data.id}`)} />
                   <div className={styles.gallaryImageText}>{data.name}</div>
                 </div>
               )
