@@ -18,16 +18,16 @@ export default function Gallery() {
   // }, []);
   
   const { index } = useParams<{ index:any }>()
-  const [counter, setCounter] = useState<number>(index);
+  const [counter, setCounter] = useState<number>(index-1);
   const router = useRouter();
 
   const handleCounter = (value: number): any => {
     if (value > 0) {
-      if (Number(counter) === (galleryData.length - 1)) setCounter(0);
-      else setCounter(Number(counter) + value)
+      if (Number(counter) === (galleryData.length - 1)) {setCounter(0)}
+      else {setCounter(Number(counter) + value)}
     } else {
-      if (Number(counter) === 0) setCounter(galleryData.length - 1);
-      else setCounter(Number(counter) + value);
+      if (Number(counter) === 0){ setCounter(galleryData.length - 1)}
+      else {setCounter(Number(counter) + value)};
 
     }
   }

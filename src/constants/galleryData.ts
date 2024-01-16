@@ -164,7 +164,7 @@ type GalleryItem = {
       "tags":['all','people' ]
     },
     {
-      "id": 29,
+      "id": 27,
       "imgSrc": "https://karwaan.b-cdn.net/gallery/Landscape7.jpg",
       "name": "East Women",
       "tags":['all' ,"cityscape" , 'dark']

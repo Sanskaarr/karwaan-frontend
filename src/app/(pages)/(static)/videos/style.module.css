@@ -265,12 +265,13 @@ z-index: 1;
     overflow: scroll !important;
   
   }
-  .videosGallary>a:first-child {
-    margin-right: 0px;
-    margin-bottom: 10px;
-  }
+
 }
 @media (max-width: 680px) {
+
+  .videosGallary>a{
+   transform: translate(0,0) !important;
+  }
   .videosGallary>a:not(:first-child){
     position: relative;
     margin-bottom: 0px !important;
@@ -279,11 +280,16 @@ z-index: 1;
     padding: 0;
   }
   .videosGallarySectionImg{
-    display: none;
+    padding-left: 0;
+    z-index: 7;
+    padding-bottom: 10px;
+    width: 100vw;
   }
  .videosGallarySection{
     width: 100% !important;
     margin-left: 0px;
+    object-fit: cover;
+    /* height: 280px !important; */
  }
  
 }
