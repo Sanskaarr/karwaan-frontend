@@ -65,34 +65,34 @@ export default function Videos() {
       }}
     }, 500);
   };
-  const handleScrollOnHover = (e: React.WheelEvent<HTMLDivElement>) => {
+  // const handleScrollOnHover = (e: React.WheelEvent<HTMLDivElement>) => {
   
-    // Use a timeout to wait for the scrolling to finish before updating the index
-    setTimeout(() => {
+  //   // Use a timeout to wait for the scrolling to finish before updating the index
+  //   setTimeout(() => {
   
-      // Update the current index based on the visible video
-      const container = videosContainerRef.current;
-      if (container) {
-              // Calculate the scrollRight value
-      let scrollRight = container.scrollWidth - container.offsetWidth + container.scrollLeft;
-            // Ensure scrollRight is at least 0 (on extreme left)
-            scrollRight = Math.round(scrollRight);
-        const visibleVideos = Math.abs(Math.round(container.scrollLeft / 600));
-        const currentInd =  (scrollRight>5)?Math.abs( Math.max(0, Math.min(videoData.length - 1, visibleVideos))):6;
+  //     // Update the current index based on the visible video
+  //     const container = videosContainerRef.current;
+  //     if (container) {
+  //             // Calculate the scrollRight value
+  //     let scrollRight = container.scrollWidth - container.offsetWidth + container.scrollLeft;
+  //           // Ensure scrollRight is at least 0 (on extreme left)
+  //           scrollRight = Math.round(scrollRight);
+  //       const visibleVideos = Math.abs(Math.round(container.scrollLeft / 600));
+  //       const currentInd =  (scrollRight>5)?Math.abs( Math.max(0, Math.min(videoData.length - 1, visibleVideos))):6;
        
 
-      if(currentInd!=currentIndex){
-        setCurrentIndex(currentInd);
+  //     if(currentInd!=currentIndex){
+  //       setCurrentIndex(currentInd);
       
   
-        // Update the video name in the scroll bar
-        if (videoData && videoData.length) {
-          const currentVideo = videoData[currentInd];
-          // Display the current video name wherever you need it
-        }
-      }}
-    }, 500);
-  };
+  //       // Update the video name in the scroll bar
+  //       if (videoData && videoData.length) {
+  //         const currentVideo = videoData[currentInd];
+  //         // Display the current video name wherever you need it
+  //       }
+  //     }}
+  //   }, 500);
+  // };
 
   return (
     <div className={styles.videos} >
