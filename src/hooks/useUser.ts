@@ -169,6 +169,7 @@ export const useUser = (payload: Params) => {
         }
     }
     
+    // handle Update Feilds
     const handleUpdateFeilds = async (e: any) => {
         e.preventDefault()
         const payload = {
@@ -208,6 +209,8 @@ export const useUser = (payload: Params) => {
         }
 
     }
+
+    // handle Update Email
     const handleUpdateEmail = async (e: any) => {
         e.preventDefault()
         const payload = {email: email}
@@ -243,6 +246,8 @@ export const useUser = (payload: Params) => {
             }
         }
     };
+
+    // handle Update Password
     const handleUpdatePassword = async (e: any) => {
         e.preventDefault()
 
@@ -252,21 +257,22 @@ export const useUser = (payload: Params) => {
             confirmNewPassword: confirmNewPassword
         }
 
-        dispatch(updateUser_request());
+        dispatch(resetPassword_request());
         try {
-            const {putCall} = useAxios(`/api/v1/user/${_id}`, payload, token);
+            const {putCall} = useAxios(`/api/v1/user/change-password/${_id}`, payload, token);
             const response = await putCall();
             
             if(response.statusCode === 200){
-                dispatch(updateUser_success());
-                const data: any = JSON.parse(localStorage.getItem("user") as string);
+                dispatch(resetPassword_success());
+                console.log("change ",response.data);
+                localStorage.setItem('user', JSON.stringify({ ...response.data}));
                 toast.success(response.message && response.message);
             }
 
         } catch (error: any) {
             if(axios.isAxiosError(error)){
                 toast.error(error.response?.data.message)
-                dispatch(updateUser_failure(error.response?.data.message));
+                dispatch(resetPassword_failure(error.response?.data.message));
             }
 
             if (error.response?.status === 403) {
@@ -276,13 +282,15 @@ export const useUser = (payload: Params) => {
                 if (localStorage.getItem('cartItems')) {
                     localStorage.removeItem("cartItems");
                 }
-                dispatch(updateUser_failure(error.message));
+                dispatch(resetPassword_failure(error.message));
                 const {postCall} = useAxios('/api/v1/user/signout', {token}, token);
                 await postCall();
                 router.push('/signup');
             }
         }
     };
+
+    // handle Update PhoneNumber
     const handleUpdatePhoneNumber = async (e: any) => {
         e.preventDefault()
         const payload = {phoneNumber: phoneNumber}
@@ -323,6 +331,7 @@ export const useUser = (payload: Params) => {
     // handle send Otp
     const handleSendOtp = async (e: any, otp?: number | null,) => {
         e.preventDefault();
+        console.log("_id",_id);
         if (!otp) return;
         dispatch(otp_request());
         try {
@@ -349,6 +358,7 @@ export const useUser = (payload: Params) => {
                 toast.error(error.response?.data.message);
                 dispatch(updateUser_failure(error.response?.data.message));
                 if (error.response?.status === 403) {
+                    console.log(error.response)
                     if (localStorage.getItem("user")) {
                         localStorage.removeItem("user");
                     }
@@ -361,6 +371,7 @@ export const useUser = (payload: Params) => {
         }
 
     }
+
     // handle Reset Password 
     const handleResetPasswordUser = async (e: any, newPassword?: string | null, confirmPassword?: string | null) => {
         e.preventDefault();
@@ -402,6 +413,7 @@ export const useUser = (payload: Params) => {
         }
 
     }
+
     // handle forget Password 
     const handleForgetPasswordUser = async (e: any, email?: string | null) => {
         e.preventDefault();
@@ -440,33 +452,32 @@ export const useUser = (payload: Params) => {
 
     }
 
+    // // handle Update Phone Number User
+    // const handleUpdatePhoneNumberUser = async (e: any) => {
+    //     e.preventDefault();
+    //     dispatch(updatePhoneNumber_request());
+    //     // if(!token) return;
+    //     try {
+    //         const { putCall } = useAxios(`/api/v1/user/${_id}`, token);
 
-    // handle Update Phone Number User
-    const handleUpdatePhoneNumberUser = async (e: any) => {
-        e.preventDefault();
-        dispatch(updatePhoneNumber_request());
-        // if(!token) return;
-        try {
-            const { putCall } = useAxios(`/api/v1/user/${_id}`, token);
+    //         const response = await putCall();
 
-            const response = await putCall();
+    //         if (response.status === "success") {
+    //             dispatch(updatePhoneNumber_success());
+    //             dispatch(update_user_data(response.data.user));
+    //             // localStorage.setItem('user', JSON.stringify({ ...response.data.user, token: response.data.token }));
+    //             return function success() {
+    //                 toast.success(response.message && response.message);
+    //             }()
+    //         }
+    //     } catch (error: any) {
+    //         dispatch(updatePhoneNumber_failure(error.message));
+    //         if (axios.isAxiosError(error)) {
+    //             toast.error(error.response?.data.message);
+    //             dispatch(updatePhoneNumber_failure(error.response?.data.message));
+    //         }
+    //     }
+    // }
 
-            if (response.status === "success") {
-                dispatch(updatePhoneNumber_success());
-                dispatch(update_user_data(response.data.user));
-                // localStorage.setItem('user', JSON.stringify({ ...response.data.user, token: response.data.token }));
-                return function success() {
-                    toast.success(response.message && response.message);
-                }()
-            }
-        } catch (error: any) {
-            dispatch(updatePhoneNumber_failure(error.message));
-            if (axios.isAxiosError(error)) {
-                toast.error(error.response?.data.message);
-                dispatch(updatePhoneNumber_failure(error.response?.data.message));
-            }
-        }
-    }
-
-    return { handleGetUser, handleDeleteUser, handleSendOtp, handleLogOutUser, handleResetPasswordUser, handleForgetPasswordUser, handleUpdateFeilds, handleUpdateEmail, handleUpdatePassword, handleUpdatePhoneNumber, handleUpdatePhoneNumberUser, handleVerifyMailUser }
+    return { handleGetUser, handleDeleteUser, handleSendOtp, handleLogOutUser, handleResetPasswordUser, handleForgetPasswordUser, handleUpdateFeilds, handleUpdateEmail, handleUpdatePassword, handleUpdatePhoneNumber, handleVerifyMailUser }
 } 

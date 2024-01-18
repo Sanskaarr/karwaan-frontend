@@ -17,12 +17,12 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ token, _id }) => {
     type formType = {
         confirmNewPassword: string,
         newPassword: string,
-        password: string,
+        oldPassword: string,
     }
 
-    const [formData, setFormData] = useState<formType>({ password: "", confirmNewPassword: "", newPassword: "" });
+    const [formData, setFormData] = useState<formType>( { oldPassword: "", confirmNewPassword: "", newPassword: "" } );
     const [isPassVisible, setIsPassVisible] = useState({ existPass: false, newPass: false, confirmNewPass: false });
-    const { handleUpdatePassword } = useUser({ token: token, _id: _id });
+    const { handleUpdatePassword } = useUser({ oldPassword: formData.oldPassword, newPassword: formData.newPassword,  confirmNewPassword: formData.confirmNewPassword, token: token, _id: _id });
     const isResetPasswordLoading: boolean = useAppSelector((state: any) => state.userRequest.resetPassword.loading);
 
     return (
@@ -31,9 +31,9 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ token, _id }) => {
             <h2>Change Password</h2>
             <div className={styles.password}>
                 <input className={styles.inputField} type={isPassVisible.existPass ? "text" : "password"} name='password' id='ExistPassword'
-                    value={formData.password}
+                    value={formData.oldPassword}
                     onChange={(e) => {
-                        setFormData({ ...formData, password: e.target.value })
+                        setFormData({ ...formData, oldPassword: e.target.value })
                     }} required />
                 <label className={`${styles.passwordLable}${styles.lables}`}>Exisiting password</label>
                 <div className={styles.visibility} onClick={() => setIsPassVisible({ existPass: !isPassVisible.existPass, newPass: false, confirmNewPass: false })}>{isPassVisible.existPass ? <VisibilityOutlinedIcon className={styles.VisibleIcon} /> : <VisibilityOffOutlinedIcon className={styles.VisibleIcon} />}</div>
@@ -60,7 +60,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ token, _id }) => {
                 onClick={handleUpdatePassword}
             >{!isResetPasswordLoading ? "Change Password" :
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
+                    <ClipLoader color="white" size={15} speedMultiplier={0.5} />
                 </div>}
             </button>
         </form>

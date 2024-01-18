@@ -61,7 +61,7 @@ function page() {
     const isVerifyLoading: boolean = useAppSelector((state: any) => state.userRequest.sendVerifyEmail.loading);
 
     // update field
-    var { handleUpdateFeilds, handleUpdateEmail, handleUpdatePhoneNumber, handleUpdatePassword } = useUser(formData);
+    var { handleUpdateFeilds, handleUpdateEmail, handleUpdatePhoneNumber } = useUser(formData);
     // phone number regex
     const phoneNumberRegex = /^[6-9]\d{9}$/;
     // verify email
@@ -175,11 +175,10 @@ function page() {
                 {/* change password */}
                 <div className={styles.resetPassword}>
                     <ResetPassword token={token!} _id={_id!} />
-                    <p className={styles.message} onClick={(e) => router.push('/forgot-password')}>Forgot Password ?</p>
+                    <p className={styles.message} onClick={(e) => router.push('/forgot-password')} style={{borderBottom:"1px solid black", width:"fit-content", paddingBottom:"1px"}}>Forgot Password ?</p>
                 </div>
 
                 {/* delete account*/}
-
                 <div className={styles.deleteAccount}>
                     <h2>delete account</h2>
                     <Button className={styles.submitButton} style={{ width: "50px", height: "140px" }} onPress={onOpen}>Delete My Account</Button>

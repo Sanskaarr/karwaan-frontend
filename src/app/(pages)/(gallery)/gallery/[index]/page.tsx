@@ -60,7 +60,7 @@ export default function Gallery() {
 
           :
           <div className={styles.ClipLoader}>
-            <ClipLoader color="blue" size={60} speedMultiplier={0.5} />
+            <ClipLoader color="white" size={60} speedMultiplier={0.5} />
             <div>loading</div>
           </div>
 

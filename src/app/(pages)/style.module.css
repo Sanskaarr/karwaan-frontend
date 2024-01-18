@@ -1,6 +1,6 @@
 .home {
   position: relative;
-  width: 100vw;
+  /* width: 100vw; */
   height: 100svh;
   overflow: hidden;
 }
@@ -96,7 +96,8 @@
   position: relative;
 }
 .homeVideo:hover~ .slideVideos {
-  transform: translate(-40%, 0%) !important;
+
+  transform: translate(-40%, 0%);
   transition: all ease-in 0.5s;
 }
 .homeVideo{
@@ -125,6 +126,8 @@
 .homeAbout:hover{
   cursor: pointer;
  opacity: 0;
+ transition: all ease-in 0.5s;
+
 }
 
 .aboutUs{
@@ -143,6 +146,10 @@
   z-index: 2;
   font-size: 50px;
   
+}
+.bottomLine,
+.homeAbout{
+  transition: all ease-in 0.6s;
 }
 .homePicture:hover~ .slidePictures {
   transform: translate(40%, 0%) !important;

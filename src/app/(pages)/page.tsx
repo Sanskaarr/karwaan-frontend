@@ -4,7 +4,7 @@ import styles from './style.module.css'
 import About from '@/component/about/About';
 import { useEffect, useLayoutEffect, useState } from 'react';
 export default function Home() {
-  
+
   const router = useRouter();
   type hoverObjType = {
     isVideoHover: Boolean,
@@ -30,10 +30,10 @@ export default function Home() {
     }, 2000);
     return () => clearTimeout(timeoutId);
   }, [currentIndex]);
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     console.clear();
     console.log('%cThis website is developed by WONDOR VENDORS ', 'color: green; font-size: 18px; font-weight: bold;');
-  },[])
+  }, [])
   return (
     <div className={styles.home}>
       <video className={styles.bgvideo} autoPlay muted loop>
@@ -41,10 +41,10 @@ export default function Home() {
         <source src="https://karwaan.b-cdn.net/Front/home1.webm" type="video/webm" />
         Your browser does not support HTML5 video.
       </video>
-      <video  className={styles.moblieBgvideo} autoPlay muted loop>
-            <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.webm" type="video/webm" />
-            Your browser does not support HTML5 video.
-        </video>
+      <video className={styles.moblieBgvideo} autoPlay muted loop>
+        <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.webm" type="video/webm" />
+        Your browser does not support HTML5 video.
+      </video>
       <div className={styles.homePartition} >
         <div className={styles.firstPartition} style={
           isHover.isVideoHover ? {
@@ -62,14 +62,15 @@ export default function Home() {
             }
         }>
           <div className={`${styles.homeVideo} ${styles.hover}`} onClick={() => router.push("/videos")}
-            onMouseEnter={(e) =>{
+            onMouseEnter={(e) => {
               e.preventDefault();
-               setIsHover({ ...hoverObj, isVideoHover: true })
-              }
-              } onMouseLeave={(e) =>{
-                e.preventDefault();
-                setIsHover({ ...hoverObj, isVideoHover: false })} }
-            >VIDEOS</div>
+              setIsHover({ ...hoverObj, isVideoHover: true })
+            }
+            } onMouseLeave={(e) => {
+              e.preventDefault();
+              setIsHover({ ...hoverObj, isVideoHover: false })
+            }}
+          >VIDEOS</div>
           <video autoPlay muted loop className={styles.slideVideos} >
             <source src="https://karwaan.b-cdn.net/Front/motion%20(1).webm" type="video/mp4" />
           </video>
@@ -91,27 +92,29 @@ export default function Home() {
               transition: "all 0.5s ease-in"
             }}
         >
-          <div className={styles.homeAbout} 
-          style={isHover.isAboutHover==true?{opacity:"0"}:{opacity:"1"}}
-           onClick={() => router.push("/about")}
-            onMouseEnter={(e) =>{
+          <div className={styles.homeAbout}
+            style={isHover.isAboutHover == true ? { opacity: "0" } : { opacity: "1" }}
+            onClick={() => router.push("/about")}
+            onMouseEnter={(e) => {
               e.preventDefault();
               setIsHover({ ...hoverObj, isAboutHover: true });
-            }} 
-            onMouseLeave={(e) =>{
+            }}
+            onMouseLeave={(e) => {
               e.preventDefault();
               setIsHover({ ...hoverObj, isAboutHover: false });
             }}
-            >ABOUT US</div>
+          >ABOUT US</div>
           <div className={styles.aboutUs}
-            onMouseEnter={(e) =>{
+            onMouseEnter={(e) => {
               e.preventDefault();
-              setIsHover({ ...hoverObj, isAboutHover: true })}}
-            onMouseLeave={(e) =>{
-              e.preventDefault(); setIsHover({ ...hoverObj, isAboutHover: false })}}
-            ><About /></div>
+              setIsHover({ ...hoverObj, isAboutHover: true })
+            }}
+            onMouseLeave={(e) => {
+              e.preventDefault(); setIsHover({ ...hoverObj, isAboutHover: false })
+            }}
+          ><About /></div>
           <span className={styles.bottomLine}
-          style={isHover.isAboutHover===true?{visibility:"hidden"}:{visibility:"visible"}}
+            style={isHover.isAboutHover === true ? { opacity: "0" } : { opacity: "1" }}
           ></span>
         </div>
         <div className={styles.thirdPartition} style={
@@ -132,17 +135,18 @@ export default function Home() {
               }}>
 
           <div className={`${styles.homePicture} ${styles.hover}`} onClick={() => router.push("/picture")}
-            onMouseEnter={(e) =>{
+            onMouseEnter={(e) => {
               e.preventDefault();
-               setIsHover({ ...hoverObj, isPictureHover: true })
-          }
-          } onMouseLeave={(e) =>{
-            e.preventDefault();setIsHover({ ...hoverObj, isPictureHover: false })}}
+              setIsHover({ ...hoverObj, isPictureHover: true })
+            }
+            } onMouseLeave={(e) => {
+              e.preventDefault(); setIsHover({ ...hoverObj, isPictureHover: false })
+            }}
           >PICTURES</div>
-          <div  className={styles.slidePictures}>
-          <img style={currentIndex === 0 ? { display: "flex" } : { display: "none" }} src={pictureSrc[0].src} alt="not found" />
-          <img style={currentIndex === 1 ? { display: "flex" } : { display: "none" }} src={pictureSrc[1].src} alt="not found" />
-          <img style={currentIndex === 2 ? { display: "flex" } : { display: "none" }} src={pictureSrc[2].src} alt="not found" />
+          <div className={styles.slidePictures}>
+            <img style={currentIndex === 0 ? { display: "flex" } : { display: "none" }} src={pictureSrc[0].src} alt="not found" />
+            <img style={currentIndex === 1 ? { display: "flex" } : { display: "none" }} src={pictureSrc[1].src} alt="not found" />
+            <img style={currentIndex === 2 ? { display: "flex" } : { display: "none" }} src={pictureSrc[2].src} alt="not found" />
           </div>
           <span className={styles.rightLine}></span>
         </div>
