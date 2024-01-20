@@ -57,7 +57,9 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ token, _id }) => {
                 <div className={styles.visibility} onClick={() => setIsPassVisible({ existPass: false, newPass: false, confirmNewPass: !isPassVisible.confirmNewPass })}>{isPassVisible.confirmNewPass ? <VisibilityOutlinedIcon className={styles.VisibleIcon} /> : <VisibilityOffOutlinedIcon className={styles.VisibleIcon} />}</div>
             </div>
             <button className={styles.submitButton}
-                onClick={handleUpdatePassword}
+                onClick={(e)=>{
+                    
+                }}
             >{!isResetPasswordLoading ? "Change Password" :
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <ClipLoader color="white" size={15} speedMultiplier={0.5} />

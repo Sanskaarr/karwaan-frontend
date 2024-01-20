@@ -18,8 +18,9 @@ function page() {
     if (typeof window !== 'undefined') {
         var token = JSON.parse(localStorage.getItem('user') as string)?.token;
         var _id = JSON.parse(localStorage.getItem('user') as string)?._id;
-
-        var { firstName, lastName, email, isEmailValid, isPhoneNumberValid, phoneNumber } = JSON.parse(localStorage.getItem("user") as string);
+        if(_id){
+            var { firstName, lastName, email, isEmailValid, isPhoneNumberValid, phoneNumber } = JSON.parse(localStorage.getItem("user") as string);
+        }
     }
 
     useEffect(() => {
@@ -49,15 +50,12 @@ function page() {
         phoneNumber: phoneNumber
     });
     const [modalOpen, setModalOpen] = useState<any>(false);
-    type loading = {
-        updateField: boolean,
-        updateEmail: boolean,
-        updatePass: boolean
-    }
-    const [isLoading] = useState<loading>({ updateField: false, updateEmail: false, updatePass: false });
+
     const { handleGetUser, handleDeleteUser } = useUser(formData);
     //  loading states
     const isUpdateUserLoading: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
+    const isDeleteUserLoading: boolean = useAppSelector((state: any) => state.userRequest.deleteUser.loading);
+    const isRese: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
     const isVerifyLoading: boolean = useAppSelector((state: any) => state.userRequest.sendVerifyEmail.loading);
 
     // update field
@@ -175,15 +173,16 @@ function page() {
                 {/* change password */}
                 <div className={styles.resetPassword}>
                     <ResetPassword token={token!} _id={_id!} />
-                    <p className={styles.message} onClick={(e) => router.push('/forgot-password')} style={{borderBottom:"1px solid black", width:"fit-content", paddingBottom:"1px"}}>Forgot Password ?</p>
+                    <p className={styles.message} onClick={(e) => router.push('/forgot-password')} style={{ borderBottom: "1px solid black", width: "fit-content", paddingBottom: "1px" }}>Forgot Password ?</p>
                 </div>
 
                 {/* delete account*/}
                 <div className={styles.deleteAccount}>
                     <h2>delete account</h2>
                     <Button className={styles.submitButton} style={{ width: "50px", height: "140px" }} onPress={onOpen}>Delete My Account</Button>
-                    <Modal
-                        style={{ filter: "brightness(0.6)" }}
+                    <div  style={!isOpen?{display:"none"}:{display:"flex"}} className={styles.deletePopUpBg} onClick={close}>
+                      <Modal
+
                         isOpen={isOpen}
                         onOpenChange={onOpenChange}
 
@@ -200,13 +199,20 @@ function page() {
                                             Close
                                         </Button>
                                         <Button className={styles.deletePopUpButton} onPress={onClose} onClick={handleDeleteUser}>
-                                            Delete
+                                            {isDeleteUserLoading?
+                                               <div style={{ display: "flex", alignItems: "center" }}>
+                                               <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
+                                           </div>:
+                                                "Delete"
+                                            }
                                         </Button>
                                     </ModalFooter>
                                 </div>
                             )}
                         </ModalContent>
-                    </Modal>
+                    </Modal>   
+                    </div>
+                   
                 </div>
             </div>
 

@@ -136,7 +136,7 @@ export const useUser = (payload: Params) => {
             }
         }
     }
-    // handle Verify EMail User
+    // handle Verify Email User
     const handleVerifyMailUser = async () => {
         if(!token && !_id)return;
         const data: any = JSON.parse(localStorage.getItem("user") as string);
@@ -185,6 +185,7 @@ export const useUser = (payload: Params) => {
             if(response.statusCode === 200){
                 dispatch(updateUser_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
+                localStorage.setItem("user",JSON.stringify({...data,...response.data}))
                 toast.success(response.message && response.message);
             }
 
@@ -223,6 +224,7 @@ export const useUser = (payload: Params) => {
             if(response.statusCode === 200){
                 dispatch(updateUser_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
+                localStorage.setItem("user",JSON.stringify({...data,...response.data}))
                 toast.success(response.message && response.message);
             }
 
@@ -265,7 +267,7 @@ export const useUser = (payload: Params) => {
             if(response.statusCode === 200){
                 dispatch(resetPassword_success());
                 console.log("change ",response.data);
-                localStorage.setItem('user', JSON.stringify({ ...response.data}));
+                // localStorage.setItem('user', JSON.stringify({ ...response.data}));
                 toast.success(response.message && response.message);
             }
 
@@ -303,6 +305,7 @@ export const useUser = (payload: Params) => {
             if(response.statusCode === 200){
                 dispatch(updateUser_success());
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
+                localStorage.setItem("user",JSON.stringify({...data,...response.data}))
                 toast.success(response.message && response.message);
                 router.push('/otp');
             }
@@ -451,33 +454,6 @@ export const useUser = (payload: Params) => {
         }
 
     }
-
-    // // handle Update Phone Number User
-    // const handleUpdatePhoneNumberUser = async (e: any) => {
-    //     e.preventDefault();
-    //     dispatch(updatePhoneNumber_request());
-    //     // if(!token) return;
-    //     try {
-    //         const { putCall } = useAxios(`/api/v1/user/${_id}`, token);
-
-    //         const response = await putCall();
-
-    //         if (response.status === "success") {
-    //             dispatch(updatePhoneNumber_success());
-    //             dispatch(update_user_data(response.data.user));
-    //             // localStorage.setItem('user', JSON.stringify({ ...response.data.user, token: response.data.token }));
-    //             return function success() {
-    //                 toast.success(response.message && response.message);
-    //             }()
-    //         }
-    //     } catch (error: any) {
-    //         dispatch(updatePhoneNumber_failure(error.message));
-    //         if (axios.isAxiosError(error)) {
-    //             toast.error(error.response?.data.message);
-    //             dispatch(updatePhoneNumber_failure(error.response?.data.message));
-    //         }
-    //     }
-    // }
 
     return { handleGetUser, handleDeleteUser, handleSendOtp, handleLogOutUser, handleResetPasswordUser, handleForgetPasswordUser, handleUpdateFeilds, handleUpdateEmail, handleUpdatePassword, handleUpdatePhoneNumber, handleVerifyMailUser }
 } 
