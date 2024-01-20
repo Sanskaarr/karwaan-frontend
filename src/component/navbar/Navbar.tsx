@@ -38,7 +38,7 @@ export default function navbar() {
                         <div className={`${styles.contact} ${styles.uppercase} ${styles.hover}`} onClick={()=>router.push('/contact')} style={pathname === "/" ? { color: "white" } : (pathname === "/contact" || pathname === "/user"|| pathname==="/gallery/*") ? { visibility: "hidden", pointerEvents: "none" } : { color: "black" }}>Contact us</div>
                         :
                         <div className={`${styles.logoDiv} ${styles.hover}`}>
-                            <a onClick={() => router.push("/")} style={pathname === "/" ? { color: "white" } : pathname === "/contact" ? { display: "none" } : { filter: " invert(100%) sepia(100%) saturate(0%) hue-rotate(71deg) brightness(104%) contrast(104%)" }} >
+                            <a onClick={() => router.push("/")} style={pathname === "/" ? { color: "white" } : { filter: " invert(100%) sepia(100%) saturate(0%) hue-rotate(71deg) brightness(104%) contrast(104%)" }} >
                                 <img src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png" className={styles.logoImage} alt="not found" />
                             </a>
                         </div>}
