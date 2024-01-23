@@ -12,13 +12,14 @@ import { useAppSelector } from "@/redux/hooks";
 import ResetPassword from "@/component/reset-password/ResetPassword";
 import { toast } from "react-toastify";
 import withAuth from "@/component/RoutesProtect/withAuth";
+import { useAddress } from "@/hooks/useAddress";
 
 function page() {
     const router = useRouter();
     if (typeof window !== 'undefined') {
         var token = JSON.parse(localStorage.getItem('user') as string)?.token;
         var _id = JSON.parse(localStorage.getItem('user') as string)?._id;
-        if(_id){
+        if (_id) {
             var { firstName, lastName, email, isEmailValid, isPhoneNumberValid, phoneNumber } = JSON.parse(localStorage.getItem("user") as string);
         }
     }
@@ -55,9 +56,8 @@ function page() {
     //  loading states
     const isUpdateUserLoading: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
     const isDeleteUserLoading: boolean = useAppSelector((state: any) => state.userRequest.deleteUser.loading);
-    const isRese: boolean = useAppSelector((state: any) => state.userRequest.updateUser.loading);
     const isVerifyLoading: boolean = useAppSelector((state: any) => state.userRequest.sendVerifyEmail.loading);
-
+ 
     // update field
     var { handleUpdateFeilds, handleUpdateEmail, handleUpdatePhoneNumber } = useUser(formData);
     // phone number regex
@@ -73,6 +73,49 @@ function page() {
     // const {firstName,lastName,email}=useAppSelector((state)=>state.user.user);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     //   setBackdrop("blur")
+        // calling address apis
+        type addressFormType = {
+            houseNumber :string,
+              buildingName :string,
+              country :string,
+              state :string,
+              city :string,
+              street: string,
+              pin :string,
+              addressId:string,
+          }
+          const [addressFormData, setAddressFormData] = useState<addressFormType|null>(null);
+        const { handleGetAddress}=useAddress({userId:_id, token:token, address:addressFormData as addressFormType })
+        useEffect(() => {
+          (async()=>{
+            const data= await handleGetAddress();
+            if(data?.length){
+                console.log("data",data[0]);
+                setAddressFormData({
+                houseNumber :data[0].houseNumber,
+                buildingName :data[0].buildingName,
+                country :data[0].country,
+                state :data[0].state,
+                city :data[0].city,
+                street: data[0].street,
+                pin :data[0].pin,
+                addressId :data[0]._id,
+              })
+            }else{
+                setAddressFormData({
+                    houseNumber :"",
+                    buildingName :"",
+                    country :"",
+                    state :"",
+                    city :"",
+                    street:"",
+                    pin :"",
+                    addressId :"",
+                  })
+            }
+          })()
+        }, []);
+    
     return (
 
         <div className={styles.myAccountContainer} >
@@ -140,6 +183,42 @@ function page() {
                         }
                     </button>
                 </div>
+                {/* address */}
+                <div className={styles.myAccountForm} style={{height:"100%"}}>
+
+                    {/* change fields */}
+                    <h2>my Address</h2>
+                    {  addressFormData?addressFormData.addressId?
+                    <>
+                    <div className={styles.myAddress}>
+                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>House number :</span>{addressFormData.houseNumber}</div>
+                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>building name :</span>{addressFormData.buildingName}</div>
+                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>country :</span>{addressFormData.country}</div>
+                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>state :</span>{addressFormData.state}</div>
+                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>city :</span>{addressFormData.city}</div>
+                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>street :</span>{addressFormData.street}</div>
+                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>pin :</span> {addressFormData.pin}</div>
+
+                        </div>
+                      {/* adress buttons */}
+                     
+                            <button className={styles.submitButton} onClick={()=>{router.push(`/address`)}}>Edit address</button>
+                    
+                        </>:
+                       
+                        <button className={styles.submitButton} onClick={()=>{router.push(`/address`)}}>Add address</button>
+                 :
+                 <div style={{height:"100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                 <ClipLoader color="blue" cssOverride={{}} size={20} speedMultiplier={0.5} />
+             </div>
+                        }
+                   
+                </div>
+                {/* change password */}
+                <div className={styles.resetPassword}>
+                    <ResetPassword token={token!} _id={_id!} />
+                    <p className={styles.message} onClick={(e) => router.push('/forgot-password')} style={{ borderBottom: "1px solid black", width: "fit-content", paddingBottom: "1px" }}>Forgot Password ?</p>
+                </div>
                 {/* change email */}
                 <div className={styles.changeEmail}>
                     <h2>change email</h2>
@@ -169,51 +248,45 @@ function page() {
                         }
                     </button>
                 </div>
-
-                {/* change password */}
-                <div className={styles.resetPassword}>
-                    <ResetPassword token={token!} _id={_id!} />
-                    <p className={styles.message} onClick={(e) => router.push('/forgot-password')} style={{ borderBottom: "1px solid black", width: "fit-content", paddingBottom: "1px" }}>Forgot Password ?</p>
-                </div>
-
                 {/* delete account*/}
                 <div className={styles.deleteAccount}>
                     <h2>delete account</h2>
                     <Button className={styles.submitButton} style={{ width: "50px", height: "140px" }} onPress={onOpen}>Delete My Account</Button>
-                    <div  style={!isOpen?{display:"none"}:{display:"flex"}} className={styles.deletePopUpBg} onClick={close}>
-                      <Modal
+                    <div style={!isOpen ? { display: "none" } : { display: "flex" }} className={styles.deletePopUpBg} onClick={close}>
+                        <Modal
 
-                        isOpen={isOpen}
-                        onOpenChange={onOpenChange}
+                            isOpen={isOpen}
+                            onOpenChange={onOpenChange}
 
-                    >
-                        <ModalContent className={styles.deletePopUp}>
-                            {(onClose) => (
-                                <div >
-                                    <ModalHeader className={styles.modalTittle}>This action cannot be undone.</ModalHeader>
-                                    <ModalBody>
-                                        <p>You will lose access to all your account, teams, credits, dataset, models, and plans. If you have an active subscription you will lose access to it. There are no refunds.SavePlease make sure you are certain about this action.</p>
-                                    </ModalBody>
-                                    <ModalFooter className={styles.deletePopUpButtons}>
-                                        <Button className={styles.deletePopUpButton} variant="light" onPress={onClose}>
-                                            Close
-                                        </Button>
-                                        <Button className={styles.deletePopUpButton} onPress={onClose} onClick={handleDeleteUser}>
-                                            {isDeleteUserLoading?
-                                               <div style={{ display: "flex", alignItems: "center" }}>
-                                               <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-                                           </div>:
-                                                "Delete"
-                                            }
-                                        </Button>
-                                    </ModalFooter>
-                                </div>
-                            )}
-                        </ModalContent>
-                    </Modal>   
+                        >
+                            <ModalContent className={styles.deletePopUp}>
+                                {(onClose) => (
+                                    <div >
+                                        <ModalHeader className={styles.modalTittle}>This action cannot be undone.</ModalHeader>
+                                        <ModalBody>
+                                            <p>You will lose access to all your account, teams, credits, dataset, models, and plans. If you have an active subscription you will lose access to it. There are no refunds.SavePlease make sure you are certain about this action.</p>
+                                        </ModalBody>
+                                        <ModalFooter className={styles.deletePopUpButtons}>
+                                            <Button className={styles.deletePopUpButton} variant="light" onPress={onClose}>
+                                                Close
+                                            </Button>
+                                            <Button className={styles.deletePopUpButton} onPress={onClose} onClick={handleDeleteUser}>
+                                                {isDeleteUserLoading ?
+                                                    <div style={{ display: "flex", alignItems: "center" }}>
+                                                        <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
+                                                    </div> :
+                                                    "Delete"
+                                                }
+                                            </Button>
+                                        </ModalFooter>
+                                    </div>
+                                )}
+                            </ModalContent>
+                        </Modal>
                     </div>
-                   
+
                 </div>
+
             </div>
 
         </div >

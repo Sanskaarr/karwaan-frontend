@@ -1,13 +1,12 @@
-.myAccountContainer {
-  height: 80svh;
-}
+
 .myAccount {
   color: black;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 520px;
+  /* height: 520px; */
   padding: 0;
 }
 .heading {
@@ -17,6 +16,7 @@
   text-transform: capitalize;
   height: 10%;
   color: black;
+  font-size: 30px;
 }
 .login {
   background: white;
@@ -48,7 +48,8 @@
 .resetPassword,
 .changeEmail,
 .changePhoneNo {
-  width: 50%;
+  /* width: 50%; */
+  width: 100%;
   padding: 0% 5%;
   display: flex;
   flex-direction: column;
@@ -120,6 +121,9 @@
   width: 100% !important;
   height: 30px !important;
   height: 30px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: noWrap;
 }
 .submitButton:hover {
   cursor: pointer;
@@ -154,12 +158,14 @@
 .changePhoneNo,
 .resetPassword,
 .deleteAccount {
-  width: 50%;
+  width: 100%;
   padding: 0% 5%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-bottom: 10px;
+  align-self: flex-start;
+  
 }
 .message:hover {
   cursor: pointer;
@@ -200,7 +206,25 @@
   color: white;
   font-weight: bolder;
 }
-
+/* address */
+.myAddressFields{
+  color: blue;
+}
+.AddressTitle{
+  color: #000;
+  margin-right: 5px;
+}
+.addressBtn{
+  display: grid;
+  grid-template-columns: 49% 49%;
+  gap: 2%;
+  width: 100%;
+}
+@media (max-width: 330px) {
+  .addressBtn{
+    grid-template-columns: 1fr ;
+  }
+}
 @media (max-width: 650px) {
   .myAccountContainer {
     min-height: 100svh;
@@ -211,7 +235,8 @@
   .myAccount {
     /* min-height: 90svh; */
     color: black;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr !important;
     align-items: center;
     flex-direction: column;
     /* position: relative; */
@@ -238,6 +263,7 @@
     flex-direction: column;
     justify-content: flex-start;
     margin-bottom: 10px;
+    justify-self: center;
   }
 
   .login {

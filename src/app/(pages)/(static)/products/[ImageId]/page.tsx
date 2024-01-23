@@ -8,6 +8,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
 import { toast } from 'react-toastify';
+import { useOrder } from '@/hooks/UseOrder';
 const shop = () => {
     const [isItemInCart,setIsItemInCart]=useState<boolean>(false);
 
@@ -17,7 +18,9 @@ const shop = () => {
       
         var token=JSON.parse(localStorage.getItem("user") as string)?.token;
         var _id=JSON.parse(localStorage.getItem("user") as string)?._id;
-        var { handleAddItemToCart} = useCart({token:token,productId:ImageId,userId:_id});
+        var { handleAddItemToCart,cartItems} = useCart({token:token,productId:ImageId,userId:_id});
+   
+      var {handleCreateOrder} = useOrder(token,_id,_id);
     }
  useEffect(()=>{
    let cartItems=JSON.parse( localStorage.getItem("cartItems") as string);
@@ -75,7 +78,7 @@ const shop = () => {
         }
              setIsItemInCart(true)
              }}>Add To Cart</button>}
-         <button className={styles.button}>Buy</button>
+         <button className={styles.button} onClick={(e)=>handleCreateOrder(e)}>Buy</button>
          </div>
 
         </div>
@@ -100,5 +103,4 @@ const shop = () => {
         </div>
     )
 }
-
-export default shop;
+export default shop
