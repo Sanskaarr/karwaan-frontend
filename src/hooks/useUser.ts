@@ -38,8 +38,8 @@ export const useUser = (payload: Params) => {
                 dispatch(getUser_success());
                 dispatch(update_user_data(response.data.user));
                 const data: any = JSON.parse(localStorage.getItem("user") as string);
-                localStorage.setItem('user', JSON.stringify({ ...data, ...response.data.user }));
-                return { ...data, ...response.data.user };
+                localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
+                return { ...data, ...response.data };
             }
 
         } catch (error: any) {
@@ -213,8 +213,8 @@ export const useUser = (payload: Params) => {
 
     // handle Update Email
     const handleUpdateEmail = async (e: any) => {
-        e.preventDefault()
-        const payload = {email: email}
+        e.preventDefault();
+        const payload = {email: email};
 
         dispatch(updateUser_request());
         try {
