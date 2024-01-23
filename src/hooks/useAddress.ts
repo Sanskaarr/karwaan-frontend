@@ -131,7 +131,7 @@ export const useAddress = ({ token, userId, address }: Params) => {
 
             if (result.status === "success") {
                 dispatch(deleteAddress_success());
-                router.push("/prducts/my-account");
+                router.push("/products/my-account");
               toast.success(result.message);
 
             }

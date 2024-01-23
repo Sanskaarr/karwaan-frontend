@@ -90,7 +90,6 @@ function page() {
           (async()=>{
             const data= await handleGetAddress();
             if(data?.length){
-                console.log("data",data[0]);
                 setAddressFormData({
                 houseNumber :data[0].houseNumber,
                 buildingName :data[0].buildingName,

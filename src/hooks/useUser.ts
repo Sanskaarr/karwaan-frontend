@@ -266,8 +266,6 @@ export const useUser = (payload: Params) => {
             
             if(response.statusCode === 200){
                 dispatch(resetPassword_success());
-                console.log("change ",response.data);
-                // localStorage.setItem('user', JSON.stringify({ ...response.data}));
                 toast.success(response.message && response.message);
             }
 
@@ -334,7 +332,6 @@ export const useUser = (payload: Params) => {
     // handle send Otp
     const handleSendOtp = async (e: any, otp?: number | null,) => {
         e.preventDefault();
-        console.log("_id",_id);
         if (!otp) return;
         dispatch(otp_request());
         try {
@@ -361,7 +358,6 @@ export const useUser = (payload: Params) => {
                 toast.error(error.response?.data.message);
                 dispatch(updateUser_failure(error.response?.data.message));
                 if (error.response?.status === 403) {
-                    console.log(error.response)
                     if (localStorage.getItem("user")) {
                         localStorage.removeItem("user");
                     }

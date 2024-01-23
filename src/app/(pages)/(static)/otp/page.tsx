@@ -19,7 +19,6 @@ const OTPInputGroup = () => {
     var _id = JSON.parse(localStorage.getItem('user') as string)?._id;
     var token = JSON.parse(localStorage.getItem('user') as string)?.token;
   }
-  console.log("kuch toh hua hai ", _id)
   const { handleSendOtp } = useUser({ token: token, _id: _id });
   // const [otp, setOtp] = useState<string>("");
   const isVerifyLoading: boolean = useAppSelector((state: any) => state.userRequest.otp.loading);
