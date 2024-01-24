@@ -55,8 +55,6 @@ export default  function ContactForm() {
      <label className={`${styles.descriptionLable}${styles.lables}`}>Description  </label>
     </div>
     <button className={styles.sendMail} disabled={state.submitting}>Send Mail</button>
-    {/* <input  type='submit' name="submit" className={styles.sendMail} value={"Send Mail"}/> */}
-
   </form>
   )
 }

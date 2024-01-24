@@ -63,7 +63,7 @@ import { ClipLoader } from 'react-spinners';
        onChange={(e)=>{
       setFormData({...formData,firstName:e.target.value})
        }} required/>
-    <label className={`${styles.nameLable}${styles.lables}`}>First Name</label>
+    <label className={styles.lables}>First Name</label>
     </div>
     <div className={styles.userName}>       
      <input className={styles.inputField} type="text" name='userLName' id='userLName' 
@@ -71,7 +71,7 @@ import { ClipLoader } from 'react-spinners';
      onChange={(e)=>{
     setFormData({...formData,lastName:e.target.value})
      }} required/>
-    <label className={`${styles.nameLable}${styles.lables}`}>Last Name</label>
+    <label className={styles.lables}>Last Name</label>
     </div>
     <div className={styles.email}>      
      <input className={styles.inputField} type="text" name='email' id='email'
@@ -79,7 +79,7 @@ import { ClipLoader } from 'react-spinners';
        onChange={(e)=>{
       setFormData({...formData,email:e.target.value})
        }} required/>
-    <label className={`${styles.emailLable}${styles.lables}`}>Email</label>
+    <label className={styles.lables}>Email</label>
     </div>
     <div className={styles.password}>     
      <input className={styles.inputField} type={isPassVisible?"text":"password"} name='password' id='password' 
@@ -87,7 +87,7 @@ import { ClipLoader } from 'react-spinners';
        onChange={(e)=>{
       setFormData({...formData,password:e.target.value})
        }} required/>
-    <label className={`${styles.passwordLable}${styles.lables}`}>password</label>
+    <label className={styles.lables}>password</label>
        <div className={styles.visibility} onClick={()=>setIsPassVisible(!isPassVisible)}>{isPassVisible?<VisibilityOutlinedIcon/>:<VisibilityOffOutlinedIcon/>}</div>
     </div>
   
@@ -97,7 +97,6 @@ import { ClipLoader } from 'react-spinners';
 </div>:
 "Sign up" }
     </button>
-    {/* <button className={styles.Signup} onClick={()=>{router.push("/verifymail")}}>Sign up</button> */}
     <div className={styles.forgotPassword} onClick={()=>router.push("/signin")}>Returning Customer? Sign In →</div>
 
   </form>

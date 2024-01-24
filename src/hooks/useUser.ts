@@ -157,7 +157,7 @@ export const useUser = (payload: Params) => {
                 localStorage.setItem('user', JSON.stringify({ ...data, isEmailValid: true }));
                 dispatch(update_user_data({ ...data, isEmailValid: true }));
                 toast.success(result.message && result.message);
-                router.push("/shop");
+                window.close();
                 return;
             }
         } catch (error: any) {
@@ -389,7 +389,7 @@ export const useUser = (payload: Params) => {
                 localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
                 dispatch(update_user_data(response.data));
                 toast.success(response.message && response.message);
-                router.push('/')
+                window.close();
                 // setUpdatedResponse(response);
                 return;
             }
@@ -432,6 +432,7 @@ export const useUser = (payload: Params) => {
                 localStorage.setItem('user', JSON.stringify({ ...data, ...response.data }));
                 dispatch(update_user_data(response.data));
                 toast.success(response.message && response.message);
+                
                 // setUpdatedResponse(response);
                 return;
             }

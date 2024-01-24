@@ -59,6 +59,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    height: 30px;
   }
   .Signin:hover {
     cursor: pointer;

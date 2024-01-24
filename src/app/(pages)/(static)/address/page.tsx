@@ -1,21 +1,13 @@
 'use client'
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import React, { useEffect, useState } from 'react'
 import styles from '../products/my-account/style.module.css'
-// import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-// import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import { useRouter } from 'next/navigation';
-import { useUser } from '@/hooks/useUser';
 import { ClipLoader } from 'react-spinners';
-import { useAuth } from "@/hooks/useAuth";
 import { useAppSelector } from "@/redux/hooks";
-import ResetPassword from "@/component/reset-password/ResetPassword";
-import { toast } from "react-toastify";
 import withAuth from "@/component/RoutesProtect/withAuth";
 import { useAddress } from "@/hooks/useAddress";
 
 function AddressForm() {
-    const router = useRouter();
     if (typeof window !== 'undefined') {
         var token = JSON.parse(localStorage.getItem('user') as string)?.token;
         var _id = JSON.parse(localStorage.getItem('user') as string)?._id;
@@ -220,64 +212,6 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             </div>
                                 </div>}
                 </form>
-
-
-                {/* address
-                <div className={styles.myAccountForm}>
-
-                    <h2>my Address</h2>
-
-                        <div className={styles.myAddress}>
-                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>House number :</span>66</div>
-                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>building name :</span>2nd floor</div>
-                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>country :</span>India</div>
-                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>state :</span>Delhi</div>
-                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>city :</span>New delhi</div>
-                            <div className={styles.myAddressFields}><span className={styles.AddressTitle}>pin :</span> 110044</div>
-
-                        </div>
-
-
-                        <div className={styles.addressBtn}>
-                            <button className={styles.submitButton}>Edit address</button>
-                            <Button className={styles.submitButton} style={{ width: "50px", height: "140px" }} onPress={onOpen}>Delete address</Button>
-                            <div style={!isOpen ? { display: "none" } : { display: "flex" }} className={styles.deletePopUpBg} onClick={close}>
-                                <Modal
-
-                                    isOpen={isOpen}
-                                    onOpenChange={onOpenChange}
-
-                                >
-                                    <ModalContent className={styles.deletePopUp}>
-                                        {(onClose) => (
-                                            <div >
-                                                <ModalHeader className={styles.modalTittle}>This action cannot be undone.</ModalHeader>
-                                                <ModalBody>
-                                                    <p>You will lose access to all your account, teams, credits, dataset, models, and plans. If you have an active subscription you will lose access to it. There are no refunds.SavePlease make sure you are certain about this action.</p>
-                                                </ModalBody>
-                                                <ModalFooter className={styles.deletePopUpButtons}>
-                                                    <Button className={styles.deletePopUpButton} variant="light" onPress={onClose}>
-                                                        Close
-                                                    </Button>
-                                                    <Button className={styles.deletePopUpButton} onPress={onClose} >
-                                                        {false ?
-                                                            <div style={{ display: "flex", alignItems: "center" }}>
-                                                                <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
-                                                            </div> :
-                                                            "Delete"
-                                                        }
-                                                    </Button>
-                                                </ModalFooter>
-                                            </div>
-                                        )}
-                                    </ModalContent>
-                                </Modal>
-                            </div>
-                        </div>
-                   
-                </div> */}
-
-
             </div>
 
         </ >

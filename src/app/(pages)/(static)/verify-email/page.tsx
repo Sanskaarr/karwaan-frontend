@@ -8,7 +8,6 @@ import { useUser } from '@/hooks/useUser';
 function page (){
  
 const searchParams = useSearchParams()
-//  const router=useRouter();
 const token = searchParams.get('token');
 const _id = searchParams.get('id');
 
