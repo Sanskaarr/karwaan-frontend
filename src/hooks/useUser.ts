@@ -452,5 +452,6 @@ export const useUser = (payload: Params) => {
 
     }
 
+    
     return { handleGetUser, handleDeleteUser, handleSendOtp, handleLogOutUser, handleResetPasswordUser, handleForgetPasswordUser, handleUpdateFeilds, handleUpdateEmail, handleUpdatePassword, handleUpdatePhoneNumber, handleVerifyMailUser }
 } 

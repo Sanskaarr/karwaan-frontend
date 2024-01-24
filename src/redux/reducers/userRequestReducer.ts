@@ -3,65 +3,65 @@ import { createSlice } from "@reduxjs/toolkit";
 type InitialState = {
     signup: {
         loading: boolean,
-        error: any,
+        error: string | null,
         user: any,
         token: string | null
     },
     signin: {
         loading: boolean,
-        error: any,
+        error: string | null,
         user: any,
         token: string | null
     },
     sendVerifyEmail: {
         loading: boolean,
         isEmailSend: boolean,
-        error: any,
+        error: string | null,
     },
     verifyEmail: {
         loading: boolean,
         isEmailVerified: boolean,
-        error: any,
+        error: string | null,
     },
     forgotPassword: {
         loading: boolean,
-        error: any,
+        error: string | null,
         mailSent: boolean,
     },
     resetPassword: {
         loading: boolean,
-        error: any,
+        error: string | null,
         isPasswordReset:boolean,
     },
     otp: {
         loading: boolean,
-        error: any,
+        error: string | null,
         isOtpSend:boolean,
     },
     getUser: {
         loading: boolean,
-        error: any,
+        error: string | null,
         status:boolean,
     },
     updateUser: {
         loading: boolean,
-        error: any,
+        error: string | null,
         status:boolean,
     },
   
     updatePhoneNumber: {
         loading: boolean,
-        error: any,
+        error: string | null,
         status:boolean,
     },
     deleteUser: {
         loading: boolean,
-        error: any,
+        error: string | null,
         status:boolean,
     },
     signoutUser: {
         loading: boolean,
-        error: any,
+        error: string | null,
         status:boolean,
     }
 }
