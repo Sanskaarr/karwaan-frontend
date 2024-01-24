@@ -82,7 +82,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                 <form className={styles.myAccountForm} style={{ justifySelf: "center", maxWidth: "550px" }} >
                     {/* house number */}
                     <div className={styles.userName}>
-                        <input className={styles.inputField} type="number" name='houseNumber' id='houseNumber'
+                        <input className={styles.inputField} type="text" name='houseNumber' id='houseNumber'
                             value={formData.houseNumber}
                             onChange={(e) => {
                                 setFormData({ ...formData, houseNumber: e.target.value })
