@@ -12,7 +12,11 @@ function page() {
   }
   const [response, setResponse] = useState<any>(null);
   useEffect(() => {
-    setResponse(handleGetMyOrders());
+  
+  ( async()=>{ 
+     let data =await handleGetMyOrders();
+    setResponse(data);
+})();
   }, [])
   console.log("response", response);
   return (
