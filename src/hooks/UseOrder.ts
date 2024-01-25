@@ -8,7 +8,7 @@ import {
 } from "../redux/reducers/OrderRequestReducer";
 import { useRouter } from "next/navigation";
 
-export const useOrder = (token?: string | null, userId?: string | null, products?: string | null, orderId?: string | null) => {
+export const useOrder = (token?: string | null, userId?: string | null, products?: any[]|null, orderId?: string | null) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
     // create Order

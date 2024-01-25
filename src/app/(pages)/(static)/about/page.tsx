@@ -1,9 +1,10 @@
 import Slider from '@/component/slider/Slider'
 // import {Slider} from '@/constants/slider/Slider"
 import styles from './style.module.css'
+import { useRouter } from 'next/router'
 
 export default function About() {
-
+const router=useRouter();
     return (
         <div className={styles.about}>
             <div className={styles.aboutKarwaan}>
@@ -29,11 +30,11 @@ export default function About() {
                 <div className={styles.ourWorkImages}>
                 <div className={styles.ourWorkFirstImage}>
                     <img src="https://karwaan.b-cdn.net/about/RightVideosHarshit.jpg" alt="not-found" />
-                    <p>Videos</p>
+                    <p onClick={()=>router.push("/video")}>Videos</p>
                 </div>
                 <div className={styles.ourWorkSecondImage}>
                     <img src="https://karwaan.b-cdn.net/about/LeftPhotosOshank.jpg" alt="not-found" />
-                    <p>Photographs</p>
+                    <p onClick={()=>router.push("/image")}>Photographs</p>
 
                 </div>
                 </div>

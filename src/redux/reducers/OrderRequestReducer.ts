@@ -46,7 +46,7 @@ export const orderRequests = createSlice({
         },
         createOrder_failure: (state, action) => {
             state.createOrder.loading = false;
-            state.createOrder.error = action.payload.error;
+            state.createOrder.error = "there is an error";
             state.createOrder.status = false;
         },
         // remove Item From Cart reducers 
@@ -62,7 +62,7 @@ export const orderRequests = createSlice({
         },
         updateOrderPaymentStatus_failure: (state, action) => {
             state.updateOrderPaymentStatus.loading = false;
-            state.updateOrderPaymentStatus.error = action.payload.error;
+            state.updateOrderPaymentStatus.error = "there is an error";
             state.updateOrderPaymentStatus.status = false;
         },
 

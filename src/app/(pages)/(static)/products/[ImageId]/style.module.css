@@ -150,7 +150,8 @@ cursor: pointer;
    .singleProductPageUpperRightSection{
     width: 90%;
    }
-}
+   }
+
 @media (max-width:400px) {
     .shopProducts{
        padding: 0;

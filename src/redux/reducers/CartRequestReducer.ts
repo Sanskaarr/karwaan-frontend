@@ -66,7 +66,7 @@ export const cartRequests = createSlice({
         },
         addItemToCart_failure: (state, action) => {
             state.addItemToCart.loading = false;
-            state.addItemToCart.error = action.payload.error;
+            state.addItemToCart.error = "there is an error";
             state.addItemToCart.status = false;
         },
         // remove Item From Cart reducers 
@@ -82,7 +82,7 @@ export const cartRequests = createSlice({
         },
         removeItemFromCart_failure: (state, action) => {
             state.removeItemFromCart.loading = false;
-            state.removeItemFromCart.error = action.payload.error;
+            state.removeItemFromCart.error = "there is an error";
             state.removeItemFromCart.status = false;
         },
 
@@ -99,7 +99,7 @@ export const cartRequests = createSlice({
         },
         getAllCartItems_failure: (state, action) => {
             state.getAllCartItems.loading = false;
-            state.getAllCartItems.error = action.payload.error;
+            state.getAllCartItems.error = "there is an error";
             state.getAllCartItems.status = false;
         },
         // get Product reducers 
@@ -115,7 +115,7 @@ export const cartRequests = createSlice({
         },
         emptyCart_failure: (state, action) => {
             state.emptyCart.loading = false;
-            state.emptyCart.error = action.payload.error;
+            state.emptyCart.error = "there is an error";
             state.emptyCart.status = false;
         },
 

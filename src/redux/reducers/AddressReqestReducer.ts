@@ -68,7 +68,7 @@ export const AddressRequests= createSlice({
     },
     addAddress_failure: (state, action) => {
         state.addAddress.loading = false;
-        state.addAddress.error = action.payload.error;
+        state.addAddress.error = "there is an error";
         state.addAddress.Address = null;
     },
     
@@ -87,7 +87,7 @@ export const AddressRequests= createSlice({
     },
     getAddress_failure: (state, action) => {
         state.getAddress.loading = false;
-        state.getAddress.error = action.payload.error;
+        state.getAddress.error = "there is an error";
         state.getAddress.Address = null;
   
     },
@@ -104,7 +104,7 @@ export const AddressRequests= createSlice({
     },
         changeAddress_failure: (state, action) => {
         state.changeAddress.loading = false;
-        state.changeAddress.error =  action.payload.error;
+        state.changeAddress.error =  "there is an error";
         state.changeAddress.success = false;
     },
     
@@ -121,7 +121,7 @@ export const AddressRequests= createSlice({
     },
         deleteAddress_failure: (state, action) => {
         state.deleteAddress.loading = false;
-        state.deleteAddress.error =  action.payload.error;
+        state.deleteAddress.error =  "there is an error";
         state.deleteAddress.success = false;
     },
 },

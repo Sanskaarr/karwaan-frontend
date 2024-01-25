@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
 import { ClipLoader } from 'react-spinners';
 import withAuth from '@/component/RoutesProtect/withAuth';
+import DownloadButton from '@/component/downloadImage/DownloadButton';
 function page (){
 const {orderId} = useParams<{ orderId: string }>()
 if(typeof(window)!=="undefined"){
@@ -18,6 +19,7 @@ const checkOutData=async()=> {if(orderId && token ){
 useEffect(()=>{
   checkOutData();
 },[orderId,token]);
+console.log("checkoutResponse?.data",checkoutResponse?.data);
   return (
     <div className={styles.payment_status}>
       {false?
@@ -39,6 +41,7 @@ useEffect(()=>{
       <div className={styles.paymentStatusMessage}>
       <img className={styles.paymentStatusImg} src="/payment successfull.png" alt="not found" />
      {checkoutResponse? <>
+        {/* <p style={{whiteSpace:"nowrap",fontSize:"12px",width:"90%", maxWidth:"350px",overflow: "hidden",textOverflow: "ellipsis",  }}> <DownloadButton imageUrl={imageUrl} fileName={fileName} /></p> */}
         <p style={{whiteSpace:"nowrap",fontSize:"12px",width:"90%", maxWidth:"350px",overflow: "hidden",textOverflow: "ellipsis",  }}>{checkoutResponse?.message}</p>
         <p style={{whiteSpace:"nowrap",fontSize:"12px",width:"90%", maxWidth:"350px",overflow: "hidden",textOverflow: "ellipsis",  }}><span style={{fontWeight:"bold"}}>payment_id is :</span>{` ${checkoutResponse?.data?.order_details?.payment_id}`}</p>
         <p style={{whiteSpace:"nowrap",fontSize:"12px",width:"90%", maxWidth:"350px",overflow: "hidden",textOverflow: "ellipsis",  }}><span style={{fontWeight:"bold"}}>orderID is :</span> {` ${orderId}`}</p>

@@ -20,7 +20,7 @@ const shop = () => {
         var _id=JSON.parse(localStorage.getItem("user") as string)?._id;
         var { handleAddItemToCart,cartItems} = useCart({token:token,productId:ImageId,userId:_id});
    
-      var {handleCreateOrder} = useOrder(token,_id,_id);
+      var {handleCreateOrder} = useOrder(token,_id,[_id]);
     }
  useEffect(()=>{
    let cartItems=JSON.parse( localStorage.getItem("cartItems") as string);
@@ -51,7 +51,7 @@ const shop = () => {
             
         <div className={styles.singleProductPageUpperSection}>
         <div className={styles.singleProductPageUpperLeftSection}>
-       { singleResponse&& <img src={"data:image/jpeg;base64," + singleResponse.media.data}  alt={singleResponse.name} />}
+       { singleResponse&& <img src={"data:image/jpeg;base64," + singleResponse.media.data} style={{objectFit: "contain"}} alt={singleResponse.name} />}
         </div>
         <div className={styles.singleProductPageUpperRightSection}>
        {singleResponse&&  <h3 style={{color:"black"}}>{singleResponse.name}</h3>}

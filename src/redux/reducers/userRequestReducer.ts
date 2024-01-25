@@ -151,7 +151,7 @@ export const userRequests= createSlice({
     },
     signup_failure: (state, action) => {
         state.signup.loading = false;
-        state.signup.error = action.payload.error;
+        state.signup.error = "there is an error";
         state.signup.user = null;
         state.signup.token = null;
     },
@@ -171,7 +171,7 @@ export const userRequests= createSlice({
     },
     signin_failure: (state, action) => {
         state.signin.loading = false;
-        state.signin.error = action.payload.error;
+        state.signin.error = "there is an error";
         state.signin.user = null;
         state.signin.token = null;
     },
@@ -188,7 +188,7 @@ export const userRequests= createSlice({
     },
         sendVerifyEmail_failure: (state, action) => {
         state.sendVerifyEmail.loading = false;
-        state.sendVerifyEmail.error =  action.payload.error;
+        state.sendVerifyEmail.error =  "there is an error";
         state.sendVerifyEmail.isEmailSend = false;
     },
        // verify Email reducers 
@@ -204,7 +204,7 @@ export const userRequests= createSlice({
     },
         verifyEmail_failure: (state, action) => {
         state.verifyEmail.loading = false;
-        state.verifyEmail.error =  action.payload.error;
+        state.verifyEmail.error =  "there is an error";
         state.verifyEmail.isEmailVerified = false;
     },
     // forgot Password reducers
@@ -220,7 +220,7 @@ export const userRequests= createSlice({
     },
         forgotPassword_failure: (state, action) => {
         state.forgotPassword.loading = false;
-        state.forgotPassword.error =  action.payload.error;
+        state.forgotPassword.error =  "there is an error";
         state.forgotPassword.mailSent = false;
     },
     //    reset Password reducers
@@ -236,7 +236,7 @@ export const userRequests= createSlice({
         },
         resetPassword_failure: (state, action) => {
             state.resetPassword.loading = false;
-            state.resetPassword.error =  action.payload.error;
+            state.resetPassword.error =  "there is an error";
             state.resetPassword.isPasswordReset =  false;
         },
     //      otp reducers
@@ -252,7 +252,7 @@ export const userRequests= createSlice({
         },
         otp_failure: (state, action) => {
             state.otp.loading = false;
-            state.otp.error =  action.payload.error;
+            state.otp.error =  "there is an error";
             state.otp.isOtpSend =  false;
         },
         // getUser
@@ -268,7 +268,7 @@ export const userRequests= createSlice({
         },
         getUser_failure: (state, action) => {
             state.getUser.loading = false;
-            state.getUser.error =  action.payload.error;
+            state.getUser.error =  "there is an error";
             state.getUser.status =  false;
         },
         // updateUser
@@ -284,7 +284,7 @@ export const userRequests= createSlice({
         },
         updateUser_failure: (state, action) => {
             state.updateUser.loading = false;
-            state.updateUser.error =  action.payload.error;
+            state.updateUser.error =  "there is an error";
             state.updateUser.status =  false;
         },
         // updatePhoneNumber
@@ -300,7 +300,7 @@ export const userRequests= createSlice({
         },
         updatePhoneNumber_failure: (state, action) => {
             state.updatePhoneNumber.loading = false;
-            state.updatePhoneNumber.error =  action.payload.error;
+            state.updatePhoneNumber.error =  "there is an error";
             state.updatePhoneNumber.status =  false;
         },
         // signout
@@ -316,7 +316,7 @@ export const userRequests= createSlice({
         },
         signoutUser_failure: (state, action) => {
             state.signoutUser.loading = false;
-            state.signoutUser.error =  action.payload.error;
+            state.signoutUser.error =  "there is an error";
             state.signoutUser.status =  false;
         },
         // deleteUser
@@ -332,7 +332,7 @@ export const userRequests= createSlice({
         },
         deleteUser_failure: (state, action) => {
             state.deleteUser.loading = false;
-            state.deleteUser.error =  action.payload.error;
+            state.deleteUser.error =  "there is an error";
             state.deleteUser.status =  false;
         },
   },

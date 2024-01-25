@@ -134,7 +134,8 @@ export default function navbar() {
                     }} className={styles.userSettingOptions}>
                         <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-account"); setIsUserMenuOpen(!isUserMenuOpen) }}>Account</li>
                         <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/cart"); setIsUserMenuOpen(!isUserMenuOpen) }}>Cart</li>
-                        {/* <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-orders"); setIsUserMenuOpen(!isUserMenuOpen) }}>My orders</li> */}
+                        <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products"); setIsUserMenuOpen(!isUserMenuOpen) }}>Shop</li>
+                        <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-orders"); setIsUserMenuOpen(!isUserMenuOpen) }}>My orders</li>
                         <li className={styles.userSettingLogOut} onClick={(e)=>{handleLogOutUser(e);setIsUserMenuOpen(!isUserMenuOpen)} }>Log Out</li>
                     </ul>
                 </div>

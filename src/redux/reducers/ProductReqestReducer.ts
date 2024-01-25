@@ -62,7 +62,7 @@ export const productRequests = createSlice({
     },
     getProduct_failure: (state, action) => {
         state.getProduct.loading = false;
-        state.getProduct.error = action.payload.error;
+        state.getProduct.error = "there is an error";
         state.getProduct.status = false;
     },
 
