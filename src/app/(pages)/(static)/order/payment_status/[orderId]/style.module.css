@@ -1,10 +1,12 @@
 .payment_status{
-    /* min-height: 90vh; */
+    min-height: 80vh;
     color: black;
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
+
 .paymentStatusMessage{
     display: flex;
     align-items: center;
@@ -14,5 +16,12 @@
 }
 .paymentStatusImg{
     object-fit: contain;
-    width: 100%;
+    width: 80%;
+}
+@media (max-width:450px) {
+    
+    .message{
+        font-size: 12px !important;
+        max-width:350px !important;
+    }
 }

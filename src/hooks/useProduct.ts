@@ -12,6 +12,7 @@ export const useProduct = (type?: string|null, tag?: string|null, searchQuery?: 
   const dispatch = useAppDispatch();
   const [response, setResponse] = useState<any>(null);
   const [singleResponse, setSingleResponse] = useState<any>(null);
+  // get multiple product 
 
   const handleGetAllProduct = async () => {
     dispatch(getAllProduct_request());
@@ -49,6 +50,7 @@ export const useProduct = (type?: string|null, tag?: string|null, searchQuery?: 
       }
     }
   };
+  // get single product 
   const handleGetProduct = async () => {
     dispatch(getProduct_request());
     try {
@@ -69,7 +71,28 @@ export const useProduct = (type?: string|null, tag?: string|null, searchQuery?: 
       }
     }
   };
+  // get single product for my orders page
+  const handleGetSingleProduct = async (id:string) => {
+    dispatch(getProduct_request());
+    try {
+      const endpoint = `/api/v1/product/${id}`;
+      const { getCall } = useAxios(endpoint);
+      const result = await getCall();
+      if (result.status === "success") {
+        dispatch(getProduct_success());
+      }
+     return result.data;
 
-  return { response, handleGetAllProduct,handleGetProduct,singleResponse };
+    } catch (error:any) {
+      dispatch(getProduct_failure(error.message));
+
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+        dispatch(getProduct_failure(error.response?.data.message));
+      }
+    }
+  };
+
+  return { response, handleGetAllProduct,handleGetProduct,singleResponse ,handleGetSingleProduct };
 };
 

@@ -36,15 +36,23 @@ export default function Home() {
   }, [])
   return (
     <div className={styles.home}>
-      <video className={styles.bgvideo} autoPlay muted loop>
-        {/* <video  className={`${styles.bgvideo} ${styles.mobileHidden}`} autoPlay muted loop> */}
-        <source src="https://karwaan.b-cdn.net/Front/home1.webm" type="video/webm" />
-        Your browser does not support HTML5 video.
-      </video>
-      <video className={styles.moblieBgvideo} autoPlay muted loop>
+      {/* for big screens */}
+      {/* <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/> */}
+      <video className={styles.bgvideo} autoPlay muted loop playsInline  poster="mainheader.webp">
+  <source src="https://karwaan.b-cdn.net/Front/home1.webm" type="video/webm" />
+  <source src="https://karwaan.b-cdn.net/Front/home1.mp4" type="video/mp4" />
+  Your browser does not support HTML5 video.
+</video>
+      {/* for small screens */}
+      {/* <video className={styles.moblieBgvideo} autoPlay muted loop>
         <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.webm" type="video/webm" />
         Your browser does not support HTML5 video.
-      </video>
+      </video> */}
+      <video className={styles.bgvideo} autoPlay muted loop playsInline poster="mainheader.webp">
+  <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.webm" type="video/webm" />
+  <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.mp4" type="video/mp4" />
+  Your browser does not support HTML5 video.
+</video>
       <div className={styles.homePartition} >
         <div className={styles.firstPartition} style={
           isHover.isVideoHover ? {
