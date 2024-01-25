@@ -191,7 +191,7 @@
     background-image: url("/mainheader.webp");
   }
   .moblieBgvideo {
-    display: none;
+    display: flex;
     position: absolute;
     left: 0;
     top: 0;
