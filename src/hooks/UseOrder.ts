@@ -86,9 +86,42 @@ export const useOrder = (token?: string | null, userId?: string | null, products
 
         }
     };
+   
+    // update Order Payment Status 
+    const handleGetMyOrders = async () => {
+        dispatch(updateOrderPaymentStatus_request());
 
+        try {
+            let endpoint = `/api/v1/order/all-orders/${userId}`;
+            const { getCall } = useAxios(endpoint, null, token);
+            const result = await getCall();
+            if (result.status === "success") {
+                dispatch(updateOrderPaymentStatus_success());
+                return result;
+            }
+           
+        } catch (error: any) {
+            dispatch(updateOrderPaymentStatus_failure(error.message));
 
-    return { handleCreateOrder, updateOrderPaymentStatus };
-    // return {  handleCreateOrder, orderResponse ,updateOrderPaymentStatus, checkoutResponse};
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+                dispatch(updateOrderPaymentStatus_failure(error.response?.data.message));
+             
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push("/signup");
+                }
+            }
+
+        }
+    };
+   
+
+    return { handleCreateOrder, updateOrderPaymentStatus, handleGetMyOrders };
 };
 

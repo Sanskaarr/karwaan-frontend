@@ -1,7 +1,8 @@
+'use client'
 import Slider from '@/component/slider/Slider'
 // import {Slider} from '@/constants/slider/Slider"
 import styles from './style.module.css'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export default function About() {
 const router=useRouter();
@@ -30,11 +31,11 @@ const router=useRouter();
                 <div className={styles.ourWorkImages}>
                 <div className={styles.ourWorkFirstImage}>
                     <img src="https://karwaan.b-cdn.net/about/RightVideosHarshit.jpg" alt="not-found" />
-                    <p onClick={()=>router.push("/video")}>Videos</p>
+                    <p onClick={()=>router.push("/videos")}>Videos</p>
                 </div>
                 <div className={styles.ourWorkSecondImage}>
                     <img src="https://karwaan.b-cdn.net/about/LeftPhotosOshank.jpg" alt="not-found" />
-                    <p onClick={()=>router.push("/image")}>Photographs</p>
+                    <p onClick={()=>router.push("/picture")}>Photographs</p>
 
                 </div>
                 </div>

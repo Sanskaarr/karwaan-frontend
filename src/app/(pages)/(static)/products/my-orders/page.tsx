@@ -1,11 +1,23 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
 import withAuth from '@/component/RoutesProtect/withAuth'
-function page(){
+import { useOrder } from '@/hooks/UseOrder'
+function page() {
+  if (typeof (window) !== 'undefined') {
+
+    var token = JSON.parse(localStorage.getItem("user") as string)?.token;
+    var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
+    var { handleGetMyOrders } = useOrder(token, _id);
+  }
+  const [response, setResponse] = useState<any>(null);
+  useEffect(() => {
+    setResponse(handleGetMyOrders());
+  }, [])
+  console.log("response", response);
   return (
     <div className={styles.myOrders}>
-        <h1>my orders</h1>
+      <h1>my orders</h1>
     </div>
   )
 }

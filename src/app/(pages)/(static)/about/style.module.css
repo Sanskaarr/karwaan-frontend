@@ -41,6 +41,9 @@
     flex-direction: column;
     align-items: center;
 }
+.ourWork p:hover{
+    cursor: pointer;
+}
 .ourWorkImages{
     width: 100%;
     display: flex;
