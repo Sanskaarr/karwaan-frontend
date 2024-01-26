@@ -17,50 +17,24 @@ export default function Home() {
     isPictureHover: false,
   }
   const [isHover, setIsHover] = useState<hoverObjType>(hoverObj);
-  const pictureSrc = [
-    { src: 'https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_3.jpg' },
-    { src: 'https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_1.jpg' },
-    { src: 'https://trekmunk.b-cdn.net/insanetraveller/images/home_stills_preview_4.jpg' },
-  ]
-  const [currentIndex, setCurrentIndex] = useState(0);
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (currentIndex < 2) setCurrentIndex(currentIndex + 1);
-      else setCurrentIndex(0);
-    }, 2000);
-    return () => clearTimeout(timeoutId);
-  }, [currentIndex]);
+
   useLayoutEffect(() => {
     console.clear();
     console.log('%cThis website is developed by WONDOR VENDORS ', 'color: green; font-size: 18px; font-weight: bold;');
   }, [])
   return (
     <div className={styles.home}>
+      {/* for big screens */}
         <video className={styles.bgvideo} autoPlay muted loop>
         <source src="https://karwaan.b-cdn.net/Front/home1.webm" type="video/webm" />
-        <source src="https://jmp.sh/s/QS83c6Eoq1mIk5hLFBPE" type="video/mp4" />
-
-         {/* <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/> */}
+        <source src="https://karwaan.b-cdn.net/Main/Home%20Background.mp4" type="video/mp4" />
       </video>
-      {/* for big screens */}
-      {/* <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/> */}
-      {/* <video className={styles.bgvideo} autoPlay muted loop playsInline  poster="mainheader.webp">
-  <source src="https://karwaan.b-cdn.net/Front/home1.webm" type="video/webm" />
-  <source src="https://karwaan.b-cdn.net/Front/home1.mp4" type="video/mp4" />
-  Your browser does not support HTML5 video.
-</video> */}
       {/* for small screens */}
       <video className={styles.moblieBgvideo} autoPlay muted loop>
         <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.webm" type="video/webm" />
-        <source src="https://jmp.sh/s/QS83c6Eoq1mIk5hLFBPE" type="video/mp4" />
-         {/* <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/> */}
+        <source src="https://karwaan.b-cdn.net/Main/Mobile%20Background.mp4" type="video/mp4" />
         Your browser does not support HTML5 video.
       </video>
-      {/* <video className={styles.bgvideo} autoPlay muted loop playsInline poster="mainheader.webp">
-  <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.webm" type="video/webm" />
-  <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.mp4" type="video/mp4" />
-  Your browser does not support HTML5 video.
-</video> */}
       <div className={styles.homePartition} >
         <div className={styles.firstPartition} style={
           isHover.isVideoHover ? {
@@ -88,7 +62,8 @@ export default function Home() {
             }}
           >VIDEOS</div>
           <video autoPlay muted loop className={styles.slideVideos} >
-            <source src="https://karwaan.b-cdn.net/Front/motion%20(1).webm" type="video/mp4" />
+            <source src="https://karwaan.b-cdn.net/Front/motion%20(1).webm" type="video/webm" />
+            <source src="https://karwaan.b-cdn.net/Main/Videos.mp4" type="video/mp4" />
           </video>
           <div className={styles.leftLine}></div>
         </div>
@@ -159,11 +134,10 @@ export default function Home() {
               e.preventDefault(); setIsHover({ ...hoverObj, isPictureHover: false })
             }}
           >PICTURES</div>
-          <div className={styles.slidePictures}>
-            <img style={currentIndex === 0 ? { display: "flex" } : { display: "none" }} src={pictureSrc[0].src} alt="not found" />
-            <img style={currentIndex === 1 ? { display: "flex" } : { display: "none" }} src={pictureSrc[1].src} alt="not found" />
-            <img style={currentIndex === 2 ? { display: "flex" } : { display: "none" }} src={pictureSrc[2].src} alt="not found" />
-          </div>
+            <video autoPlay muted loop className={styles.slidePictures} >
+            <source src="https://karwaan.b-cdn.net/Main/Photos.mp4" type="video/mp4" />
+          </video>
+  
           <span className={styles.rightLine}></span>
         </div>
       </div>

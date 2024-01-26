@@ -102,7 +102,7 @@
 }
 .homeVideo:hover~ .slideVideos {
 
-  transform: translate(-40%, 0%);
+  transform: translate(-30%, 0%);
   transition: all ease-in 0.5s;
 }
 .homeVideo{
@@ -121,6 +121,8 @@
   transition: all ease-in 0.5s;
   transform: translate(-100%, 0%);
   z-index: 1;
+  width: 100vw;
+  height: 100svh;
 }
 .homeAbout:hover~.aboutUs,
 .aboutUs:hover{
@@ -157,7 +159,7 @@
   transition: all ease-in 0.6s;
 }
 .homePicture:hover~ .slidePictures {
-  transform: translate(40%, 0%) !important;
+  transform: translate(30%, 0%) !important;
   transition: all ease-in 0.5s;
 }
 .slidePictures {
@@ -167,16 +169,18 @@
   transition: all ease-in 0.5s;
   transform: translate(100%, 0%);
   z-index: 1;
+  width: 100vw;
+  height: 100svh;
 
 }
 
 @media (max-width:1200px) {
   .homeVideo:hover~ .slideVideos {
-    transform: translate(-50%, 0%) !important;
+    transform: translate(-40%, 0%) !important;
     transition: all ease-in 0.5s;
   }
   .homePicture:hover~ .slidePictures {
-    transform: translate(50%, 0%) !important;
+    transform: translate(40%, 0%) !important;
     transition: all ease-in 0.5s;
   }
 }
