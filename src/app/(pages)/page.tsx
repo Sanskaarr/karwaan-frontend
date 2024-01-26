@@ -38,7 +38,9 @@ export default function Home() {
     <div className={styles.home}>
         <video className={styles.bgvideo} autoPlay muted loop>
         <source src="https://karwaan.b-cdn.net/Front/home1.webm" type="video/webm" />
-         <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/>
+        <source src="https://jmp.sh/s/QS83c6Eoq1mIk5hLFBPE" type="video/mp4" />
+
+         {/* <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/> */}
       </video>
       {/* for big screens */}
       {/* <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/> */}
@@ -50,7 +52,8 @@ export default function Home() {
       {/* for small screens */}
       <video className={styles.moblieBgvideo} autoPlay muted loop>
         <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.webm" type="video/webm" />
-         <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/>
+        <source src="https://jmp.sh/s/QS83c6Eoq1mIk5hLFBPE" type="video/mp4" />
+         {/* <img src="mainheader.webp" alt="not fonud"  width={"100%"} height={"100%"}/> */}
         Your browser does not support HTML5 video.
       </video>
       {/* <video className={styles.bgvideo} autoPlay muted loop playsInline poster="mainheader.webp">
