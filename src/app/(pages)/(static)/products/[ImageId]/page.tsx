@@ -10,6 +10,7 @@ import { useCart } from '@/hooks/useCart';
 import { toast } from 'react-toastify';
 import { useOrder } from '@/hooks/UseOrder';
 const shop = () => {
+    const router=useRouter();            
     const [isItemInCart,setIsItemInCart]=useState<boolean>(false);
 
     const {ImageId} = useParams<{ ImageId: string }>()
@@ -18,10 +19,19 @@ const shop = () => {
       
         var token=JSON.parse(localStorage.getItem("user") as string)?.token;
         var _id=JSON.parse(localStorage.getItem("user") as string)?._id;
-        var { handleAddItemToCart,cartItems} = useCart({token:token,productId:ImageId,userId:_id});
+        var { handleAddItemToCart} = useCart({token:token,productId:ImageId,userId:_id});
    
       var {handleCreateOrder} = useOrder(token,_id,[_id]);
     }
+   const handleBuy=(e:any)=>{
+    if(token){
+        handleCreateOrder(e);
+    }else{
+        toast.error("Please log in to buy the product");
+        router.push('/signup');
+    }
+
+}
  useEffect(()=>{
    let cartItems=JSON.parse( localStorage.getItem("cartItems") as string);
         if(cartItems){
@@ -35,7 +45,6 @@ const shop = () => {
 
     }, [ImageId]);
  
-    const router=useRouter()              
 
  
     // const currrentIndex=response&&response.findIndex((obj:any) => {obj._id === singleResponse._id&&obj.media.type === singleResponse.media.type._id});
@@ -78,7 +87,7 @@ const shop = () => {
         }
              setIsItemInCart(true)
              }}>Add To Cart</button>}
-         <button className={styles.button} onClick={(e)=>handleCreateOrder(e)}>Buy</button>
+         <button className={styles.button} onClick={(e)=>handleBuy(e)}>Buy</button>
          </div>
 
         </div>
