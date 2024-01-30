@@ -214,10 +214,11 @@
 }
 /* address */
 .myAddressFields{
-  color: blue;
+  color: black;
 }
 .AddressTitle{
   color: #000;
+  font-weight: bold;
   margin-right: 5px;
 }
 .addressBtn{

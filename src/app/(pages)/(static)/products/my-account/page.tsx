@@ -67,7 +67,6 @@ function page() {
 
     // delete open and close logic
     const close = () => setModalOpen(false);
-    const open = () => setModalOpen(true);
 
 
     // const {firstName,lastName,email}=useAppSelector((state)=>state.user.user);
@@ -185,7 +184,7 @@ function page() {
                 {/* address */}
                 <div className={styles.myAccountForm} style={{height:"100%"}}>
 
-                    {/* change fields */}
+                    {/* change address */}
                     <h2>my Address</h2>
                     {  addressFormData?addressFormData.addressId?
                     <>

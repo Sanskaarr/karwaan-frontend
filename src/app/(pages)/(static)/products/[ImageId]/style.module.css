@@ -29,6 +29,8 @@
    height: 40px;
 }
 .singleProductPageUpperSection{
+    width: 90%;
+    margin: auto;
     display: flex;
     justify-content: space-between;
 }
@@ -37,11 +39,17 @@
     padding: 0 10px;
     width: 50%;
 }
+.singleProductPageUpperRightSection{
+    display: grid;
+}
+
 .singleProductPageUpperLeftSection img{
     width: 100%;
     max-height: 500px;
+    border-radius: 5px;
+
 }
-.singleProductPageUpperRightSection>h3{
+.singleProductPageUpperRightSection h3{
     margin-top: 0;
     margin-bottom: .5rem;
     font-weight: 500;
@@ -50,11 +58,36 @@
     color: #000;
     display: flex;
     align-items: center;
+    height: fit-content;
 }
-.singleProductPageUpperRightSection>p{
+.singleProductPageUpperRightSection p{
     font-size: 16px;
     color: #465b52;
     margin: 15px 0 20px 0;
+    height: fit-content;
+
+}
+.read{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-style: solid;
+    /* border-radius: 50px; */
+    color: #000;
+    border: 1px solid black;
+    font-weight: 700;
+    font-size: 15px;
+    margin-right: 5px;
+    max-width: 150px;
+    /* margin: auto; */
+    border-radius: 5px;
+  
+}
+.read:hover{
+   cursor: pointer;
+   box-shadow: 6px 8px 12px rgba(0, 0, 0, 0.1);
+   transition: box-shadow 0.3s ease-in-out;
 }
 .singleProductPageUpperRightSection>select{
     width: 80%;
@@ -62,6 +95,7 @@
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    max-width: 300px;
 }
 .singleProductPageUpperRightSection>select:hover{
 cursor: pointer;
@@ -74,6 +108,7 @@ cursor: pointer;
 
 .buttons{
     padding: 12px 0;
+    align-self: flex-end;
 
 }
 .button{
@@ -88,6 +123,12 @@ cursor: pointer;
     font-weight: 700;
     font-size: 15px;
     margin-right:5px;
+    border-radius: 5px;
+}
+.button:hover{
+    box-shadow: 6px 8px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+
 }
 .shopProductsHeading{
     text-align: center;
@@ -117,6 +158,8 @@ cursor: pointer;
     max-height: 176px;
     width: 100%;
      overflow: hidden;
+    border-radius: 5px;
+
 }
 .image{
     width: 100% !important;
