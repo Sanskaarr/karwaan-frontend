@@ -71,9 +71,9 @@ const shop = () => {
 
                         </div>
                         {/* {singleResponse&& <p>{singleResponse.description}    </p>} */}
-                        {singleResponse && <p>{isReadMoreOpen?value:value.slice(0, 150)+"..."}  
-                         {
-                            isReadMoreOpen?<div className={styles.read} onClick={()=>setIsReadMoreOpen(e=>!e)}>Read Less</div>:<div className={styles.read}  onClick={()=>setIsReadMoreOpen(e=>!e)}>Read More</div>
+                        {singleResponse && <p>{isReadMoreOpen?singleResponse.description:singleResponse.description.slice(0, 150)+"..."}  
+                         {singleResponse.description===singleResponse.description.slice(0, 150)?<div></div>
+                           : isReadMoreOpen?<div className={styles.read} onClick={()=>setIsReadMoreOpen(e=>!e)}>Read Less</div>:<div className={styles.read}  onClick={()=>setIsReadMoreOpen(e=>!e)}>Read More</div>
                         } </p>}
                         <p style={{ alignSelf: "flex-end" }}>SIZE</p>
                         <select style={
