@@ -1,23 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
-    userId: string,
-    name: string,
-    tags: string[],
-    description: string,
-    price: number,
-    media: {
-        data: string,
-        url: string | null
-        type: 'image' | 'video'
-    },
-    paid: boolean,
-    createdAt: string,
-    updatedAt: string,
+    productDetails: {
+        productId: string;
+        description: string;
+        name: string;
+        price: number;
+        tags: string[];
+        url: string;
     }
-
+    quantity: number;
+    size: '8"x12"' | '12"x18"' | '16"x24"' | '20"x30"' | '24"x36"';
+    userId: string;
+    _id: string;
+}
 const initialState = {
-    products:[] as InitialState[]
+    products:[] as InitialState[]|[]
 } ;
 
 export const cart = createSlice({

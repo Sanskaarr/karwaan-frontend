@@ -2,8 +2,6 @@ import { useAxios } from "./useAxios";
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../redux/hooks";
-
-import { useState } from "react";
 import { addAddress_failure, addAddress_request, addAddress_success, changeAddress_failure, changeAddress_request, changeAddress_success, deleteAddress_failure, deleteAddress_request, deleteAddress_success, getAddress_failure, getAddress_request, getAddress_success } from "@/redux/reducers/AddressReqestReducer";
 import { useRouter } from "next/navigation";
 type formType = {
@@ -18,7 +16,8 @@ type formType = {
 type Params = {
     token?: string | null;
     userId?: string | null;
-    address?: formType
+    address?: formType,
+
 }
 
 export const useAddress = ({ token, userId, address }: Params) => {
@@ -99,7 +98,7 @@ export const useAddress = ({ token, userId, address }: Params) => {
             const result = await putCall();
 
             if (result.status === "success") {
-                dispatch(changeAddress_success());
+                dispatch(changeAddress_success(false));
                 toast.success(result.message);
                  router.push("/products/my-account");
             }

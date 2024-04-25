@@ -20,16 +20,11 @@ export const useProduct = (type?: string|null, tag?: string|null, searchQuery?: 
     try {
       let endpoint = '/api/v1/product';
 
-      if (type && tag) {
-        // endpoint += `?type=${type.toLowerCase()}&tag=${tag.toLowerCase()}`;
-        if(tag==="all") endpoint;
+      if ( tag) {
+     
+        if(tag==="uncategorized") endpoint;
         else endpoint += `?tag=${tag.toLowerCase()}`;
-      } else if (type) {
-        endpoint += `?type=${type.toLowerCase()}`;
-      } else if (tag) {
-        if(tag==="all") endpoint;
-        else endpoint += `?tag=${tag.toLowerCase()}`;
-      } else if (searchQuery) {
+      }else if (searchQuery) {
         endpoint += `?searchQuery=${searchQuery}`;
       }
 

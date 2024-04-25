@@ -24,7 +24,8 @@ const shop = () => {
     const [isOptionVisible, setIsOptionVisible] = useState({ filter: false, sortedBy: false })
     const scrollRef = useRef(null);
    
-    const router=useRouter()              
+    const router=useRouter()   
+             
     return (
         <div className={styles.shop} ref={scrollRef}>
             <div className={styles.shopBanner}><p>Karwaan Prints</p> </div>
@@ -63,14 +64,17 @@ const shop = () => {
 
                 </div>
 
-            </div>
+            </div>{response&&
             <div className={styles.shopProducts}>
-                {response&&response.map((data:any, index:number) => {
-                    if(data.media.type==="video")return ;
+                {response?.length===0?
+               <div style={{color:"black", display:"flex", justifyContent:"center", width:"100%", height:"250px", alignItems:"center"}}>
+                <p style={{width:"fit-content"}}>No product is aviable.</p>
+               </div>
+               :response.map((data:any) => {
                     return (
                         <>
-                            <div data-aos="zoom-in-up" key={index} className={styles.oneProduct} onClick={()=>router.push(`/products/${data._id}`)}>
-                                <img src={"data:image/jpeg;base64," + data.media.data} alt={data.name} className={styles.image} />
+                            <div data-aos="zoom-in-up" key={data._id} className={styles.oneProduct} onClick={()=>router.push(`/products/${data._id}`)}>
+                                <img src={data.url} alt={data.name} className={styles.image} />
                                 <div className={styles.imagesCategory}>{data.tags.join(", ")}</div>
                                 <div className={styles.imagesName}>{data.name}</div>
                             </div>
@@ -80,7 +84,7 @@ const shop = () => {
                 })
 
                 }
-            </div>
+            </div>}
 
 
         </div >

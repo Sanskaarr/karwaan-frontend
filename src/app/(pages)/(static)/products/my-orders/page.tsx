@@ -10,7 +10,7 @@ function page() {
 
     var token = JSON.parse(localStorage.getItem("user") as string)?.token;
     var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
-    var { handleGetMyOrders } = useOrder(token, _id);
+    var { handleGetMyOrders } =  useOrder({token:token,userId:_id});
   }
   const [response, setResponse] = useState<any[] | null>(null);
   useEffect(() => {

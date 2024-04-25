@@ -75,6 +75,11 @@
   flex-direction: column;
   margin: 10px 0;
   position: relative;
+
+}
+.nameLable{
+  font-weight:bolder;
+  color:black;
 }
 .myAccountForm label,
 .resetPassword label,

@@ -8,23 +8,31 @@ import withAuth from '@/component/RoutesProtect/withAuth';
 import DownloadButton from '@/component/downloadImage/DownloadButton';
 import { useRouter } from 'next/navigation';
 function page (){
+const[checkoutResponse,setCheckoutResponse]=useState<any>(null);
   const router =useRouter();
 const {orderId} = useParams<{ orderId: string }>()
 if(typeof(window)!=="undefined"){
   var token=JSON.parse(localStorage.getItem("user") as string)?.token;
+
   if(!token){
     router.push('/');
   }
-  var {updateOrderPaymentStatus}=useOrder(token, null, null, orderId);
+  var {updateOrderPaymentStatus}=useOrder({token:token, orderId:orderId});
 }
-const[checkoutResponse,setCheckoutResponse]=useState<any>(null);
-const checkOutData=async()=> {if(orderId && token ){
-  setCheckoutResponse( await updateOrderPaymentStatus())
- }}
-useEffect(()=>{
-  checkOutData();
-},[orderId,token]);
+// const checkOutData=async()=> {if(orderId && token ){
+//   setCheckoutResponse( await updateOrderPaymentStatus())
+//  }}
+useEffect(() => {
+  const updateOrderPaymentStatusAsync = async () => {
+      if (orderId && token) {
+          const response = await updateOrderPaymentStatus();
+          setCheckoutResponse(response);
 
+      }
+  };
+  updateOrderPaymentStatusAsync();
+
+}, [orderId, token]);
   return (
     <div className={styles.payment_status}>
 

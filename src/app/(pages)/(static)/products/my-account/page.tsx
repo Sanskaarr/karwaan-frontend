@@ -83,7 +83,7 @@ function page() {
               pin :string,
               addressId:string,
           }
-          const [addressFormData, setAddressFormData] = useState<addressFormType|null>(null);
+          const [addressFormData, setAddressFormData] = useState<addressFormType|undefined>(undefined);
         const { handleGetAddress}=useAddress({userId:_id, token:token, address:addressFormData as addressFormType })
         useEffect(() => {
           (async()=>{
@@ -177,7 +177,7 @@ function page() {
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <ClipLoader color="white" cssOverride={{}} size={15} speedMultiplier={0.5} />
                             </div> :
-                            (formData.phoneNumber === phoneNumber) && (formData.phoneNumber !== null) ? "verify Phone Number" : "Update Phone Number"
+                            (formData.phoneNumber === phoneNumber) && (formData.phoneNumber !== "") ? "verify Phone Number" : "Update Phone Number"
                         }
                     </button>
                 </div>

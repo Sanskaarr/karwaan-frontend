@@ -6,6 +6,11 @@ type InitialState = {
         error: any,
         status: boolean,
     },
+    updateCartItemQuantity:{
+        loading: boolean,
+        error: any,
+        status: boolean,
+    }
     removeItemFromCart: {
         loading: boolean,
         error: any,
@@ -27,6 +32,11 @@ type InitialState = {
 
 const initialState = {
     addItemToCart: {
+        loading: false,
+        error: null,
+        status: false,
+    },
+    updateCartItemQuantity: {
         loading: false,
         error: null,
         status: false,
@@ -69,6 +79,22 @@ export const cartRequests = createSlice({
             state.addItemToCart.error = "there is an error";
             state.addItemToCart.status = false;
         },
+            // update Cart Item Quantity reducers 
+            updateCartItemQuantity_request: (state) => {
+                state.addItemToCart.loading = true;
+                state.addItemToCart.error = null;
+                state.addItemToCart.status = false;
+            },
+            updateCartItemQuantity_success: (state) => {
+                state.addItemToCart.loading = false;
+                state.addItemToCart.error = null;
+                state.addItemToCart.status = true;
+            },
+            updateCartItemQuantity_failure: (state, action) => {
+                state.addItemToCart.loading = false;
+                state.addItemToCart.error = "there is an error";
+                state.addItemToCart.status = false;
+            },
         // remove Item From Cart reducers 
         removeItemFromCart_request: (state) => {
             state.removeItemFromCart.loading = true;
@@ -127,6 +153,11 @@ export const {
     addItemToCart_request,
     addItemToCart_success,
     addItemToCart_failure,
+
+  //  get all Product up reducers 
+  updateCartItemQuantity_request,
+  updateCartItemQuantity_success,
+  updateCartItemQuantity_failure,
 
     //  remove Item From Cart reducers 
     removeItemFromCart_request,

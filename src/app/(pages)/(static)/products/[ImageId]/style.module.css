@@ -71,11 +71,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
-    border-style: solid;
+    /* background-color: #fff; */
+    /* border-style: solid; */
     /* border-radius: 50px; */
     color: #000;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     font-weight: 700;
     font-size: 15px;
     margin-right: 5px;
@@ -125,6 +125,7 @@ cursor: pointer;
     margin-right:5px;
     border-radius: 5px;
 }
+
 .button:hover{
     box-shadow: 6px 8px 12px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out;

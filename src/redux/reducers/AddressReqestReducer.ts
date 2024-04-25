@@ -17,6 +17,7 @@ type InitialState = {
         loading: boolean,
         success: boolean,
         error: any,
+        confirm:boolean,
     },
     deleteAddress: {
         loading: boolean,
@@ -43,6 +44,7 @@ const initialState = {
         loading: false,
         success: false,
         error: null,
+        confirm:false,
     },
     deleteAddress: {
         loading: false,
@@ -96,16 +98,22 @@ export const AddressRequests= createSlice({
         state.changeAddress.loading = true;
         state.changeAddress.error = null;
         state.changeAddress.success = false;
+        state.changeAddress.confirm = false;
+
     },
-        changeAddress_success: (state) => {
+        changeAddress_success: (state,action) => {
         state.changeAddress.loading = false;
         state.changeAddress.error = null;
         state.changeAddress.success = true;
+        state.changeAddress.confirm = action.payload;
+
     },
-        changeAddress_failure: (state, action) => {
+        changeAddress_failure: (state) => {
         state.changeAddress.loading = false;
         state.changeAddress.error =  "there is an error";
         state.changeAddress.success = false;
+        state.changeAddress.confirm = false;
+
     },
     
     // delete Address reducers

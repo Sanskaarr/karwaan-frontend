@@ -87,7 +87,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             onChange={(e) => {
                                 setFormData({ ...formData, houseNumber: e.target.value })
                             }} required />
-                        <label className={`${styles.nameLable}${styles.lables}`}>House Number</label>
+                        <label className={`${styles.nameLable}`}>House Number</label>
                     </div>
                     {/* building number */}
                     <div className={styles.userName}>
@@ -96,7 +96,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             onChange={(e) => {
                                 setFormData({ ...formData, buildingName: e.target.value })
                             }} required />
-                        <label className={`${styles.nameLable}${styles.lables}`}>Building Name</label>
+                        <label className={`${styles.nameLable}`}>Building Name</label>
                     </div>
                     {/* country */}
                     <div className={styles.userName}>
@@ -105,7 +105,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             onChange={(e) => {
                                 setFormData({ ...formData, country: e.target.value })
                             }} required />
-                        <label className={`${styles.nameLable}${styles.lables}`}>Country</label>
+                        <label className={`${styles.nameLable}`}>Country</label>
                     </div>
                     {/* state */}
                     <div className={styles.userName}>
@@ -114,7 +114,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             onChange={(e) => {
                                 setFormData({ ...formData, state: e.target.value })
                             }} required />
-                        <label className={`${styles.nameLable}${styles.lables}`}>State</label>
+                        <label className={`${styles.nameLable}`}>State</label>
                     </div>
                     {/* city */}
                     <div className={styles.userName}>
@@ -123,7 +123,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             onChange={(e) => {
                                 setFormData({ ...formData, city: e.target.value })
                             }} required />
-                        <label className={`${styles.nameLable}${styles.lables}`}>city</label>
+                        <label className={`${styles.nameLable}`}>city</label>
                     </div>
                     {/*  street */}
                     <div className={styles.userName}>
@@ -132,7 +132,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             onChange={(e) => {
                                 setFormData({ ...formData, street: e.target.value })
                             }} required />
-                        <label className={`${styles.nameLable}${styles.lables}`}>street</label>
+                        <label className={`${styles.nameLable}`}>street</label>
                     </div>
                     {/* pin */}
                     <div className={styles.userName}>
@@ -141,7 +141,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             onChange={(e) => {
                                 setFormData({ ...formData, pin: e.target.value })
                             }} required />
-                        <label className={`${styles.nameLable}${styles.lables}`}>pin</label>
+                        <label className={`${styles.nameLable}`}>pin</label>
                     </div>
                     {!addressId ?
                      <button className={styles.submitButton}

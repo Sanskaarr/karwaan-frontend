@@ -1,19 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
-    userId: string,
-    name: string,
-    tags: string[],
-    description: string,
-    price: number,
-    media: {
-        data: string,
-        url: string | null
-        type: 'image' | 'video'
-    },
-    paid: boolean,
-    createdAt: string,
-    updatedAt: string,
+    userId: string;
+    name: string;
+    tags: string[];
+    description: string;
+    price: number;
+    url: string;
+    createdAt: string;
+    updatedAt: string;
     }
 
 const initialState = {
