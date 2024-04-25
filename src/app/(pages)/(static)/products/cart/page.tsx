@@ -133,7 +133,7 @@ const Cart: React.FC = () => {
                           >
                             Tags :
                           </p>
-                          {(data?.productDetails?.tags.join(", "))??"uncategorized"}
+                          {(data?.productDetails?.tags?.join(", "))??"uncategorized"}
                         </div>
                         <div className={styles.cartItemInfo}>
                           <p

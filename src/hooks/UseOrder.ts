@@ -7,6 +7,7 @@ import {
     updateOrderPaymentStatus_request, updateOrderPaymentStatus_success, updateOrderPaymentStatus_failure,
 } from "../redux/reducers/OrderRequestReducer";
 import { usePathname, useRouter } from "next/navigation";
+import { update_product_data } from "@/redux/reducers/CartReducer";
 
 type Products= {
         productId: string;
@@ -92,6 +93,9 @@ export const useOrder = ({ token, userId, resCartItem, orderId }: UseOrder) => {
             const { putCall } = useAxios(endpoint, null, token);
             const result = await putCall();
             if (result.status === "success") {
+                if(result?.data.order_details?.products.length!==1){
+                 dispatch(update_product_data([]));
+                }
                 dispatch(updateOrderPaymentStatus_success());
                 return result;
             }
@@ -115,7 +119,7 @@ export const useOrder = ({ token, userId, resCartItem, orderId }: UseOrder) => {
         }
     };
    
-    // update Order Payment Status 
+    // handle Get My Orders Payment Status 
     const handleGetMyOrders = async () => {
         dispatch(updateOrderPaymentStatus_request());
 
@@ -125,6 +129,7 @@ export const useOrder = ({ token, userId, resCartItem, orderId }: UseOrder) => {
             const result = await getCall();
             if (result.status === "success") {
                 dispatch(updateOrderPaymentStatus_success());
+
                 return result;
             }
            
