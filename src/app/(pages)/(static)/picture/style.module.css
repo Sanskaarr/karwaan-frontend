@@ -15,9 +15,9 @@
   justify-content: flex-start;
 }
 .PictureSectionHome {
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   border-right: 2px solid black;
-  height: 480px;
+  height: 530px;
   display: flex;
   align-items: center;
 }

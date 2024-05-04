@@ -155,6 +155,7 @@ import { MenuItems } from "@/constants/MenuItems";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useAppSelector } from '@/redux/hooks';
 import { useUser } from '@/hooks/useUser';
+import Link from 'next/link';
 
 export default function Navbar() {
   const router = useRouter();
@@ -226,6 +227,15 @@ export default function Navbar() {
                 <ul className={`${styles.menuOptions} ${styles.capitalize}`}>
                   {MenuItems.map((menuItem, index) => {
                     if (index % 2 === 0) {
+                      if(menuItem.text=="Shop"){
+                        return(
+                          <li>
+                            <Link key={index} style={pathname === menuItem.route ? { color: "white", pointerEvents: "none" } : { color: "gray" }} className={styles.menuItem} href={"/shop"} rel="noopener noreferrer" target="_blank">
+                              Shop
+                            </Link>
+                          </li>
+                        )
+                      }
                       return (
                         <li key={index} style={pathname === menuItem.route ? { color: "white", pointerEvents: "none" } : { color: "gray" }} className={styles.menuItem} onClick={() => { (menuItem.route) && router.push(menuItem.route); }}>
                           {menuItem.text}
