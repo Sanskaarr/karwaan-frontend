@@ -39,17 +39,15 @@ export default function Picture() {
   };
 
   const router = useRouter();
-  return (
-   
-
-     
+  return (  
     <div className={styles.Picture}>
       <div className={styles.PictureSection}>
         <div className={styles.PictureSectionHome}style={{position:"relative",zIndex:'3',background:"white"}}>
-          <span onClick={() => router.push("/")} >Home</span>
+          <span style={{color:"black"}} onClick={() => router.push("/")} >Home</span>
         </div>
+        {/* <div className={styles.filterContainer} > */}
         {
-         <div className={styles.PictureSectionFilter} style={  isMenuHide ?
+         <div className={styles.PictureSectionFilter} style={isMenuHide ?
           {
             visibility: "hidden",
             width:"1px",
@@ -61,6 +59,8 @@ export default function Picture() {
             width:"160px",
             transition:"all 0.5s ease-in",
             pointerEvents: "all",
+            marginRight:20,
+            marginLeft:20
           }}>
           <h3 className={styles.desktopViewFilter}     style={
             isMenuHide ?
@@ -132,7 +132,9 @@ export default function Picture() {
               })
             }
           </ul>
-        </div>}
+        </div>
+        }
+        {/* </div> */}
         <div className={styles.PictureGallary}
           ref={pictureContainerRef}>
           {

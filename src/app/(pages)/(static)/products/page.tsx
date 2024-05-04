@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 const shop = () => {
     const [filter, setFilter] = useState<string>("");
-    const filterOptions = ['landscape', 'cityscape', 'dark', 'people', 'uncategorized'];
+    const filterOptions = ['landscape', 'cityscape', 'dark', 'peoplee', 'uncategorized'];
     const { handleGetAllProduct, response } = useProduct('image',filter);
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const shop = () => {
             <div className={styles.shopBanner}><p>Karwaan Prints</p> </div>
             <div className={styles.shopProductSection}>
                 <div className={styles.shopProductOurPrints} data-aos="fade-up">Our Prints</div>
-                <div className={styles.shopProductfilters}>
+                <div className={styles.shopProductfilters} >
                     <div className={styles.shopProductfilter}
                         onClick={() => setIsOptionVisible({ filter: !isOptionVisible.filter, sortedBy: false })}
                         data-aos="zoom-in-right">Filter By:-
