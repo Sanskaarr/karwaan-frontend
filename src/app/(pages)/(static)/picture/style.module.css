@@ -4,6 +4,14 @@
 }
 .Picture {
   background: white;
+  overflow: hidden;
+}
+.Picture::-webkit-scrollbar {
+  display: none;
+}
+.Picture {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 .PictureGallary{
   scroll-behavior: smooth;

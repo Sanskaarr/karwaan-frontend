@@ -2,7 +2,7 @@
     font-size: medium;
 }
 .footer{
-    height:70px;
+    height:fit-content;
     flex-wrap:wrap;
     
     align-items:center;
