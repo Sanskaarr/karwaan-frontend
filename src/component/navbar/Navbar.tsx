@@ -229,8 +229,8 @@ export default function Navbar() {
                     if (index % 2 === 0) {
                       if(menuItem.text=="Shop"){
                         return(
-                          <li>
-                            <Link key={index} style={pathname === menuItem.route ? { color: "white", pointerEvents: "none" } : { color: "gray" }} className={styles.menuItem} href={"/shop"} rel="noopener noreferrer" target="_blank">
+                          <li key={index}>
+                            <Link  style={pathname === menuItem.route ? { color: "white", pointerEvents: "none" } : { color: "gray" }} className={styles.menuItem} href={"/shop"} rel="noopener noreferrer" target="_blank">
                               Shop
                             </Link>
                           </li>
