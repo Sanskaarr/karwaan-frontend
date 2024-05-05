@@ -17,6 +17,15 @@ export default function Videos() {
   const [currentIndex, setCurrentIndex] = useState<number>(0); 
   const router = useRouter();
 
+  const videosPageOptions = [
+    {id:0,OptionName:"Documentry"},
+    {id:1,OptionName:"CSR Films"},
+    {id:2,OptionName:"Coperate Videos"},
+    {id:3,OptionName:"Ads"},
+    {id:4,OptionName:"Films"},
+  ]
+
+
   const handleScroll = (direction: any) => {
     const scrollAmount = 600; // Adjust the scroll amount as needed
     const container = videosContainerRef.current;
@@ -134,7 +143,11 @@ export default function Videos() {
           animate={{ x: 0, y: 0 }}
           transition={{ ease: "easeIn", delay: 0, duration: 0.5 }}
         >
-          Motion
+          <span className={styles.videosPageOptionsTitle}>
+            Motion
+          </span>
+          
+          {videosPageOptions.map((e)=><span key={e.id} className={styles.optionName}>{e.OptionName}</span>)}
         </motion.div>
         {/* <div className={styles.videosGallary} >
 

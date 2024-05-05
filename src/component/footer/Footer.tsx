@@ -9,7 +9,7 @@ export default  function Footer() {
 const pathname=usePathname();
   return (
     <footer>
-    <section className={styles.footer} style={pathname==="/contact"?{display:"none"}:{display:"flex"}}>
+    <section className={styles.footer} style={pathname==="/contact"||"/picture"||"/videos"?{display:"none"}:{display:"flex"}}>
         <a href="#" className={` ${styles.karwaan}`} style={{textDecoration:"none",color:"black"}}>Karwaan Films Private Limited</a>
       
         <div className={styles.socialIcons}>
