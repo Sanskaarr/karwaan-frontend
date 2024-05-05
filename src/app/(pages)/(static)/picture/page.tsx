@@ -139,9 +139,10 @@ export default function Picture() {
           ref={pictureContainerRef}>
           {
             galleryData ?galleryData.length?
-            galleryData.filter((item)=>item.tags.includes(filter)).map((data: any) => {
+            galleryData.filter((item)=>item.tags.includes(filter)).map((data: any,index) => {
+              let isFinal = galleryData.length-1==index;
               return (
-                <div key={data.id} className={styles.imageSection}>
+                <div key={data.id} className={styles.imageSection} style={isFinal&&!isMenuHide?{marginRight:"260px"}:{}}>
                   <motion.img   initial={{scale: 0.3, x: 100, y: 0, opacity: 0 }} // Set initial position and opacity
       animate={{scale: 1, x: 0, y: 0, opacity: 1 }} // Set the final position and opacity
       transition={{ ease: 'easeIn', delay: 0, duration: 0.5 }}
