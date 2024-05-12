@@ -178,8 +178,8 @@ export default function Videos() {
                 return(
                   <motion.a
                     className={styles.embla__slide}
-                    initial={{ x: -100, y: 0 }}
-                    animate={{ x: 0, y: 0 }}
+                    initial={{ x: -100, y: 0,opacity:0}}
+                    animate={{ x: 0, y: 0 ,opacity:1}}
                     transition={{ ease: "easeIn", delay: 0, duration: 1 }}
                     target="_blank"
                     key={data.id}
