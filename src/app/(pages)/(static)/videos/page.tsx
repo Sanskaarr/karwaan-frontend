@@ -141,7 +141,7 @@ export default function Videos() {
           className={styles.motion}
           initial={{ x: 100, y: 0 }}
           animate={{ x: 0, y: 0 }}
-          transition={{ ease: "easeIn", delay: 0, duration: 0.5 }}
+          transition={{ ease: "easeIn", delay: 0, duration: 1 }}
         >
           <span className={styles.videosPageOptionsTitle}>
             Motion
@@ -180,7 +180,7 @@ export default function Videos() {
                     className={styles.embla__slide}
                     initial={{ x: -100, y: 0 }}
                     animate={{ x: 0, y: 0 }}
-                    transition={{ ease: "easeIn", delay: 0, duration: 0.5 }}
+                    transition={{ ease: "easeIn", delay: 0, duration: 1 }}
                     target="_blank"
                     key={data.id}
                     href={data.videoHref}
