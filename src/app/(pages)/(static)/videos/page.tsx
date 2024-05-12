@@ -109,7 +109,7 @@ export default function Videos() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     // startIndex: videoData.length-1,
     direction:"rtl",
-    align: "center",
+    align: "end",
     duration: 35,
   },[WheelGesturesPlugin()]);
   const onClickRightScroll = () =>{
