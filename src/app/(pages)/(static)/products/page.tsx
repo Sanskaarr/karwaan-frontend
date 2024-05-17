@@ -68,7 +68,7 @@ const shop = () => {
             <div className={styles.shopProducts}>
                 {response?.length===0?
                <div style={{color:"black", display:"flex", justifyContent:"center", width:"100%", height:"250px", alignItems:"center"}}>
-                <p style={{width:"fit-content"}}>No product is aviable.</p>
+                <p style={{width:"fit-content"}}>No products available.</p>
                </div>
                :response.map((data:any) => {
                     return (
