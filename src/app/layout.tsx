@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const poppins=Poppins({ 
-  subsets:["devanagari","latin","latin-ext"],
+  subsets:["latin","latin-ext"],
   // weight:["200"]
   weight:["100","200","300","400","500","600","700","800","900"]
 });

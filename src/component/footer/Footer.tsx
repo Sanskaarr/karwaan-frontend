@@ -5,11 +5,23 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 export default  function Footer() {
 const pathname=usePathname();
+const [isFooterShowing,setIsFooterShowing] = useState(false)
+useEffect(()=>{
+  if(pathname==="/picture" || pathname==="/contact" || pathname==="/videos"){
+    setIsFooterShowing(false)
+  }
+  else{
+    setIsFooterShowing(true)
+  }
+},[])
   return (
     <footer>
-    <section className={styles.footer} style={pathname==="/contact"?{display:"none"}:{display:"flex"}}>
+    <section className={styles.footer} 
+    style={!isFooterShowing?{display:"none"}:{display:"flex"}}
+    >
         <a href="#" className={` ${styles.karwaan}`} style={{textDecoration:"none",color:"black"}}>Karwaan Films Private Limited</a>
       
         <div className={styles.socialIcons}>

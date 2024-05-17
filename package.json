@@ -26,6 +26,8 @@
     "@types/react-dom": "18.2.18",
     "aos": "^2.3.4",
     "axios": "^1.6.3",
+    "embla-carousel-react": "^8.0.3",
+    "embla-carousel-wheel-gestures": "^8.0.0-rc05",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "framer-motion": "^10.16.16",
@@ -42,5 +44,4 @@
     "@types/aos": "^3.0.7",
     "eslint-plugin-react-hooks": "^4.6.0"
   }
-  
 }

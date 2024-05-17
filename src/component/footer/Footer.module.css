@@ -2,9 +2,9 @@
     font-size: medium;
 }
 .footer{
-    height:70px;
+    height:fit-content;
     flex-wrap:wrap;
-    
+    /* display: flex; */
     align-items:center;
     justify-content: space-between;
     padding: 0 12px;
