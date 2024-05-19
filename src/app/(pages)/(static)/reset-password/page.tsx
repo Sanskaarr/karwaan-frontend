@@ -16,6 +16,7 @@ type formType = {
   newPassword: string,
   password: string,
 }
+// test
 const [formData, setFormData] = useState<formType>({password:"",confirmNewPassword: "", newPassword: ""});
 const [isPassVisible, setIsPassVisible] = useState({ existPass: false, newPass: false, confirmNewPass: false });
   const {handleResetPasswordUser} = useUser({token: token as string, _id: _id as string});
