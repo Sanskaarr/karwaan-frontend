@@ -326,10 +326,16 @@
     height: 100vh;
     overflow: hidden;
   }
+  .videosScrollBar{
+    display: none;
+  }
 }
 @media (max-width: 680px) {
   .videos{
     justify-content: flex-start;
+  }
+  .videosScrollBar{
+    display: none;
   }
   .embla{
     width: 100%;
