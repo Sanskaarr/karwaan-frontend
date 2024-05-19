@@ -19,6 +19,29 @@ type Params = {
     newPassword?: string;
     confirmNewPassword?: string;   
 }
+interface User {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    isEmailValid: boolean;
+    phoneNumber: string | null;
+    isPhoneNumberValid: boolean;
+    role: 'admin' | 'user'; // Assuming 'admin' and 'user' are the possible roles
+    image: string | null;
+    phoneNumberOTP: string | null;
+    phoneNumberOTPExpire: string | null;
+    passwordResetToken: string | null;
+    passwordResetTokenExpiry: string | null;
+    verifyEmailToken: string;
+    verifyEmailTokenExpire: number;
+    createdAt: string; // ISO date string
+    updatedAt: string; // ISO date string
+    __v: number;
+    token: string;
+}
+
 
 export const useUser = (payload: Params) => {
     const {token, _id, firstName, lastName, email, phoneNumber, oldPassword, newPassword, confirmNewPassword} = payload;
@@ -139,8 +162,8 @@ export const useUser = (payload: Params) => {
     // handle Verify Email User
     const handleVerifyMailUser = async () => {
         if(!token && !_id)return;
-        const data: any = JSON.parse(localStorage.getItem("user") as string);
-        if (data.isEmailValid) {
+        const data: User = JSON.parse(localStorage.getItem("user") as string);
+        if (data?.isEmailValid) {
             return;
         }
         dispatch(verifyEmail_request());
