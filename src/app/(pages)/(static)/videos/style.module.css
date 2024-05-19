@@ -380,7 +380,6 @@
   }
   .videosSection {
     display: flex;
-    /* background-color: rgb(177, 66, 66); */
     height: 100vh;
     width: 100vw;
     overflow: hidden;
