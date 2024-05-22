@@ -107,7 +107,7 @@ const Cart: React.FC = () => {
                     <div className={styles.ProductsContainer} key={index}>
                       <img
                         className={styles.ProductsContainerLeft}
-                        src={data?.productDetails?.url}
+                        src={data?.productDetails?.url.startsWith("http")?data?.productDetails?.url:`https://${data?.productDetails?.url}`}
                         alt="not found"
                       />
                       <div className={styles.ProductsContainerRight}>

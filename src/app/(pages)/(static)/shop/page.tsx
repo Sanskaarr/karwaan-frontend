@@ -36,7 +36,7 @@ const shop = () => {
                 {response?response.slice(0, 6).map((data:any, index:number) => {
                     return (
                         <div data-aos="fade-up" key={index} className={styles.oneProduct}  onClick={()=>router.push(`/products/${data._id}`)}>
-                            <img src={data.url} alt={data.name} className={styles.image} />
+                            <img src={data.url.startsWith("http")?data.url:`https://${data.url}`} alt={data.name} className={styles.image} />
                             <div className={styles.imagesCategory}>{data.tags.join(", ")}</div>
                             <div className={styles.imagesName}>{data.name}</div>
 
@@ -64,7 +64,7 @@ const shop = () => {
                     return (
 
                         <div data-aos="fade-up" key={index} className={styles.BigOneProduct}>
-                            <img src={data.url} alt={data.name} className={styles.image} />
+                            <img src={data.url.startsWith("http")?data.url:`https://${data.url}`} alt={data.name} className={styles.image} />
                             <div className={styles.innerContainer}>
                             <div data-aos={animation} className={styles.BigImagesName}>{data.name}</div>
                             <button data-aos={animation} className={styles.BigImagesNameShopNow} onClick={() => router.push(`/products/${data._id}`)}>Shop Now</button>

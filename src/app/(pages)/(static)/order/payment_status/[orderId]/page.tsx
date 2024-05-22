@@ -33,6 +33,7 @@ useEffect(() => {
   updateOrderPaymentStatusAsync();
 
 }, [orderId, token]);
+console.log("@",checkoutResponse)
   return (
     <div className={styles.payment_status}>
 

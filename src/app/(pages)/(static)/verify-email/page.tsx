@@ -4,6 +4,8 @@ import styles from "./style.module.css"
 import { ClipLoader } from 'react-spinners'
 import { useSearchParams } from 'next/navigation'
 import { useUser } from '@/hooks/useUser';
+import { useSelector } from 'react-redux'
+import { verifyEmail_failure } from '@/redux/reducers/userRequestReducer'
 
 function page (){
  
@@ -18,7 +20,7 @@ const _id = searchParams.get('id');
       handleVerifyMailUser();
     }
    },[_id,token]) 
-
+  //  const faliure = useSelector(verifyEmail_failure)
   return (
     <div className={styles.verifyEmail}>
   <div className={styles.verifyEmailSpinner} style={{display:"flex",alignItems:"center"}}>

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useAppDispatch } from "../redux/hooks";
 import { deleteUser_failure, deleteUser_request, deleteUser_success, forgotPassword_failure, forgotPassword_request, forgotPassword_success, getUser_failure, getUser_request, getUser_success, otp_failure, otp_request, otp_success, resetPassword_failure, resetPassword_request, resetPassword_success, signoutUser_failure, signoutUser_request, signoutUser_success, updatePhoneNumber_failure, updatePhoneNumber_request, updatePhoneNumber_success, updateUser_failure, updateUser_request, updateUser_success, verifyEmail_failure, verifyEmail_request, verifyEmail_success } from "../redux/reducers/userRequestReducer";
 import { update_user_data } from "../redux/reducers/userReducer";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Params = {
@@ -180,8 +180,7 @@ export const useUser = (payload: Params) => {
                 localStorage.setItem('user', JSON.stringify({ ...data, isEmailValid: true }));
                 dispatch(update_user_data({ ...data, isEmailValid: true }));
                 toast.success(result.message && result.message);
-                window.close();
-                return;
+                return redirect("/")
             }
         } catch (error: any) {
             dispatch(verifyEmail_failure(error.message));
