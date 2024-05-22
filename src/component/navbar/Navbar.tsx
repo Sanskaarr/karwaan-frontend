@@ -283,6 +283,7 @@ export default function Navbar() {
         }} className={styles.userSettingOptions}>
           <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-account"); setIsUserMenuOpen(!isUserMenuOpen); }}>Account</li>
           <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/cart"); setIsUserMenuOpen(!isUserMenuOpen); }}>Cart</li>
+          <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products/my-orders"); setIsUserMenuOpen(!isUserMenuOpen); }}>My Orders</li>
           <li className={styles.userSettingUpdateInfo} onClick={() => { router.push("/products"); setIsUserMenuOpen(!isUserMenuOpen); }}>Shop</li>
           <li className={styles.userSettingLogOut} onClick={(e) => {
              handleLogOutUser(e); 

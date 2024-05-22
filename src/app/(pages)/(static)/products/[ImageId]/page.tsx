@@ -43,6 +43,10 @@ const shop = () => {
         setToken(user.token);
         setUserId(user._id);
       }
+      else{
+        setToken(null);
+        setUserId("");
+      }
     }
   }, []);
 
@@ -116,10 +120,9 @@ const shop = () => {
     setIsloaded(true)
   }
   useEffect(() => {
-    if (ImageId && token) {
+    
       apiCalls();
 
-    }
   }, [isLoaded,ImageId,token]);
 
   // Price calculator function

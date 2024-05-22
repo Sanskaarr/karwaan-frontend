@@ -61,6 +61,7 @@ const shop = () => {
             <div className={styles.BigShopProducts}>
                 {response?response.slice(4, 6).map((data:any, index:number) => {
                     const animation = index % 2 === 0 ? "fade-up" : "fade-down";
+                    
                     return (
 
                         <div data-aos="fade-up" key={index} className={styles.BigOneProduct}>

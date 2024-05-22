@@ -165,7 +165,7 @@ export default function Picture() {
       {/* scroll bar */}
       <div className={styles.PictureScrollBar}>
         <div className={styles.PictureScrollBarLeft}
-          style={!isMenuHide ? { visibility: "hidden", pointerEvents: "none", transition: "all 0.4s" } : { visibility: "visible", pointerEvents: "all", transition: "all 0.4s" }} onClick={(e) => handleScroll('left')}>
+          style={ { visibility: "visible", pointerEvents: "all", transition: "all 0.4s" }} onClick={(e) => handleScroll('left')}>
           <WestIcon className={styles.pictureIcons} />
           <div className={styles.PictureScroll}>Scroll</div>
         </div>
