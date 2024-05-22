@@ -1,7 +1,7 @@
 "use client";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import styles from "./style.module.css";
 import { useParams, useRouter } from "next/navigation";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
@@ -29,12 +29,102 @@ const shop = () => {
   const order = useSelector(
     (state: RootState) => state.orderRequests.order
   );
+
   const { handleGetProduct, handleGetAllProduct, response, singleResponse } =
     useProduct(null, null, null, ImageId);
-  // price according to size
-  const priceCalculator = (price: number) => {
-    const pricePerSquareInch = price / 96;
 
+  const [token, setToken] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = JSON.parse(localStorage.getItem("user") as string);
+      if (user?.token) {
+        setToken(user.token);
+        setUserId(user._id);
+      }
+    }
+  }, []);
+
+  const { handleCreateOrder } = useOrder({ token, userId });
+  const { handleAddItemToCart, handleGetAllItem } = useCart({
+    token,
+    productId: ImageId,
+    userId,
+    size: selectedSize,
+    quantity: 1,
+  });
+
+  useEffect(() => {
+    if (token && userId) {
+      handleGetAllItem();
+
+      if (isAddressConfirm && order.linkToPaymentGateway) {
+        let link = order.linkToPaymentGateway;
+        dispatch(changeAddress_success(false));
+        dispatch(createOrder_success({ linkToPaymentGateway: "", reDirectTo: "" }));
+        window.open(link);
+      }
+    }
+  }, [token, userId]);
+
+  // Check if the current item is in the cart or not
+  const isProductInCart = useCallback(
+    (productId: string, size: validSize): boolean => {
+      return resCartItem.some(
+        item => item.productDetails.productId === productId && item.size === size
+      );
+    },
+    [resCartItem]
+  );
+
+  useEffect(() => {
+    if (singleResponse) {
+      setIsItemInCart(isProductInCart(singleResponse._id, selectedSize));
+    }
+  }, [singleResponse, selectedSize, isProductInCart]);
+
+  const handleBuy = useCallback((e: any) => {
+    if (token) {
+      e.preventDefault();
+      const updatedResCartItems: resDataType[] = [{
+        productDetails: {
+          productId: singleResponse._id,
+          description: singleResponse.description,
+          name: singleResponse.name,
+          price: singleResponse.price,
+          tags: singleResponse.tags,
+          url: singleResponse.url,
+        },
+        quantity: 1,
+        size: selectedSize,
+        userId: singleResponse.userId,
+        _id: singleResponse._id,
+      }];
+      handleCreateOrder(e, updatedResCartItems);
+    } else {
+      toast.error("Please log in to buy the product");
+      router.push("/signup");
+    }
+  }, [token, singleResponse, selectedSize, handleCreateOrder, router]);
+
+ 
+  const [isLoaded,setIsloaded] = useState(false)
+  const apiCalls = async ()=>{
+    await handleGetAllProduct()
+    await handleGetProduct()
+    setIsloaded(true)
+  }
+  useEffect(() => {
+    if (ImageId && token) {
+      apiCalls();
+
+    }
+  }, [isLoaded,ImageId,token]);
+
+  // Price calculator function
+  const priceCalculator = useCallback((price: number) => {
+    const pricePerSquareInch = price / 96;
     const prices = {
       '8"x12"': pricePerSquareInch * 8 * 12,
       '12"x18"': pricePerSquareInch * 12 * 18,
@@ -43,92 +133,25 @@ const shop = () => {
       '24"x36"': pricePerSquareInch * 24 * 36,
     };
     return Math.floor(prices[selectedSize]);
-  };
+  }, [selectedSize]);
+
+  // Define resDataType
   type resDataType = {
     productDetails: {
-        productId: string;
-        description: string;
-        name: string;
-        price: number;
-        tags: string[];
-        url: string;
-    }
+      productId: string;
+      description: string;
+      name: string;
+      price: number;
+      tags: string[];
+      url: string;
+    };
     quantity: number;
-    size: '8"x12"' | '12"x18"' | '16"x24"' | '20"x30"' | '24"x36"';
+    size: validSize;
     userId: string;
     _id: string;
-}
-
-  if (typeof window !== "undefined") {
-    var token = JSON.parse(localStorage.getItem("user") as string)?.token;
-    var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
-    var { handleCreateOrder } = useOrder({token:token,userId:_id});
-    var { handleAddItemToCart, handleGetAllItem } = useCart({
-      token: token,
-      productId: ImageId,
-      userId: _id,
-      size: selectedSize,
-      quantity: 1,
-    });
-
-    //    if some one click on buy now and his/her address is confirm;
-    if (isAddressConfirm && order.linkToPaymentGateway) {
-      let link = order.linkToPaymentGateway;
-      dispatch(changeAddress_success(false));
-      dispatch(createOrder_success({linkToPaymentGateway:"",reDirectTo:""}));
-      window.open(link);
-    }
-  }
-  // checking if my current item is in the cart or not
-  function isProductInCart(productId: string, size: validSize): boolean {
-    for (const item of resCartItem) {
-      if (item.productDetails.productId === productId && item.size === size) {
-        return true;
-      }
-    }
-    return false;
-  }
-  useEffect(() => {
-    if (singleResponse) {
-      setIsItemInCart(isProductInCart(singleResponse._id, selectedSize));
-    }
-  }, [singleResponse]);
-  // geting all items and storing in redux state
-  useEffect(() => {
-    handleGetAllItem();
-  }, [token, _id]);
-
-  const handleBuy = (e: any) => {
-    if (token) {
-      e.preventDefault();
-      const  updatedResCartItems: resDataType[] = [{
-        productDetails: {
-            productId: singleResponse._id,
-            description: singleResponse.description,
-            name: singleResponse.name,
-            price: singleResponse.price,
-            tags: singleResponse.tags,
-            url: singleResponse.url,
-        },
-        quantity: 1,
-        size:selectedSize, 
-        userId: singleResponse.userId,
-        _id: singleResponse._id,
-    }];
-      handleCreateOrder(e,updatedResCartItems);
-    } else {
-      toast.error("Please log in to buy the product");
-      router.push("/signup");
-    }
   };
 
-  useEffect(() => {
-    // Call the handleGetAllProduct function when the component mounts or when dependencies change
-    handleGetProduct();
-    handleGetAllProduct();
-  }, [ImageId]);
-
-  // read more feature
+  // Read more feature
   const [isReadMoreOpen, setIsReadMoreOpen] = useState<boolean>(false);
 
   return (
@@ -146,7 +169,7 @@ const shop = () => {
             <div className={styles.singleProductPageUpperLeftSection}>
               {singleResponse && (
                 <img
-                  src={singleResponse.url}
+                  src={singleResponse.url.startsWith("http")?singleResponse.url:`https://${singleResponse.url}`}
                   style={{ objectFit: "cover" }}
                   alt={singleResponse.name}
                 />
@@ -269,7 +292,7 @@ const shop = () => {
                       onClick={() => router.push(`/products/${data._id}`)}
                     >
                       <img
-                        src={data.url}
+                        src={data.url.startsWith("http")?data.url:`https://${data.url}`}
                         alt={data.name}
                         className={styles.image}
                       />
@@ -306,4 +329,5 @@ const shop = () => {
     </div>
   );
 };
+
 export default shop;

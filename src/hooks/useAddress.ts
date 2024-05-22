@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../redux/hooks";
 import { addAddress_failure, addAddress_request, addAddress_success, changeAddress_failure, changeAddress_request, changeAddress_success, deleteAddress_failure, deleteAddress_request, deleteAddress_success, getAddress_failure, getAddress_request, getAddress_success } from "@/redux/reducers/AddressReqestReducer";
-import { useRouter } from "next/navigation";
+import {useRouter } from "next/navigation";
 type formType = {
     houseNumber: string,
     buildingName: string,
@@ -17,10 +17,12 @@ type Params = {
     token?: string | null;
     userId?: string | null;
     address?: formType,
+    path?: string
 
 }
 
 export const useAddress = ({ token, userId, address }: Params) => {
+    
     const router = useRouter();
     const dispatch = useAppDispatch();
     const endpoint = `/api/v1/address/`;
@@ -37,7 +39,7 @@ export const useAddress = ({ token, userId, address }: Params) => {
             if (result.status === "success") {
                 dispatch(addAddress_success(result.data));
                 toast.success(result.message);
-                router.push("/products/my-account");
+                router.replace("/products/my-account");
             }
         } catch (error: any) {
             dispatch(addAddress_failure(error.message));

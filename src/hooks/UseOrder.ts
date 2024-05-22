@@ -67,6 +67,9 @@ export const useOrder = ({ token, userId, resCartItem, orderId }: UseOrder) => {
 
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message);
+                if(error.response?.data.message=="Please Add an Address"){
+                    router.push("/address")
+                }
                 dispatch(createOrder_failure(error.response?.data.message));
                 if(error.response?.status===400){
                     router.push('/products/my-account')
