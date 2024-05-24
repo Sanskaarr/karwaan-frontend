@@ -75,7 +75,7 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
     return (
 
         <>
-            <h1 className={styles.heading}>my Address</h1>
+            <h1 className={styles.heading} style={{marginBottom:"20px"}}>my Address</h1>
             <div className={styles.myAccount} style={{ gridTemplateColumns: "1fr", justifyContent: "center" }} >
 
                 {/* change fields */}
@@ -143,6 +143,8 @@ const isDeleteAddressLoading: boolean = useAppSelector((state: any) => state.add
                             }} required />
                         <label className={`${styles.nameLable}`}>pin</label>
                     </div>
+                    <span style={{color:"red",fontSize:"12px"
+                    }}>* All fields are required</span>
                     {!addressId ?
                      <button className={styles.submitButton}
                         onClick={handleAddAddress}

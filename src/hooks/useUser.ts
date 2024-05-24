@@ -180,7 +180,8 @@ export const useUser = (payload: Params) => {
                 localStorage.setItem('user', JSON.stringify({ ...data, isEmailValid: true }));
                 dispatch(update_user_data({ ...data, isEmailValid: true }));
                 toast.success(result.message && result.message);
-                return redirect("/")
+                redirect("/shop")
+                return;
             }
         } catch (error: any) {
             dispatch(verifyEmail_failure(error.message));

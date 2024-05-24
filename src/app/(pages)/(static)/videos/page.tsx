@@ -73,7 +73,6 @@ export default function Videos() {
         <div className={styles.videosSectionHome}>
           <span onClick={() => router.push("/")}>Home</span>
         </div>{" "}
-        
         <motion.div
           style={{ color: "black" }}
           className={styles.motion}

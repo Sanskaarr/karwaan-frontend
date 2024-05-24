@@ -103,11 +103,12 @@ const Cart: React.FC = () => {
               {resCartItem &&
                 resCartItem.map((data: any, index: number) => {
                   // console.log(data)
+                  let url = data?.productDetails?.url?data?.productDetails?.url:""
                   return (
                     <div className={styles.ProductsContainer} key={index}>
                       <img
                         className={styles.ProductsContainerLeft}
-                        src={data?.productDetails?.url.startsWith("http")?data?.productDetails?.url:`https://${data?.productDetails?.url}`}
+                        src={url.startsWith("http")?url:`https://${url}`}
                         alt="not found"
                       />
                       <div className={styles.ProductsContainerRight}>
