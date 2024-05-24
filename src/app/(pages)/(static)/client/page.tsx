@@ -50,7 +50,7 @@ export default function Client() {
           </div>
         </div>
       </div>
-      <Footer/>
+ 
     </div>
   );
 }
