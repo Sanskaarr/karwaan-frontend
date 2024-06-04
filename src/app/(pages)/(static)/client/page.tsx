@@ -19,12 +19,8 @@ export default function Client() {
       <div style={{ position: "relative" }}>
         <div className={styles.clientPage}>
           <h3
-            style={{
-              textAlign: "center",
-              color: "black",
-              marginBottom: "35px",
-              fontSize: "28px",
-            }}
+          className={styles.pageHeading}
+      
           >
             Our Clients
           </h3>

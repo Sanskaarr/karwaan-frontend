@@ -31,6 +31,12 @@
     aspect-ratio: 1.2/1;
 
 }
+.pageHeading{
+    text-align: center;
+    color: black;
+    margin-bottom: 4rem;
+    font-size: 28px;
+}
 @media (max-width:770px){
     .oneCard{
         height: 170px;
