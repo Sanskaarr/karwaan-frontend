@@ -55,6 +55,8 @@
 .videosSection {
   display: flex;
   align-items: center;
+  /* background-color: red; */
+  margin-bottom: 67px;
   /* justify-content: center; */
   flex-direction: row-reverse;
 }
@@ -287,10 +289,10 @@
 
 @media (max-width: 1028px) {
   .embla{
-    max-width: 75dvw;
+    max-width: 80dvw;
     margin: auto;
     --slide-spacing: 1rem;
-
+    /* background-color: aqua; */
   }
 
   .emblaViewport{
@@ -300,17 +302,30 @@
   .embla__container{
     backface-visibility: hidden;
     height: 85dvh;
+    /* background-color: blueviolet; */
     display: flex;
+    align-items: center;
     touch-action: pan-x pinch-zoom;
     margin-top: calc(var(--slide-spacing) * -1);
     flex-direction: column;
   }
   .embla__slide{
-    flex: 0 0 45vh;
-    min-height: 0;
+    /* flex: 0 0 45vh;
+    min-height: 0; */
     /* height: var(--slide-height); */
+    /* margin-bottom: var(--slide-spacing);
+    aspect-ratio: 16/9; */
+    /* flex: 0 0 40vw;
+     */
+     flex-shrink: 0;
+    padding-left: 0;
+    min-height: 0;
+    width: 88%;
+    height: 35%;
+    /* background-color: wheat; */
+    margin-left:0px;
     margin-bottom: var(--slide-spacing);
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
   
   }
   .videosThumbnail{
@@ -368,8 +383,10 @@
   }
   .embla__slide{
     flex: 0 0 70vw;
+    padding-left: 0;
     min-height: 0;
     width: 100%;
+    margin-left:0px;
     margin-bottom: var(--slide-spacing);
     aspect-ratio: 16/9;
   
