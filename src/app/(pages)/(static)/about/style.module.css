@@ -41,6 +41,9 @@
     flex-direction: column;
     align-items: center;
 }
+.ourWorkText{
+    margin:10px 0;
+}
 .ourWork p:hover{
     cursor: pointer;
 }

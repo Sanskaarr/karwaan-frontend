@@ -1,9 +1,14 @@
 "use client";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import {
+  FacebookShareButton,
+  PinterestShareButton,
+  WhatsappShareButton,
+  TwitterShareButton,
+  TelegramShareButton,
+} from "next-share";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./style.module.css";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { useProduct } from "@/hooks/useProduct";
 import { useCart } from "@/hooks/useCart";
@@ -14,9 +19,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { changeAddress_success } from "@/redux/reducers/AddressReqestReducer";
 import { createOrder_success } from "@/redux/reducers/OrderRequestReducer";
-
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import { Telegram, Twitter ,Pinterest, FacebookRounded} from "@mui/icons-material";
 const shop = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const dispatch = useDispatch();
   const resCartItem = useSelector((state: RootState) => state.cart.products);
   type validSize = '8"x12"' | '12"x18"' | '16"x24"' | '20"x30"' | '24"x36"';
@@ -26,9 +33,7 @@ const shop = () => {
   const isAddressConfirm = useSelector(
     (state: RootState) => state.addressRequest.changeAddress.confirm
   );
-  const order = useSelector(
-    (state: RootState) => state.orderRequests.order
-  );
+  const order = useSelector((state: RootState) => state.orderRequests.order);
 
   const { handleGetProduct, handleGetAllProduct, response, singleResponse } =
     useProduct(null, null, null, ImageId);
@@ -42,8 +47,7 @@ const shop = () => {
       if (user?.token) {
         setToken(user.token);
         setUserId(user._id);
-      }
-      else{
+      } else {
         setToken(null);
         setUserId("");
       }
@@ -66,7 +70,9 @@ const shop = () => {
       if (isAddressConfirm && order.linkToPaymentGateway) {
         let link = order.linkToPaymentGateway;
         dispatch(changeAddress_success(false));
-        dispatch(createOrder_success({ linkToPaymentGateway: "", reDirectTo: "" }));
+        dispatch(
+          createOrder_success({ linkToPaymentGateway: "", reDirectTo: "" })
+        );
         window.open(link);
       }
     }
@@ -76,7 +82,8 @@ const shop = () => {
   const isProductInCart = useCallback(
     (productId: string, size: validSize): boolean => {
       return resCartItem.some(
-        item => item.productDetails.productId === productId && item.size === size
+        (item) =>
+          item.productDetails.productId === productId && item.size === size
       );
     },
     [resCartItem]
@@ -88,55 +95,60 @@ const shop = () => {
     }
   }, [singleResponse, selectedSize, isProductInCart]);
 
-  const handleBuy = useCallback((e: any) => {
-    if (token) {
-      e.preventDefault();
-      const updatedResCartItems: resDataType[] = [{
-        productDetails: {
-          productId: singleResponse._id,
-          description: singleResponse.description,
-          name: singleResponse.name,
-          price: singleResponse.price,
-          tags: singleResponse.tags,
-          url: singleResponse.url,
-        },
-        quantity: 1,
-        size: selectedSize,
-        userId: singleResponse.userId,
-        _id: singleResponse._id,
-      }];
-      handleCreateOrder(e, updatedResCartItems);
-    } else {
-      toast.error("Please log in to buy the product");
-      router.push("/signup");
-    }
-  }, [token, singleResponse, selectedSize, handleCreateOrder, router]);
+  const handleBuy = useCallback(
+    (e: any) => {
+      if (token) {
+        e.preventDefault();
+        const updatedResCartItems: resDataType[] = [
+          {
+            productDetails: {
+              productId: singleResponse._id,
+              description: singleResponse.description,
+              name: singleResponse.name,
+              price: singleResponse.price,
+              tags: singleResponse.tags,
+              url: singleResponse.url,
+            },
+            quantity: 1,
+            size: selectedSize,
+            userId: singleResponse.userId,
+            _id: singleResponse._id,
+          },
+        ];
+        handleCreateOrder(e, updatedResCartItems);
+      } else {
+        toast.error("Please log in to buy the product");
+        router.push("/signup");
+      }
+    },
+    [token, singleResponse, selectedSize, handleCreateOrder, router]
+  );
 
- 
-  const [isLoaded,setIsloaded] = useState(false)
-  const apiCalls = async ()=>{
-    await handleGetAllProduct()
-    await handleGetProduct()
-    setIsloaded(true)
-  }
+  const [isLoaded, setIsloaded] = useState(false);
+  const apiCalls = async () => {
+    await handleGetAllProduct();
+    await handleGetProduct();
+    setIsloaded(true);
+  };
   useEffect(() => {
-    
-      apiCalls();
-
-  }, [isLoaded,ImageId,token]);
+    apiCalls();
+  }, [isLoaded, ImageId, token]);
 
   // Price calculator function
-  const priceCalculator = useCallback((price: number) => {
-    const pricePerSquareInch = price / 96;
-    const prices = {
-      '8"x12"': pricePerSquareInch * 8 * 12,
-      '12"x18"': pricePerSquareInch * 12 * 18,
-      '16"x24"': pricePerSquareInch * 16 * 24,
-      '20"x30"': pricePerSquareInch * 20 * 30,
-      '24"x36"': pricePerSquareInch * 24 * 36,
-    };
-    return Math.floor(prices[selectedSize]);
-  }, [selectedSize]);
+  const priceCalculator = useCallback(
+    (price: number) => {
+      const pricePerSquareInch = price / 96;
+      const prices = {
+        '8"x12"': pricePerSquareInch * 8 * 12,
+        '12"x18"': pricePerSquareInch * 12 * 18,
+        '16"x24"': pricePerSquareInch * 16 * 24,
+        '20"x30"': pricePerSquareInch * 20 * 30,
+        '24"x36"': pricePerSquareInch * 24 * 36,
+      };
+      return Math.floor(prices[selectedSize]);
+    },
+    [selectedSize]
+  );
 
   // Define resDataType
   type resDataType = {
@@ -155,7 +167,7 @@ const shop = () => {
   };
 
   // Read more feature
-  const [isReadMoreOpen, setIsReadMoreOpen] = useState<boolean>(false);
+  // const [isReadMoreOpen, setIsReadMoreOpen] = useState<boolean>(false);
 
   return (
     <div className={styles.singleProductPage}>
@@ -167,13 +179,16 @@ const shop = () => {
 
       {singleResponse ? (
         <>
-          {" "}
           <div className={styles.singleProductPageUpperSection}>
             <div className={styles.singleProductPageUpperLeftSection}>
               {singleResponse && (
                 <img
-                  src={singleResponse.url.startsWith("http")?singleResponse.url:`https://${singleResponse.url}`}
-                  style={{ objectFit: "cover" }}
+                  src={
+                    singleResponse.url.startsWith("http")
+                      ? singleResponse.url
+                      : `https://${singleResponse.url}`
+                  }
+                  style={{ objectFit: "contain" }}
                   alt={singleResponse.name}
                 />
               )}
@@ -186,37 +201,25 @@ const shop = () => {
                 {singleResponse && <div>{singleResponse.tags.join(", ")}</div>}
                 {singleResponse && (
                   <h3 style={{ color: "black" }}>
-                    {priceCalculator(singleResponse.price) + " "}
                     <CurrencyRupeeIcon />
+                    {priceCalculator(singleResponse.price) + " "}
                   </h3>
                 )}
               </div>
               {/* {singleResponse&& <p>{singleResponse.description}    </p>} */}
-              {singleResponse && (
-                <p>
-                  {isReadMoreOpen
-                    ? singleResponse.description
-                    : singleResponse.description.slice(0, 150) + "..."}
-                  {singleResponse.description ===
-                  singleResponse.description.slice(0, 150) ? (
-                    <div></div>
-                  ) : isReadMoreOpen ? (
-                    <div
-                      className={styles.read}
-                      onClick={() => setIsReadMoreOpen((e) => !e)}
-                    >
-                      Read Less <KeyboardArrowUpIcon />{" "}
-                    </div>
-                  ) : (
-                    <div
-                      className={styles.read}
-                      onClick={() => setIsReadMoreOpen((e) => !e)}
-                    >
-                      Read More <KeyboardArrowDownIcon />
-                    </div>
-                  )}{" "}
-                </p>
-              )}
+              {singleResponse?.description &&
+                singleResponse.description
+                  .split(".")
+                  .map((des: string, index: number) => {
+                    return (
+                      <>
+                        <div style={{ color: "black" }} key={index}>
+                          {des.trim() + "."}
+                        </div>
+                        <br />
+                      </>
+                    );
+                  })}
               <p style={{ alignSelf: "flex-end" }}>SIZE</p>
               <select
                 style={{
@@ -272,11 +275,56 @@ const shop = () => {
                   Buy
                 </button>
               </div>
+              <div className={styles.share}>
+                share :
+                <FacebookShareButton
+                  url={`https://www.karwaanfilms.com${pathname}`}
+                  quote={"check out this frame"}
+                  hashtag={"#KarwaanFilms"}
+                >
+                  <FacebookRounded  className={styles.socialIcons} />
+                </FacebookShareButton>
+                <WhatsappShareButton
+                  url={`https://www.karwaanfilms.com${pathname}`}
+                  title={"check out this frame"}
+                  separator=":: "
+                  
+                >
+                  <WhatsAppIcon  className={styles.socialIcons}/>
+                </WhatsappShareButton>
+                <TelegramShareButton
+                  url={`https://www.karwaanfilms.com${pathname}`}
+                  title={
+                   "check out this frame"
+                  }
+                >
+                  <Telegram  className={styles.socialIcons} />
+                </TelegramShareButton>
+                <TwitterShareButton
+                  url={`https://www.karwaanfilms.com${pathname}`}
+                  title={
+                   "check out this frame"
+                  }
+                 
+                >
+                  <Twitter  className={styles.socialIcons}/>
+                </TwitterShareButton>
+                <PinterestShareButton
+                  url={`https://www.karwaanfilms.com${pathname}`}
+                  media={
+                   "check out this frame"
+                  }
+                >
+                  <Pinterest  className={styles.socialIcons}/>
+                </PinterestShareButton>
+              </div>
             </div>
           </div>
+
           <p className={styles.shopProductsHeading}>
             New Modern Design Collection
           </p>
+
           <div className={styles.shopProducts}>
             {response &&
               singleResponse &&
@@ -295,7 +343,11 @@ const shop = () => {
                       onClick={() => router.push(`/products/${data._id}`)}
                     >
                       <img
-                        src={data.url.startsWith("http")?data.url:`https://${data.url}`}
+                        src={
+                          data.url.startsWith("http")
+                            ? data.url
+                            : `https://${data.url}`
+                        }
                         alt={data.name}
                         className={styles.image}
                       />

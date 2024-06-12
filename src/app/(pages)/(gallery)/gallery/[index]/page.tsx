@@ -1,12 +1,13 @@
 'use client'
 import styles from './style.module.css'
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ClipLoader } from 'react-spinners';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import {  motion } from 'framer-motion';
 import galleryData from '@/constants/galleryData';
+import ClearIcon from '@mui/icons-material/Clear';
 export default function Gallery() {
 
   // if you want to access data from APIs
@@ -35,6 +36,7 @@ export default function Gallery() {
 
   return (
     <div className={styles.mainGallary} >
+       <ClearIcon className={styles.cross}  onClick={()=>router.push('/picture')}/>
     <div className={styles.mainGallaryBackground} onClick={()=>router.push('/picture')} ></div>
       
       {
@@ -42,17 +44,21 @@ export default function Gallery() {
 
           <div className={styles.imageSection}>
             <div className={styles.prevArrows}  onClick={() => handleCounter(-1)}>
-              <KeyboardArrowLeftIcon />
+              {/* <KeyboardArrowLeftIcon /> */}
+              <img src="/arrow_left.png" alt="<"  />
             </div>
        
-
-              <motion.img key={counter}
+           
+            <motion.img key={counter}
               initial={{ opacity: 0.3 , x: 0, y: 0 }}
               animate={{ opacity: 1 , x: 0, y: 0 }}
               transition={{ ease: "easeIn", delay: 0.1 }}
                 className={styles.mainGallaryImage} src={galleryData[counter]?.imgSrc} alt={"image" + counter} />
+         
+              
             <div className={styles.nextArrows} onClick={() => handleCounter(1)}>
-              <KeyboardArrowRightIcon />
+              {/* <KeyboardArrowRightIcon  /> */}
+              <img src="/arrow_right.png" alt=">" />
             </div>
           </div>
 

@@ -113,7 +113,7 @@ const Cart: React.FC = () => {
                       />
                       <div className={styles.ProductsContainerRight}>
                         <div className={styles.cartItemInfo}>
-                          <p
+                          {/* <p
                             style={{
                               color: "black",
                               fontWeight: "bold",
@@ -121,11 +121,11 @@ const Cart: React.FC = () => {
                             }}
                           >
                             Name :
-                          </p>
+                          </p> */}
                           {data?.productDetails.name}
                         </div>
                         <div className={styles.cartItemInfo}>
-                          <p
+                          {/* <p
                             style={{
                               color: "black",
                               fontWeight: "bold",
@@ -133,14 +133,13 @@ const Cart: React.FC = () => {
                             }}
                           >
                             Tags :
-                          </p>
+                          </p> */}
                           {(data?.productDetails?.tags?.join(", "))??"uncategorized"}
                         </div>
                         <div className={styles.cartItemInfo}>
                           <p
                             style={{
-                              color: "black",
-                              fontWeight: "bold",
+                              color: "black",   
                               marginRight: "4px",
                             }}
                           >
@@ -149,7 +148,7 @@ const Cart: React.FC = () => {
                           {data?.size}
                         </div>
                         <div className={styles.cartItemInfo}>
-                          <p
+                          {/* <p
                             style={{
                               color: "black",
                               fontWeight: "bold",
@@ -157,7 +156,7 @@ const Cart: React.FC = () => {
                             }}
                           >
                             Price :
-                          </p>
+                          </p> */}
                           {priceCalculator(
                             data?.productDetails.price,
                             data?.size
@@ -172,7 +171,6 @@ const Cart: React.FC = () => {
                         >
                           Remove
                         </button>
-                      </div>
                       <div className={styles.qntBtns}>
                         <button
                           className={styles.addBtn}
@@ -201,6 +199,7 @@ const Cart: React.FC = () => {
                         >
                           <RemoveIcon />
                         </button>
+                      </div>
                       </div>
                     </div>
                   );

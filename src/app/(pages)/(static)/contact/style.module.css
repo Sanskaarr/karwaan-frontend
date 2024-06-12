@@ -52,7 +52,7 @@
  }
  @media (max-width:750px) {
     .contact{
-        flex-direction: column-reverse;
+        flex-direction: column;
         
     }
     .contactFirstPartition,

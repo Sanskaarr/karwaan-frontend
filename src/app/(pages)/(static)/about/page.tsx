@@ -21,11 +21,13 @@ const router=useRouter();
                     The team comes with expertise in human-centric documentaries, scripts, cinematography, and photography. Supported by a team of ethically driven individuals, authenticity is the keystone of all our content.
                 </p>
             </div>
-            <div className={styles.media}>
+            {/* in media */}
+            {/* <div className={styles.media}>
                 <h1 className={styles.mediaText}>In Media</h1>
                 <Slider />
 
-            </div>
+            </div> */}
+
             <div className={styles.ourWork}>
                 <h1 className={styles.ourWorkText}>our work</h1>
                 <div className={styles.ourWorkImages}>
