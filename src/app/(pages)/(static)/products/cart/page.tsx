@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { changeAddress_success } from "@/redux/reducers/AddressReqestReducer";
 import { createOrder_success } from "@/redux/reducers/OrderRequestReducer";
+import Script from "next/script";
+import { toast } from "react-toastify";
 
 const Cart: React.FC = () => {
   const router = useRouter();
@@ -45,12 +47,12 @@ const Cart: React.FC = () => {
     var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
 
     //    if some one click on buy now and his/her address is confirm;
-    if (isAddressConfirm && order.linkToPaymentGateway) {
-      let link=order.linkToPaymentGateway;
-      dispatch(changeAddress_success(false));
-      dispatch(createOrder_success({linkToPaymentGateway:"",reDirectTo:""}));
-      window.open(link);
-    }
+    // if (isAddressConfirm && order.linkToPaymentGateway) {
+    //   let link=order.linkToPaymentGateway;
+    //   dispatch(changeAddress_success(false));
+    //   dispatch(createOrder_success({linkToPaymentGateway:"",reDirectTo:""}));
+    //   window.open(link);
+    // }
     // token, productId, userId, size, quantity
     var {
       handleGetAllItem,
@@ -90,8 +92,15 @@ const Cart: React.FC = () => {
 
     return totalPrice;
   };
+
+
+
+
+  
+
   return (
     <div className={styles.cart}>
+
       <h1 className={styles.shoppingCart}>Shopping Cart</h1>
       {resCartItem ? (
         resCartItem.length ? (
@@ -216,7 +225,11 @@ const Cart: React.FC = () => {
               </div>
               <button
                 className={styles.checkoutBtn}
-                onClick={(e) => handleCreateOrder(e)}
+                onClick={(e)=>{
+                  // console.log("eee",e)
+                  // router.push("/confirmshipping")
+                  router.push("/confirmshipping")
+                }}
               >
                 checkout
               </button>

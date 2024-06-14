@@ -7,7 +7,7 @@ export default  async function Layout({
 }: {
   children: React.ReactNode
 }) {
- await new Promise ((resolve)=>setTimeout(resolve,4000));
+//  await new Promise ((resolve)=>setTimeout(resolve,4000));
   
   // const pathname = usePathname();
   return (

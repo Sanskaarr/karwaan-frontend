@@ -13,6 +13,7 @@ import ResetPassword from "@/component/reset-password/ResetPassword";
 import { toast } from "react-toastify";
 import withAuth from "@/component/RoutesProtect/withAuth";
 import { useAddress } from "@/hooks/useAddress";
+import Link from "next/link";
 
 function page() {
     const router = useRouter();
@@ -249,7 +250,8 @@ function page() {
                 {/* delete account*/}
                 <div className={styles.deleteAccount}>
                     <h2>delete account</h2>
-                    <Button className={styles.submitButton} style={{ width: "50px", height: "140px" }} onPress={onOpen}>Delete My Account</Button>
+                    <Button className={styles.submitButton} style={{ width: "50px", height: "140px", marginBottom:"20px" }} onPress={onOpen}>Delete My Account</Button>
+                    <Link href={"/products"} className={styles.subTitlePage}>Continue Shopping</Link>
                     <div style={!isOpen ? { display: "none" } : { display: "flex" }} className={styles.deletePopUpBg} onClick={close}>
                         <Modal
 
