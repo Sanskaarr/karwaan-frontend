@@ -25,12 +25,12 @@ export default function Home() {
   return (
     <div className={styles.home}>
       {/* for big screens */}
-        <video className={styles.bgvideo} autoPlay muted loop>
+        <video className={styles.bgvideo} autoPlay muted loop  disableRemotePlayback disablePictureInPicture playsInline>
         <source src="https://karwaan.b-cdn.net/Front/home1.webm" type="video/webm" />
         <source src="https://karwaan.b-cdn.net/Main/Home%20Background.mp4" type="video/mp4" />
       </video>
       {/* for small screens */}
-      <video className={styles.moblieBgvideo} autoPlay muted loop>
+      <video className={styles.moblieBgvideo} autoPlay muted loop disableRemotePlayback disablePictureInPicture playsInline>
         <source src="https://trekmunk.b-cdn.net/insanetraveller/videos/home_mobile.webm" type="video/webm" />
         <source src="https://karwaan.b-cdn.net/Main/Mobile%20Background.mp4" type="video/mp4" />
         Your browser does not support HTML5 video.
@@ -61,7 +61,7 @@ export default function Home() {
               setIsHover({ ...hoverObj, isVideoHover: false })
             }}
           >VIDEOS</div>
-          <video autoPlay muted loop className={styles.slideVideos} >
+          <video autoPlay muted loop   disableRemotePlayback disablePictureInPicture playsInline className={styles.slideVideos} >
             <source src="https://karwaan.b-cdn.net/Front/motion%20(1).webm" type="video/webm" />
             <source src="https://karwaan.b-cdn.net/Main/Videos.mp4" type="video/mp4" />
           </video>
@@ -134,7 +134,7 @@ export default function Home() {
               e.preventDefault(); setIsHover({ ...hoverObj, isPictureHover: false })
             }}
           >PICTURES</div>
-            <video autoPlay muted loop className={styles.slidePictures} >
+            <video autoPlay muted loop className={styles.slidePictures}  disableRemotePlayback disablePictureInPicture playsInline>
             <source src="https://karwaan.b-cdn.net/Main/Photos.mp4" type="video/mp4" />
           </video>
   

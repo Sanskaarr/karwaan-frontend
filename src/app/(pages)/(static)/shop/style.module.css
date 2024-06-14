@@ -23,8 +23,8 @@
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url("https://karwaan.b-cdn.net/gallery/Uncategorized8.jpg")
 }
 .shopNow{
-    background: white;
-    color: black;
+    background: black;
+    color: white!important;
     width: 130px;
     height: 40px;
     position: absolute;
@@ -32,11 +32,13 @@
     transform: translate(-50%,100%);
     font-size: 15px;
     font-weight: bold;
+    border:0;
 }
 .shopNow:hover,
 .BigImagesNameShopNow:hover{
     cursor: pointer;
-    opacity: 0.8;
+    background:#c2202c;
+    color:white;
 }
 .shopBanner p:hover{
     cursor: pointer;
@@ -178,6 +180,8 @@
     font-size: 15px;
     border: 0;
     font-weight: bold;
+    background: black;
+    color: white!important;
 }
 
 @media (max-width:775px) {

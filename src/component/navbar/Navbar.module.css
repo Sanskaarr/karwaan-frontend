@@ -10,6 +10,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  z-index:99;
 }
 .navbar {
   -webkit-box-orient: horizontal;
@@ -17,15 +18,46 @@
   -ms-flex-direction: row;
   flex-direction: row;
 }
+
 .uppercase {
   text-transform: uppercase;
 }
 .contact {
   color: white;
   font-size: 20px;
-  /* padding-bottom: 1.2rem; */
-  /* margin-top: 10px; */
+  position:relative;
+  padding-left:20px;
+  transition:all 0.3s;
 }
+.contactLine:hover,
+.contact:hover{
+  padding-left:50px;
+}
+.contactLine:hover,
+.contact:hover>.contactLine{
+  padding-left:50px;
+  right:80%;
+
+}
+.contactLine{
+  position:absolute;
+  width:100%;
+  height:100%;
+  right:95%;
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+  transition:all 0.3s;
+
+  }
+.contactLine>hr{
+   background:white;
+   height:0.5px;
+   padding:0px;
+   width:100%;
+   border:0;
+   margin:0;
+    }
 .rightNav {
   display: flex;
   align-items: center;
@@ -35,6 +67,9 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+}
+.logoDiv img{
+  clip-path:insert(20px 50px 10px 0 round 50px);
 }
 .logoDiv:hover,
 .logoImage:hover{
@@ -65,20 +100,42 @@
   display: flex;
   align-items: center;
 }
-.menuOptions {
+ .menuOptionsAnimate {
+  
+  animation: slideIn 0.5s forwards;
   font-size: 20px;
-  background: rgba(0,0,0,0.8);
   position: absolute;
   transition: all ease-in 0.5s;
   right: 0;
   top: 0;
   width: 100%;
-  height: 100% !important;
-  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 60px 0 0;
+}
+ @keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  
+  to {
+    transform: translateX(0);
+  }
+}
+.menuOptions {
+  font-size: 20px;
+  background: rgba(0,0,0,0.8);
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100svh !important;
+  z-index: 99;
   display: flex;
   justify-content: flex-end;
   padding: 20px 60px 0 0;
  }
+.menuOptionsAnimate li,
 .menuOptions li{
   height: fit-content;
  }
@@ -88,16 +145,22 @@
   top: 0;
   font-size: 28px;
   transform: translate(-20px,20px);
+  cursor:pointer;
+  z-index:100;
  }
+.menuOptionsAnimate li ,
 .menuOptions li {
   list-style: none;
 }
+.menuOptionsAnimate li:nth-child(2n + 1):hover ,
 .menuOptions li:nth-child(2n + 1):hover {
   color: rgba(230, 230, 230, 0.75) !important;
 }
+.menuOptionsAnimate li:nth-last-child(1) ,
 .menuOptions li:nth-last-child(1) {
   display: none;
 }
+.menuOptionsAnimate li:hover ,
 .menuOptions li:hover {
   cursor: pointer;
 }
@@ -200,7 +263,8 @@ color: black;
 cursor: pointer;
 }
 @media (max-width: 1000px) {
- .menuOptions{
+  .menuOptionsAnimate,
+  .menuOptions{
   font-size: 24px;
   background: rgba(0,0,0,0.8);
   position: fixed;
@@ -215,7 +279,11 @@ cursor: pointer;
   padding-top: 15svh;
   padding-right: 0;
  }
- .menuOptions li:nth-child(2n){
+
+
+
+  .menuOptionsAnimate li:nth-child(2n),
+  .menuOptions li:nth-child(2n){
   display: none;
  }
  .crossIcon{
@@ -230,7 +298,8 @@ cursor: pointer;
   .menu {
     display: none;
   }
-  .menuOptions{
+    .menuOptionsAnimate,
+    .menuOptions{
     background: rgba(0,0,0,1);
   }
 }
@@ -244,14 +313,15 @@ cursor: pointer;
     padding: 0 20px 0 0;
   }
   }
-@media (max-width: 320px) {
+@media (max-width: 403px) {
   .navbar{
     padding: 0 10px 0 0;
   }
   .logoImage{
-    width: 150px;
-    height: 70px;
+    width: 110px;
+    height: 65px;
   }
+  .contact,
   .user{
     font-size: 16px;
   }
