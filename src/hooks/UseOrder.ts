@@ -29,13 +29,26 @@ type InitialState = {
     userId: string;
     _id: string;
 }
+
+interface shippingDetails{
+    houseNumber: string;
+    buildingName: string;
+    country: string;
+    state: string;
+    city: string;
+    street: string;
+    contactNumber: string;
+    pin: string;
+}
+
 type UseOrder={
     token: string | null,
-     userId?: string , 
+     userId?: string ,
+     shipping_details?:shippingDetails,
      resCartItem?:InitialState[],
       orderId?: string | null
 }
-export const useOrder = ({ token, userId, resCartItem, orderId }: UseOrder) => {
+export const useOrder = ({ token, userId, resCartItem, orderId,shipping_details }: UseOrder) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const pathName=usePathname();
@@ -54,13 +67,13 @@ export const useOrder = ({ token, userId, resCartItem, orderId }: UseOrder) => {
 
             const { postCall } = useAxios(endpoint, {
                 userId: userId,
+                shipping_details:shipping_details,
                 products:products,
             }, token);
             const result = await postCall();
-
+           
             if (result.status === "success") {
-                dispatch(createOrder_success({linkToPaymentGateway:result.data.payment_details.short_url,reDirectTo:pathName}));
-                router.push('/confirmaddress');
+                return result
             }
         } catch (error: any) {
             dispatch(createOrder_failure(error.message));

@@ -8,6 +8,8 @@ import AddressReqestReducer from "./reducers/AddressReqestReducer";
 import CartReducer from "./reducers/CartReducer";
 import CartRequestReducer from "./reducers/CartRequestReducer";
 import OrderRequestReducer from "./reducers/OrderRequestReducer";
+import ShippingDetailsReducer from "./reducers/ShippingDetailsReducer";
+
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +22,7 @@ export const store = configureStore({
     cart:CartReducer,
     cartRequests:CartRequestReducer,
     orderRequests:OrderRequestReducer,
+    shiiping:ShippingDetailsReducer
   },
 });
 

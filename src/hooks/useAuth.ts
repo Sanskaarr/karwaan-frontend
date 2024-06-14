@@ -52,7 +52,7 @@ export const useAuth = (email?: string, password?: string | null, firstName?: st
         } catch (error: any) {
             // dispatch(signup_failure(error.message));
             if (axios.isAxiosError(error)) {
-                toast.error(error.response?.data.message);
+                toast.error(error.response?.data.message,{});
                 // dispatch(signup_failure(error.response?.data.message));
             }
         }
