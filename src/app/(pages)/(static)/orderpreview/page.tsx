@@ -186,7 +186,7 @@ function page() {
           <p className={styles.sectionTitle}>Products</p>
           {resCartItem.map((product) => {
             return (
-              <div className={styles.cardContainer}>
+              <div key={product._id} className={styles.cardContainer}>
                 <>
                   <img
                     src={product.productDetails.url}
