@@ -130,7 +130,7 @@ function page() {
         razorpaySignature: response.razorpay_signature,
        };
       //  console.log("main",response);
-       const result = await fetch('http://localhost:5000/api/v1/order/verify', {
+       const result = await fetch('https://api.karwaanfilms.com/api/v1/order/verify', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
@@ -189,7 +189,7 @@ function page() {
               <div key={product._id} className={styles.cardContainer}>
                 <>
                   <img
-                    src={product.productDetails.url}
+                    src={product.productDetails.url.startsWith("http")?product.productDetails.url:`https://${product.productDetails.url}`}
                     className={styles.cardThumbnail}
                   />
                 </>

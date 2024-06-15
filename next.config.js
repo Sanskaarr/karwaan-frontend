@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
- env:{key:"rzp_test_c7zdpCezsUthih"},
+ env:{key:"rzp_live_GhSm1REwnSWmDG"},
     images: {
     remotePatterns: [
       {

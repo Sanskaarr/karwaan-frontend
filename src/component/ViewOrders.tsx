@@ -32,7 +32,7 @@ const ViewOrders = ({orders}:{orders:Product[]}) => {
     
     useEffect(() => {
         const fetchProductDetails = async (productId: string): Promise<productData> => {
-            const response = await axios.get<productData>(`http://localhost:5000/api/v1/product/${productId}`);
+            const response = await axios.get<productData>(`https://api.karwaanfilms.com/api/v1/product/${productId}`);
             return response.data;
           };
     

@@ -6,10 +6,13 @@
   --slide-height: 35%;
   --slide-spacing: 2rem;
   --slide-width: 30%;
+  z-index: 50;
 }
 
 
 .emblaViewport{
+  z-index: 50;
+  background-color: white;
   /* overflow: hidden; */
 }
 .embla__container{
@@ -73,7 +76,7 @@
 .videosSectionHome {
   padding-bottom: 20px;
   border-left: 2px solid black;
-  height: 350px;
+  height: 100%;
   display: flex;
   align-items: center;
   padding-right: 20px;

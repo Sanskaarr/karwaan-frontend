@@ -86,6 +86,7 @@ export default function Navbar() {
                   src="https://karwaan.b-cdn.net/Front/KARWAANLOGOWHITE%20(Custom).png"
                   className={styles.logoImage}
                   alt="not found"
+                  style={{objectFit:"contain"}}
                 />
               </a>
             </div>
@@ -289,7 +290,7 @@ export default function Navbar() {
           >
             Cart
           </li>
-          <li
+          {/* <li
             className={styles.userSettingUpdateInfo}
             onClick={() => {
               router.push("/products/my-orders");
@@ -297,7 +298,7 @@ export default function Navbar() {
             }}
           >
             My Orders
-          </li>
+          </li> */}
           <li
             className={styles.userSettingUpdateInfo}
             onClick={() => {

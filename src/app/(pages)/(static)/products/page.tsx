@@ -33,13 +33,20 @@ const shop = () => {
   const scrollRef = useRef(null);
 
   const router = useRouter();
+  const focusRef = useRef<HTMLDivElement|null>(null);
+
+  useEffect(()=>{
+    if(response){
+      setTimeout(()=>{focusRef.current?.scrollIntoView({behavior:"smooth"})},1000)
+    }
+  },[response])
 
   return (
     <div className={styles.shop} ref={scrollRef}>
       <div className={styles.shopBanner}>
         <p>Karwaan Prints</p>{" "}
       </div>
-      <div className={styles.shopProductSection}>
+      <div className={styles.shopProductSection} ref={focusRef}>
         <div className={styles.shopProductOurPrints} data-aos="fade-up">
           Our Prints
         </div>

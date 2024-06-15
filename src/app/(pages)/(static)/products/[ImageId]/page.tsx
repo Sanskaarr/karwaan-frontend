@@ -20,7 +20,12 @@ import { RootState } from "@/redux/store";
 import { changeAddress_success } from "@/redux/reducers/AddressReqestReducer";
 import { createOrder_success } from "@/redux/reducers/OrderRequestReducer";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import { Telegram, Twitter ,Pinterest, FacebookRounded} from "@mui/icons-material";
+import {
+  Telegram,
+  Twitter,
+  Pinterest,
+  FacebookRounded,
+} from "@mui/icons-material";
 const shop = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -250,9 +255,11 @@ const shop = () => {
                 {isItemInCart ? (
                   <button
                     className={styles.button}
-                    onClick={() => toast.error("Item is already in your cart.")}
+                    onClick={() => {
+                      router.push("/products/cart");
+                    }}
                   >
-                    Item is Added
+                    Added to cart
                   </button>
                 ) : (
                   <button
@@ -271,8 +278,26 @@ const shop = () => {
                     Add To Cart
                   </button>
                 )}
-                <button className={styles.button} onClick={(e) => handleBuy(e)}>
-                  Buy
+                <button
+                  className={styles.button}
+                  onClick={(e: any) => {
+                    if(isItemInCart){
+                      router.push("/products/cart")
+                      return;
+                    }
+                    if (token) {
+                      handleAddItemToCart(e, ImageId, selectedSize);
+                      handleGetAllItem();
+                    } else {
+                      toast.error("Please login first... ");
+                      router.push("/signup");
+                      return;
+                    }
+                    setIsItemInCart(true);
+                    router.push("/products/cart")
+                  }}
+                >
+                  {isItemInCart?"Go to cart":"Buy"}
                 </button>
               </div>
               <div className={styles.share}>
@@ -282,40 +307,32 @@ const shop = () => {
                   quote={"check out this frame"}
                   hashtag={"#KarwaanFilms"}
                 >
-                  <FacebookRounded  className={styles.socialIcons} />
+                  <FacebookRounded className={styles.socialIcons} />
                 </FacebookShareButton>
                 <WhatsappShareButton
                   url={`https://www.karwaanfilms.com${pathname}`}
                   title={"check out this frame"}
                   separator=":: "
-                  
                 >
-                  <WhatsAppIcon  className={styles.socialIcons}/>
+                  <WhatsAppIcon className={styles.socialIcons} />
                 </WhatsappShareButton>
                 <TelegramShareButton
                   url={`https://www.karwaanfilms.com${pathname}`}
-                  title={
-                   "check out this frame"
-                  }
+                  title={"check out this frame"}
                 >
-                  <Telegram  className={styles.socialIcons} />
+                  <Telegram className={styles.socialIcons} />
                 </TelegramShareButton>
                 <TwitterShareButton
                   url={`https://www.karwaanfilms.com${pathname}`}
-                  title={
-                   "check out this frame"
-                  }
-                 
+                  title={"check out this frame"}
                 >
-                  <Twitter  className={styles.socialIcons}/>
+                  <Twitter className={styles.socialIcons} />
                 </TwitterShareButton>
                 <PinterestShareButton
                   url={`https://www.karwaanfilms.com${pathname}`}
-                  media={
-                   "check out this frame"
-                  }
+                  media={"check out this frame"}
                 >
-                  <Pinterest  className={styles.socialIcons}/>
+                  <Pinterest className={styles.socialIcons} />
                 </PinterestShareButton>
               </div>
             </div>
