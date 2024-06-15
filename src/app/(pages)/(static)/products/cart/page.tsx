@@ -1,6 +1,6 @@
 // pages/index.tsx
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./style.module.css";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
@@ -12,13 +12,83 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { changeAddress_success } from "@/redux/reducers/AddressReqestReducer";
-import { createOrder_success } from "@/redux/reducers/OrderRequestReducer";
-import Script from "next/script";
+import { useAxios } from "@/hooks/useAxios";
+import { getAllCartItems_failure, getAllCartItems_success } from "@/redux/reducers/CartRequestReducer";
+import { update_product_data } from "@/redux/reducers/CartReducer";
+import axios from "axios";
 import { toast } from "react-toastify";
+type resDataType = {
+  productDetails: {
+      productId: string;
+      description: string;
+      name: string;
+      price: number;
+      tags: string[];
+      url: string;
+  }
+  quantity: number;
+  size: '8"x12"' | '12"x18"' | '16"x24"' | '20"x30"' | '24"x36"';
+  userId: string;
+  _id: string;
+}
+
+type resCartDataType = {
+  productDetails: {
+      _id: string;
+      description: string;
+      name: string;
+      price: number;
+      tags: string[];
+      url: string;
+  }
+  quantity: number;
+  size: '8"x12"' | '12"x18"' | '16"x24"' | '20"x30"' | '24"x36"';
+  userId: string;
+  _id: string;
+}
 
 const Cart: React.FC = () => {
   const router = useRouter();
+  const dispatch = useDispatch()
+
+
+  const getAllItemsInCart = async (userId:string,token:string)=>{
+    let endpoint = `/api/v1/cart-item/${userId}`;
+    if(userId=="" && token==""){
+      return;
+    }
+    try {
+      const { getCall } = useAxios(endpoint, null, token);
+      const res = await getCall();
+      if(res?.status === "success"){
+        dispatch(getAllCartItems_success());
+        let updatedResCartItems: resDataType[]|[]= res.data?.map((item: resCartDataType) => ({
+          productDetails: {
+              productId: item?.productDetails?._id,
+              description: item?.productDetails?.description,
+              name: item?.productDetails?.name,
+              price: item?.productDetails?.price,
+              tags: item?.productDetails?.tags,
+              url: item?.productDetails?.url,
+          },
+          quantity: item?.quantity,
+          size: item?.size,
+          userId: item?.userId,
+          _id: item?._id,
+      }));
+      dispatch(update_product_data(updatedResCartItems));
+      setLoading(false)
+      }
+
+    } catch (error:any) {
+      dispatch(getAllCartItems_failure(error?.message));
+
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+                dispatch(getAllCartItems_failure(error.response?.data.message));
+            }
+    }
+  }
   type InitialState = {
     productDetails: {
       productId: string;
@@ -33,7 +103,7 @@ const Cart: React.FC = () => {
     userId: string;
     _id: string;
   };
-  const dispatch = useDispatch();
+
   const resCartItem = useSelector((state: RootState) => state.cart.products);
   const order = useSelector(
     (state: RootState) => state.orderRequests.order
@@ -61,12 +131,10 @@ const Cart: React.FC = () => {
       UpdateCartItemQuantity,
     } = useCart({ userId: _id, token: token });
   }
-  if (resCartItem?.length) {
-    var { handleCreateOrder } = useOrder({token:token,userId:_id,resCartItem:resCartItem});
-  }
-  useEffect(() => {
-    handleGetAllItem();
-  }, [token, _id]);
+
+  // useEffect(() => {
+  //   // handleGetAllItem();
+  // }, [token, _id]);
   // price according to size
   type validSize = '8"x12"' | '12"x18"' | '16"x24"' | '20"x30"' | '24"x36"';
   const priceCalculator = (price: number, selectedSize: validSize): number => {
@@ -93,8 +161,18 @@ const Cart: React.FC = () => {
     return totalPrice;
   };
 
-
-
+  const [loading,setLoading] = useState(true)
+  const [tokenNew,setToken] = useState("")
+  const [userid,setId] = useState("")
+  useEffect(()=>{
+    if(typeof window!=="undefined"){
+        //   var token = JSON.parse(localStorage.getItem("user") as string)?.token;
+  //   var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
+      setToken(JSON.parse(window.localStorage.getItem("user") as string)?.token)
+      setId(JSON.parse(localStorage.getItem("user") as string)?._id);
+      getAllItemsInCart(userid,tokenNew)
+    }
+  },[])
 
   
 
