@@ -173,15 +173,15 @@ export const useUser = (payload: Params) => {
             const { postCall } = useAxios(endpoint, { token: token, _id: _id });
             const result = await postCall();
 
-
+           
             if (result.status === "success") {
                 dispatch(verifyEmail_success());
-
+                
                 localStorage.setItem('user', JSON.stringify({ ...data, isEmailValid: true }));
                 dispatch(update_user_data({ ...data, isEmailValid: true }));
                 toast.success(result.message && result.message);
-                redirect("/shop")
-                return;
+                return {status:"success"};
+                
             }
         } catch (error: any) {
             dispatch(verifyEmail_failure(error.message));

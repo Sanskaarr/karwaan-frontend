@@ -9,6 +9,11 @@
   /* height: 520px; */
   padding: 0;
 }
+.subTitlePage{
+  font-weight: bold;
+  color: #2565E8;
+  cursor: pointer;
+}
 .heading {
   display: flex;
   align-items: center;

@@ -1,3 +1,4 @@
+
 .mainGallary{
     height: 100svh;
     width: 100vw;
@@ -9,13 +10,22 @@
 }
 .mainGallaryBackground{
     width: 100vw;
-    width: 100vw;
     height: 100svh;
     /* background: red; */
     position: absolute;
     z-index: 0;
+    cursor: url(/exit-cursor.png), default;
 
 }
+.cross{
+    position:absolute;
+    right:30px;
+    top:30px;
+    z-index:3;
+    color:gray;
+    cursor:pointer;
+}
+
 .imageSection{
     display: flex;
     align-items: center;
@@ -25,7 +35,7 @@
 }
 .mainGallaryImage{
     width: 80vw;
-    max-height: 400px;
+    max-height: 600px;
     object-fit: contain;
     /* transform: translate(0,0) !important; */
 
@@ -33,16 +43,47 @@
 .nextArrows ,
 .prevArrows {
     height: fit-content;
-   
 }
-.nextArrows >svg,
-.prevArrows >svg{
+.nextArrows >img,
+.prevArrows >img{
     color: black !important;
     height: fit-content;
     width: 60px;
     object-fit: contain;
+    margin:0 40px;
+    height:62px;
+    width:20px;
 }
 .nextArrows:hover,
 .prevArrows:hover{
     cursor: pointer;
+}
+@media(max-width:600px){
+    .nextArrows >img,
+.prevArrows >img{
+   
+    margin:0 20px;
+  
+}
+}
+@media(max-width:500px){
+    .mainGallaryImage{
+        width: 80vw;
+        height: 600px;
+        object-fit: contain;
+    }
+    .cross{
+        right:10px;
+        top:10px;
+       
+    }
+    .nextArrows >img,
+.prevArrows >img{
+    color: red !important;
+    height: fit-content;
+    height:52px;
+    width:10px;
+    object-fit: contain;
+    margin:0 10px;
+}
 }

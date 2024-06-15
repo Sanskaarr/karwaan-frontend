@@ -1,0 +1,32 @@
+.hamburger:hover {
+    cursor: pointer;
+  }
+  
+  /* Define the styles for the lines */
+  .line1,
+  .line2,
+  .line3,
+  .isActiveline1,
+  .isActiveline2,
+  .isActiveline3 {
+    width: 30px;
+    height: 3px;
+    background-color: red;
+    display: block;
+    margin: 4px auto;
+    transition: all 0.5s ease-in-out; /* Adjust the transition duration */
+  }
+  
+  /* Define the styles for the active lines */
+  .isActiveline1 {
+    transform: translateY(5px) rotate(45deg);
+  }
+  
+  .isActiveline2 {
+    opacity: 0;
+  }
+  
+  .isActiveline3 {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+  

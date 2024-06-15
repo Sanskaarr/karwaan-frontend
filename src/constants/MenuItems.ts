@@ -8,7 +8,7 @@ export const MenuItems=[
         route:null,
     },
     {
-        text:"Picture",
+        text:"Pictures",
         route:"/picture",
     },
     {
@@ -24,7 +24,7 @@ export const MenuItems=[
         route:null,
     },
     {
-        text:"Client",
+        text:"Clients",
         route:"/client",
     },
     {

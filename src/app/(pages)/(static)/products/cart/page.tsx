@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { changeAddress_success } from "@/redux/reducers/AddressReqestReducer";
 import { createOrder_success } from "@/redux/reducers/OrderRequestReducer";
+import Script from "next/script";
+import { toast } from "react-toastify";
 
 const Cart: React.FC = () => {
   const router = useRouter();
@@ -45,12 +47,12 @@ const Cart: React.FC = () => {
     var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
 
     //    if some one click on buy now and his/her address is confirm;
-    if (isAddressConfirm && order.linkToPaymentGateway) {
-      let link=order.linkToPaymentGateway;
-      dispatch(changeAddress_success(false));
-      dispatch(createOrder_success({linkToPaymentGateway:"",reDirectTo:""}));
-      window.open(link);
-    }
+    // if (isAddressConfirm && order.linkToPaymentGateway) {
+    //   let link=order.linkToPaymentGateway;
+    //   dispatch(changeAddress_success(false));
+    //   dispatch(createOrder_success({linkToPaymentGateway:"",reDirectTo:""}));
+    //   window.open(link);
+    // }
     // token, productId, userId, size, quantity
     var {
       handleGetAllItem,
@@ -90,8 +92,15 @@ const Cart: React.FC = () => {
 
     return totalPrice;
   };
+
+
+
+
+  
+
   return (
     <div className={styles.cart}>
+
       <h1 className={styles.shoppingCart}>Shopping Cart</h1>
       {resCartItem ? (
         resCartItem.length ? (
@@ -113,7 +122,7 @@ const Cart: React.FC = () => {
                       />
                       <div className={styles.ProductsContainerRight}>
                         <div className={styles.cartItemInfo}>
-                          <p
+                          {/* <p
                             style={{
                               color: "black",
                               fontWeight: "bold",
@@ -121,11 +130,11 @@ const Cart: React.FC = () => {
                             }}
                           >
                             Name :
-                          </p>
+                          </p> */}
                           {data?.productDetails.name}
                         </div>
                         <div className={styles.cartItemInfo}>
-                          <p
+                          {/* <p
                             style={{
                               color: "black",
                               fontWeight: "bold",
@@ -133,14 +142,13 @@ const Cart: React.FC = () => {
                             }}
                           >
                             Tags :
-                          </p>
+                          </p> */}
                           {(data?.productDetails?.tags?.join(", "))??"uncategorized"}
                         </div>
                         <div className={styles.cartItemInfo}>
                           <p
                             style={{
-                              color: "black",
-                              fontWeight: "bold",
+                              color: "black",   
                               marginRight: "4px",
                             }}
                           >
@@ -149,7 +157,7 @@ const Cart: React.FC = () => {
                           {data?.size}
                         </div>
                         <div className={styles.cartItemInfo}>
-                          <p
+                          {/* <p
                             style={{
                               color: "black",
                               fontWeight: "bold",
@@ -157,7 +165,7 @@ const Cart: React.FC = () => {
                             }}
                           >
                             Price :
-                          </p>
+                          </p> */}
                           {priceCalculator(
                             data?.productDetails.price,
                             data?.size
@@ -172,7 +180,6 @@ const Cart: React.FC = () => {
                         >
                           Remove
                         </button>
-                      </div>
                       <div className={styles.qntBtns}>
                         <button
                           className={styles.addBtn}
@@ -202,6 +209,7 @@ const Cart: React.FC = () => {
                           <RemoveIcon />
                         </button>
                       </div>
+                      </div>
                     </div>
                   );
                 })}
@@ -216,7 +224,11 @@ const Cart: React.FC = () => {
               </div>
               <button
                 className={styles.checkoutBtn}
-                onClick={(e) => handleCreateOrder(e)}
+                onClick={(e)=>{
+                  // console.log("eee",e)
+                  // router.push("/confirmshipping")
+                  router.push("/confirmshipping")
+                }}
               >
                 checkout
               </button>
