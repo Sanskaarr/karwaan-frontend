@@ -14,11 +14,15 @@ export default function Footer() {
   const pathname = usePathname();
   const [isFooterShowing, setIsFooterShowing] = useState(false);
   const [email,setEmail]=useState("");
+  const [isSubmited,setIsSubmited] = useState(false)
   useEffect(() => {
     if (
       pathname === "/picture" ||
       pathname === "/contact" ||
-      pathname === "/videos"
+      pathname === "/videos"  ||
+      pathname === "/confirmaddress"||
+      pathname === "/confirmshipping"||
+      pathname === "/order/:id"
     ) {
       setIsFooterShowing(false);
     } else {
@@ -34,9 +38,8 @@ export default function Footer() {
    
       <div className={styles.stayUpdatedHeading}>SIGN UP TO GET THE LATEST ON SALES, NEW RELEASES AND MORE…</div>
       <div className={styles.inputField}>
-        <input type="email" id="email" name="stayUpdated" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} />
-        <button className={styles.submit} onClick={() => console.log("data is send")}>Submit</button>
-        <p className={styles.message}>Please enter a value</p>
+        <input type="email" id="email" name="stayUpdated" disabled={isSubmited} placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+        <button className={styles.submit} onClick={() => setIsSubmited(true)}>{isSubmited?"SUBMITED":"SUBMIT"}</button>
       </div>
       </div>
 

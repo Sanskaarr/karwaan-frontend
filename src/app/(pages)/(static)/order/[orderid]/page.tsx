@@ -66,7 +66,7 @@ function page() {
 
   const getData = async()=>{
     try {
-      const response = await axios.get(`http://localhost:5000/api/v1/order/${orderid}`)
+      const response = await axios.get(`https://api.karwaanfilms.com/api/v1/order/${orderid}`)
       setProcessing(false)
       setData(response.data)
     } catch (error) {

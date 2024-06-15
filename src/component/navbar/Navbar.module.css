@@ -204,6 +204,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .userSettingCross {
   color: white !important;
   font-size: 28px !important;
@@ -311,11 +312,17 @@ cursor: pointer;
 @media (max-width: 430px) {
   .navbar{
     padding: 0 20px 0 0;
+    /* display: flex; */
+    /* align-items: center; */
   }
   }
 @media (max-width: 403px) {
   .navbar{
     padding: 0 10px 0 0;
+  }
+  .hamburger{
+   height: 40px;
+   object-fit: contain;
   }
   .logoImage{
     width: 110px;

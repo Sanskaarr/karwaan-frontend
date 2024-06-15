@@ -33,7 +33,7 @@ export const useAddress = ({ token, userId, address }: Params) => {
         dispatch(addAddress_request());
 
         try {
-            if(!(address?.buildingName||address?.city||address?.country||address?.houseNumber||address?.pin||address?.state||address?.street)){
+            if(!(address?.buildingName||address?.city||address?.country||address?.houseNumber||address?.pin||address?.state)){
                 toast.error("All fields are required")
                 dispatch(addAddress_failure("All fields are required"));
                 return;

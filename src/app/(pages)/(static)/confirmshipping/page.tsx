@@ -48,6 +48,7 @@ function AddressForm() {
     token: token,
     address: formData,
   });
+  const [isContactValid,setIsContactValid] = useState(false);
   useEffect(() => {
     (async () => {
       const data = await handleGetAddress();
@@ -65,12 +66,17 @@ function AddressForm() {
     })();
   }, []);
   const [finalShippingDetails,setFinalShippingDetails] = useState<formType|null>(null)
+  const [contactNumber,setContactNumber] = useState("")
   useEffect(()=>{
-    setFinalShippingDetails({...formData})
-  },[formData])
+    setFinalShippingDetails({...formData,contactNumber:contactNumber})
+    if(finalShippingDetails?.contactNumber && finalShippingDetails.contactNumber.length > 2){
+      // console.log("@@",finalShippingDetails.contactNumber)
+      setIsContactValid(true)
+    }
+  },[contactNumber])
   return (
     <>
-      <h1 className={styles.heading}>Confirm your shipping details</h1>
+      <h1 className={styles.heading} style={{marginBottom:"20px"}}>Confirm your shipping details</h1>
       <div
         className={styles.myAccount}
         style={{ gridTemplateColumns: "1fr", justifyContent: "center" }}
@@ -78,7 +84,7 @@ function AddressForm() {
         {/* change fields */}
         <form
           className={styles.myAccountForm}
-          style={{ justifySelf: "center", maxWidth: "550px" }}
+          style={{ justifySelf: "center", maxWidth: "550px",paddingTop:"20px" }}
         >
             <>
           {/* Contact number */}
@@ -88,7 +94,8 @@ function AddressForm() {
               type="text"
               name="contactNumber"
               id="contactNumber"
-              value={formData.contactNumber}
+              onChange={(e)=>{setContactNumber(e.target.value)}}
+              value={contactNumber}
             />
             <label className={`${styles.nameLable}`}>Contact Number</label>
           </div>
@@ -176,7 +183,13 @@ function AddressForm() {
               onClick={(e) => {e.preventDefault();
                     // router.push(`${order.reDirectTo??'/products/cart'}`);
                 // window.open(linkTopamentGateway);
-                if(finalShippingDetails==null){
+                if(finalShippingDetails?.houseNumber=="" && finalShippingDetails?.buildingName==""){
+                  toast.error("Please add a address to your account");
+                  router.replace("/address")
+                  return
+                }
+                if(finalShippingDetails==null || !isContactValid){
+                  toast.error("Please enter a valid phone number")
                   return;
                 }
                 dispatch(confirmedShippingDetails(finalShippingDetails))
