@@ -1,0 +1,39 @@
+.parentContainer{
+    /* background-color: aqua; */
+    /* width: 100vw; */
+    /* height: 100vh; */
+   
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.orderIndicator {
+    height: 300px;
+    width: 300px;
+}
+.detailsContainer{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.titlePage{
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.orderIdText{
+    font-weight: 500
+}
+
+.subTitlePage{
+    font-weight: bold;
+    color: #2565E8;
+    cursor: pointer;
+}
+:hover.subTitlePage{
+    color: #0c55e7;
+}

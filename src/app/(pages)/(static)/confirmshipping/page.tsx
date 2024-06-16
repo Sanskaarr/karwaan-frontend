@@ -6,15 +6,12 @@ import withAuth from "@/component/RoutesProtect/withAuth";
 import { useAddress } from "@/hooks/useAddress";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { changeAddress_success } from "@/redux/reducers/AddressReqestReducer";
+import { useDispatch } from "react-redux";
 import { confirmedShippingDetails } from "@/redux/reducers/ShippingDetailsReducer";
 function AddressForm() {
   const router = useRouter();
   const dispatch=useDispatch();
-    // const order= useSelector((state:RootState)=>state.orderRequests.order);
-    // const cart = useSelector()
+
   if (typeof window !== "undefined") {
     var token = JSON.parse(localStorage.getItem("user") as string)?.token;
     var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
@@ -43,6 +40,7 @@ function AddressForm() {
     contactNumber:"",
   });
   // calling apis
+  
   const { handleGetAddress } = useAddress({
     userId: _id,
     token: token,
@@ -181,11 +179,9 @@ function AddressForm() {
           <div className={styles.addressBtn}>
             <button className={styles.submitButton}
               onClick={(e) => {e.preventDefault();
-                    // router.push(`${order.reDirectTo??'/products/cart'}`);
-                // window.open(linkTopamentGateway);
+
                 if(finalShippingDetails?.houseNumber=="" && finalShippingDetails?.buildingName==""){
-                  toast.error("Please add a address to your account");
-                  router.replace("/address")
+                  toast.error("Please enter all the information");
                   return
                 }
                 if(finalShippingDetails==null || !isContactValid){

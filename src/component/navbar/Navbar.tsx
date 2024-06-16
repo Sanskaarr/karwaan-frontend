@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import { usePathname, useRouter } from "next/navigation";
 import { MenuItems } from "@/constants/MenuItems";
@@ -290,15 +290,16 @@ export default function Navbar() {
           >
             Cart
           </li>
-          {/* <li
+          <li
             className={styles.userSettingUpdateInfo}
             onClick={() => {
-              router.push("/products/my-orders");
+              router.push("/order/user");
+              
               setIsUserMenuOpen(!isUserMenuOpen);
             }}
           >
             My Orders
-          </li> */}
+          </li>
           <li
             className={styles.userSettingUpdateInfo}
             onClick={() => {

@@ -237,9 +237,14 @@
   gap: 2%;
   width: 100%;
 }
-@media (max-width: 330px) {
+@media (max-width: 450px) {
   .addressBtn{
     grid-template-columns: 1fr ;
+  }
+  .heading{
+    margin-top: 20px;
+    text-align: center;
+    font-size: x-large;
   }
 }
 @media (max-width: 650px) {

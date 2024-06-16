@@ -22,7 +22,7 @@ export default function Footer() {
       pathname === "/videos"  ||
       pathname === "/confirmaddress"||
       pathname === "/confirmshipping"||
-      pathname === "/order/:id"
+      pathname === "/order/payment-success/:id"
     ) {
       setIsFooterShowing(false);
     } else {

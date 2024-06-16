@@ -27,11 +27,11 @@
     display: flex;
     flex-direction: column;
     row-gap: 4px;
-    font-size: 14px;
+    font-size: 1rem;
 }
 .productName{
     font-weight: bold;
-    font-size: 16px;
+    font-size: 1.2rem;
 }
 .addressCard{
     display: flex;
@@ -44,6 +44,8 @@
 .containerReviews{
     width: 70%;
     justify-content: space-between;
+    display: flex;
+    flex-direction: row;
 }
 .checkoutBtn {
     width: 100%;
@@ -64,4 +66,34 @@
     transition: all;
     animation: ease-in;
     animation-duration: 400ms;
+}
+.addressNbill{
+    width: 45%;
+}
+@media (max-width: 1024px) {
+    .containerReviews{
+        flex-direction: column;
+    }
+    .cardContainer{
+        background-color: whitesmoke;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .billCard{
+        width: 100%;
+    }
+    .addressNbill{
+        width: 100%;
+    }
+    .productDetails{
+        font-size: 9px;
+    }
+    .productName{
+        font-size: 12px;
+    }
+}
+@media (max-width: 450px) {
+    .cardThumbnail{
+        object-fit: cover;
+    }
 }
