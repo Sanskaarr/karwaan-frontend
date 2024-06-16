@@ -50,45 +50,6 @@ type resCartDataType = {
 const Cart: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch()
-
-
-  const getAllItemsInCart = async (userId:string,token:string)=>{
-    let endpoint = `/api/v1/cart-item/${userId}`;
-    if(userId=="" && token==""){
-      return;
-    }
-    try {
-      const { getCall } = useAxios(endpoint, null, token);
-      const res = await getCall();
-      if(res?.status === "success"){
-        dispatch(getAllCartItems_success());
-        let updatedResCartItems: resDataType[]|[]= res.data?.map((item: resCartDataType) => ({
-          productDetails: {
-              productId: item?.productDetails?._id,
-              description: item?.productDetails?.description,
-              name: item?.productDetails?.name,
-              price: item?.productDetails?.price,
-              tags: item?.productDetails?.tags,
-              url: item?.productDetails?.url,
-          },
-          quantity: item?.quantity,
-          size: item?.size,
-          userId: item?.userId,
-          _id: item?._id,
-      }));
-      dispatch(update_product_data(updatedResCartItems));
-      setLoading(false)
-      }
-
-    } catch (error:any) {
-      dispatch(getAllCartItems_failure(error?.message));
-
-            if (axios.isAxiosError(error)) {
-                toast.error(error.response?.data.message);
-                dispatch(getAllCartItems_failure(error.response?.data.message));
-            }
-    }
-  }
   type InitialState = {
     productDetails: {
       productId: string;
@@ -116,14 +77,6 @@ const Cart: React.FC = () => {
     var token = JSON.parse(localStorage.getItem("user") as string)?.token;
     var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
 
-    //    if some one click on buy now and his/her address is confirm;
-    // if (isAddressConfirm && order.linkToPaymentGateway) {
-    //   let link=order.linkToPaymentGateway;
-    //   dispatch(changeAddress_success(false));
-    //   dispatch(createOrder_success({linkToPaymentGateway:"",reDirectTo:""}));
-    //   window.open(link);
-    // }
-    // token, productId, userId, size, quantity
     var {
       handleGetAllItem,
       HandleEmptyCart,
@@ -132,9 +85,11 @@ const Cart: React.FC = () => {
     } = useCart({ userId: _id, token: token });
   }
 
-  // useEffect(() => {
-  //   // handleGetAllItem();
-  // }, [token, _id]);
+  useEffect(() => {
+    if(token && _id){
+    handleGetAllItem();
+    }
+  }, [token, _id]);
   // price according to size
   type validSize = '8"x12"' | '12"x18"' | '16"x24"' | '20"x30"' | '24"x36"';
   const priceCalculator = (price: number, selectedSize: validSize): number => {
@@ -161,18 +116,16 @@ const Cart: React.FC = () => {
     return totalPrice;
   };
 
-  const [loading,setLoading] = useState(true)
-  const [tokenNew,setToken] = useState("")
-  const [userid,setId] = useState("")
-  useEffect(()=>{
-    if(typeof window!=="undefined"){
-        //   var token = JSON.parse(localStorage.getItem("user") as string)?.token;
-  //   var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
-      setToken(JSON.parse(window.localStorage.getItem("user") as string)?.token)
-      setId(JSON.parse(localStorage.getItem("user") as string)?._id);
-      getAllItemsInCart(userid,tokenNew)
-    }
-  },[])
+
+  // useEffect(()=>{
+  //   if(typeof window!=="undefined"){
+  //       //   var token = JSON.parse(localStorage.getItem("user") as string)?.token;
+  // //   var _id = JSON.parse(localStorage.getItem("user") as string)?._id;
+  //     setToken(JSON.parse(window.localStorage.getItem("user") as string)?.token)
+  //     setId(JSON.parse(localStorage.getItem("user") as string)?._id);
+  //     getAllItemsInCart(userid,tokenNew)
+  //   }
+  // },[])
 
   
 
@@ -304,7 +257,7 @@ const Cart: React.FC = () => {
                 className={styles.checkoutBtn}
                 onClick={(e)=>{
                   // console.log("eee",e)
-                  // router.push("/confirmshipping")
+                  // router.push("/orderpreview")
                   router.push("/confirmshipping")
                 }}
               >

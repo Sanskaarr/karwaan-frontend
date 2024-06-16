@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Payment from "@/component/Payment";
 import { useOrder } from "@/hooks/UseOrder";
+import withAuth from "@/component/RoutesProtect/withAuth";
 
 
 interface obj {
@@ -130,14 +131,18 @@ function page() {
         razorpaySignature: response.razorpay_signature,
        };
       //  console.log("main",response);
-       const result = await fetch('https://api.karwaanfilms.com/api/v1/order/verify', {
+       const result = await fetch(
+        // 'http://api./api/v1/order/verify'
+        "https://api.karwaanfilms.com/api/v1/order/verify"
+        // 'http://localhost:5000/api/v1/order/verify'
+        , {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
        });
        const res = await result.json();
        if (res.isOk){
-         router.replace(`/order/${orderid}`)
+         router.replace(`/order/payment-success/${orderid}`)
         toast.success("order placed successfully")
        }
        else {
@@ -175,11 +180,6 @@ function page() {
       <p className={styles.pageTitle}>Order Review</p>
       <div
         className={styles.containerReviews}
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        //   backgroundColor: "beige",
-        }}
       >
         {/* products */}
         <div style={{width:"100%"}}>
@@ -206,7 +206,7 @@ function page() {
           })}
         </div>
         {/* Order details address and bill */}
-        <div style={{width:"45%"}}>
+        <div className={styles.addressNbill}>
           <div>
             <p className={styles.sectionTitle}>Address</p>
             <div className={styles.addressCard}>
@@ -237,4 +237,4 @@ function page() {
   );
 }
 
-export default page;
+export default withAuth(page);
