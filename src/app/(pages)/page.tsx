@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation'
 import styles from './style.module.css'
 import About from '@/component/about/About';
 import { useEffect, useLayoutEffect, useState } from 'react';
+
+import Processing from '@/component/Processing';
 export default function Home() {
 
   const router = useRouter();
@@ -17,13 +19,20 @@ export default function Home() {
     isPictureHover: false,
   }
   const [isHover, setIsHover] = useState<hoverObjType>(hoverObj);
-
+  const [loading,setLoding] = useState(true)
   useLayoutEffect(() => {
-    console.clear();
+    // console.clear();
     console.log('%cThis website is developed by WONDOR VENDORS ', 'color: green; font-size: 18px; font-weight: bold;');
   }, [])
+  useEffect(()=>{
+    setTimeout(()=>{
+      setLoding(false)
+    },3000)
+  },[])
   return (
-    <div className={styles.home}>
+    
+      <>
+        {loading?<Processing/>:    <div className={styles.home}>
       {/* for big screens */}
         <video className={styles.bgvideo} autoPlay muted loop  disableRemotePlayback disablePictureInPicture playsInline>
         <source src="https://karwaan.b-cdn.net/Front/home1.webm" type="video/webm" />
@@ -141,6 +150,9 @@ export default function Home() {
           <span className={styles.rightLine}></span>
         </div>
       </div>
-    </div>
+    </div>}
+      </>
+    
+
   )
 }
