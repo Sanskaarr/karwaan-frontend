@@ -4,6 +4,7 @@ import ContactForm from '@/component/contactForm/ContactForm'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { YouTube } from '@mui/icons-material';
 function Contact() {
 
   return (
@@ -34,6 +35,7 @@ function Contact() {
                 <a href="https://instagram.com/karwaan.films" target="_blank" > <InstagramIcon/></a>
                 <a href="https://wa.me/919899009001" target="_blank" ><WhatsAppIcon/></a>
                 <a href="https://www.linkedin.com/company/karwaanfilms/" target="_blank"><LinkedInIcon/></a>
+                <a href="https://m.youtube.com/@Karwaanfilms" target="_blank"><YouTube/></a>
             </div>
     </div>
     <div className={styles.contactSecondPartition}>

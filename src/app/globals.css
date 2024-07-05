@@ -76,6 +76,9 @@ html,body{
   background: var(--dark);
   color: var(--light);
 }
+nextjs-portal {
+  display: none;
+}
 
 .save-button {
   padding: 0 1rem;

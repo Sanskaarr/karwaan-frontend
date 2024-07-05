@@ -113,18 +113,18 @@ cursor: pointer;
 
 }
 .button{
-    background-color: #fff;
+    background-color: #000;
     border-style: solid;
     /* border-radius: 50px; */
-    color: #000;
-    border: 2;
+    color: #fff;
+    /* border: 2; */
     padding: 12px 16px;
     background-repeat: no-repeat;
     cursor: pointer;
     font-weight: 700;
     font-size: 15px;
     margin-right:5px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 
 .button:hover{
@@ -135,7 +135,7 @@ cursor: pointer;
 .share{
     color:black;
     display:flex;
-    align-item:center;
+    align-items:center;
     border-top:1px solid gray;
     padding-top:50px;
 }
