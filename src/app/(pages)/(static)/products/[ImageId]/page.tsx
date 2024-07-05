@@ -93,7 +93,10 @@ const shop = () => {
     },
     [resCartItem]
   );
-
+  const splitIntoParagraphs = (text:string) => {
+    const regex = /(?<!@)\. /;
+    return text.split(regex).map(paragraph => paragraph.trim());
+  };
   useEffect(() => {
     if (singleResponse) {
       setIsItemInCart(isProductInCart(singleResponse._id, selectedSize));
@@ -213,8 +216,7 @@ const shop = () => {
               </div>
               {/* {singleResponse&& <p>{singleResponse.description}    </p>} */}
               {singleResponse?.description &&
-                singleResponse.description
-                  .split(".")
+                splitIntoParagraphs(singleResponse.description)
                   .map((des: string, index: number) => {
                     return (
                       <>
